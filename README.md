@@ -1,36 +1,29 @@
-# CSC207-Group203-TUT5101
-
 # Project Description
+
 # Project Domain
-The app is designed to help travelers with location at certain points in the city. They can either 
+The app is designed to suggest tourist spots in a particular city to travelers along their locations pinpointed on a map. They can either 
 use it to plan out the locations they want to visit beforehand to help plan out their days, or they 
 could use it while in the city by entering the names or the addresses in the city. It will utilize 
-a sample API to pinpoint these locations on an interactive map, providing the users a location 
+an API to pinpoint these locations on an interactive map, providing the users a location 
 information where each spot is located in the city.
 
 # Key Features:
 # 1) Location Pinpointing: 
-Users will enter the name or addresses of any location in the city such as hotels, restaurants, 
-landmarks, etc. and the app will use geospatial data to show the exact location of the possible 
-spots of the given name.
+Users will enter the name of the city/ locality and the app will suggest places such as hotels, restaurants, 
+landmarks, etc. and use geospatial data to show the exact location of these suggested places on a map.
 # 2) Interactive Map: 
-This app includes an interactive map of Toronto that lets users to zoom in, zoom out, and explore 
+This app includes an interactive map that lets users to zoom in, zoom out, and explore 
 different locations in the city with map markers on certain types of locations.
 
-# Why Toronto? 
-We have chosen Toronto as our focus city because our team is based in Toronto and we are familiar 
-with the landmarks, attractions, and its culture.
-
 # Purpose
-Our purpose is to help travellers with their trip to Toronto by making it easier and more efficient
-to organize and commute in the city with an easy-to-use tool.
+Our purpose is to help travellers with their trip by making it easier and more efficient
+to organize and commute in their chosen city with an easy-to-use tool.
 
-# General Information
+# API
+API we will be using: OpenTripMap API (we also plan to use GoogleMaps API to pinpoint locations on a map).
+Documentation Link: https://opentripmap.io/docs#/ 
+SCREENSHOT OF USING THE API ON HOPPSCOTH:
+![2023-09-30](https://github.com/04kash/CSC207-Group203-TUT5101/assets/113269381/503fc85b-58af-4cc1-9821-6736a0cf117c)
+EXAMPLE OUTPUT OF RUNNING OUR CODE IN JAVA:
+<Insert here>
 
-name: Toronto  
-country: CA  
-lat: 43.70011  
-long: -79.4163  
-population: 2600000  
-timezone: America/Toronto  
-status: OK  
