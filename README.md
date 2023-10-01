@@ -27,10 +27,10 @@ to organize and commute in the city with an easy-to-use tool.
 
 # General Information
 
-name: Toronto
-country: CA
-lat: 43.70011
-long: -79.4163
-population: 2600000
-timezone: America/Toronto
-status: OK
+name: Toronto  
+country: CA  
+lat: 43.70011  
+long: -79.4163  
+population: 2600000  
+timezone: America/Toronto  
+status: OK  
