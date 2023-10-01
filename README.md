@@ -12,7 +12,8 @@ Documentation Link: https://opentripmap.io/docs#/
 ### Screenshot of Using the API On Hoppscotch:
 ![2023-09-30](https://github.com/04kash/CSC207-Group203-TUT5101/assets/113269381/503fc85b-58af-4cc1-9821-6736a0cf117c)
 ### Example output of running our code in Java:
-![Screenshot 2023-10-01 at 5.01.44 PM.png](..%2F..%2FDesktop%2FScreenshot%202023-10-01%20at%205.01.44%20PM.png)
+<img width="563" alt="Screenshot 2023-10-01 at 5 01 44 PM" src="https://github.com/04kash/CSC207-Group203-TUT5101/assets/128649506/02054768-14d5-4c7a-be70-b821baaa1762">
+
 
 
 # Key Features:
