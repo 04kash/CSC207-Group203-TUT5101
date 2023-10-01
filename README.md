@@ -22,8 +22,8 @@ to organize and commute in their chosen city with an easy-to-use tool.
 # API
 API we will be using: OpenTripMap API (we also plan to use GoogleMaps API to pinpoint locations on a map).
 Documentation Link: https://opentripmap.io/docs#/ 
-SCREENSHOT OF USING THE API ON HOPPSCOTH:
+# Screenshot of Using the API On Hoppscotch:
 ![2023-09-30](https://github.com/04kash/CSC207-Group203-TUT5101/assets/113269381/503fc85b-58af-4cc1-9821-6736a0cf117c)
-EXAMPLE OUTPUT OF RUNNING OUR CODE IN JAVA:
+# Example output of running our code in Java:
 <Insert here>
 
