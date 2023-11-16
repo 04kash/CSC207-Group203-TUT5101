@@ -1,4 +1,4 @@
-package src.interface_adapter.signup;
+package interface_adapter.signup;
 
 import interface_adapter.ViewModel;
 

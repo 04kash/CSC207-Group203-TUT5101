@@ -1,4 +1,4 @@
-package src.view;
+package view;
 
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginState;

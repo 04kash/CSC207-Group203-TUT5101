@@ -1,4 +1,4 @@
-package src.interface_adapter.signup;
+package interface_adapter.signup;
 
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInputData;
@@ -9,9 +9,9 @@ public class SignupController {
         this.userSignupUseCaseInteractor = userSignupUseCaseInteractor;
     }
 
-    public void execute(String username, String password1, String password2) {
+    public void execute(String username, String password1) {
         SignupInputData signupInputData = new SignupInputData(
-                username, password1, password2);
+                username, password1);
 
         userSignupUseCaseInteractor.execute(signupInputData);
     }
