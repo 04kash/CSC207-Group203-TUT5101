@@ -4,13 +4,13 @@ public class Location {
     private final String name;
     private final Coordinate coordinate;
     private final double proximity;
-    private final Filters filters;
+    private final String filter;
 
-    Location(String name, Coordinate coordinate, double proximity, Filters filters) {
+    public Location(String name, Coordinate coordinate, double proximity, String filter) {
         this.name = name;
         this.coordinate = coordinate;
         this.proximity = proximity;
-        this.filters = filters;
+        this.filter = filter;
     }
 
     public String getName() {
@@ -25,7 +25,7 @@ public class Location {
         return proximity;
     }
 
-    public Filters getFilters() {
-        return filters;
+    public String getFilter() {
+        return filter;
     }
 }
