@@ -3,7 +3,7 @@ package entity;
 public class Label {
     private final String title;
 
-    Label(String title) {
+    public Label(String title) {
         this.title = title;
     }
 
