@@ -8,7 +8,7 @@ public class ApiState {
     private String password = "";
     private String location = "";
     private String filter = "";
-    private Coordinate proximityLocation = new Coordinate();
+    private Coordinate proximityLocation = new Coordinate(0.0, 0.0);
     private double proximityDistance = 0.0;
 
     public ApiState(ApiState copy) {
