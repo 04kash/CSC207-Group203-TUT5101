@@ -69,4 +69,7 @@ public class ApiState {
     public void setProximityDistance(double proximityDistance) {
         this.proximityDistance = proximityDistance;
     }
+
+    public void setLocationError(String error) {
+    }
 }

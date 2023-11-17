@@ -1,5 +1,6 @@
 package interface_adapter.api_returns;
 
+import interface_adapter.SavingLocation.SavingLocationViewModel;
 import interface_adapter.ViewManagerModel;
 import use_case.api_returns.ApiOutputBoundary;
 import use_case.api_returns.ApiOutputData;
