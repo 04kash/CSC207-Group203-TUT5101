@@ -9,7 +9,8 @@ import org.json.JSONObject;
 public class OpenTripMapAPIClient {
     public static void main(String[] args) {
         try {
-            String apiKey = System.getenv("API_KEY");
+//            String apiKey = System.getenv("API_KEY");
+            String apiKey = "5ae2e3f221c38a28845f05b69a5f07fa5c748e49837877179a12c1a3";
 
             // Define the URL for fetching places in Toronto
             String apiUrl = "https://api.opentripmap.com/0.1/en/places/radius?radius=10000&lon=-79.3832&lat=43.6532&kinds=interesting_places&format=json&apikey="+apiKey;
