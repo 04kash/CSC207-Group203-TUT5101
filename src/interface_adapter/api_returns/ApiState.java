@@ -10,6 +10,7 @@ public class ApiState {
     private String filter = "";
     private Coordinate proximityLocation = new Coordinate(0.0, 0.0);
     private double proximityDistance = 0.0;
+    private String locationError;
 
     public ApiState(ApiState copy) {
         username = copy.username;
@@ -68,5 +69,9 @@ public class ApiState {
 
     public void setProximityDistance(double proximityDistance) {
         this.proximityDistance = proximityDistance;
+    }
+
+    public void setLocationError(String error) { //Added this, Is it needed?
+        this.locationError = error;
     }
 }
