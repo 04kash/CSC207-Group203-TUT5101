@@ -19,7 +19,7 @@ Documentation Link: https://opentripmap.io/docs#/
 # Key Features:
 ### 1) Location Pinpointing: 
 Users will enter the name of the city/ locality and the app will suggest places such as hotels, restaurants, 
-landmarks, etc. and use geospatial data to show the exact city of these suggested places on a map.
+landmarks, etc. and use geospatial data to show the exact location of these suggested places on a map.
 
 ### 2) Interactive Map: 
 This app includes an interactive map that lets users to zoom in, zoom out, and explore 

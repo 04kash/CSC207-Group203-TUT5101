@@ -29,7 +29,7 @@ public class APIDataAccessObject {
     public static ArrayList<Location> getLocations(String cityName, double proximity, String filter){
         try {
 //            String apiKey = System.getenv("API_KEY");
-            String apiKey = "5ae2e3f221c38a28845f05b69a5f07fa5c748e49837877179a12c1a3";
+            String apiKey = "insert API KEY";
             Coordinate coordinates = getCoordinates(cityName);
             double lat = coordinates.getLatitude();
             double lon = coordinates.getLongitude();
