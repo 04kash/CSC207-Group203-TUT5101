@@ -1,5 +1,6 @@
 package interface_adapter.api_returns;
 
+import entity.City;
 import entity.Coordinate;
 
 public class ApiState {

@@ -1,6 +1,10 @@
 package use_case.api_returns;
 
+import entity.Location;
+
+import java.util.ArrayList;
+
 public interface ApiUserDataAccessInterface {
-    void save();
+    public ArrayList<Location> getLocations(String cityName, double proximity, String filter);
 
 }

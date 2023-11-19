@@ -9,24 +9,24 @@ import entity.Location;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import entity.Coordinate;
+import use_case.api_returns.ApiUserDataAccessInterface;
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class APIDataAccessObject {
-    public static void main(String[] args){
-        ArrayList<Location> l=getLocations("Mumbai",1000000,"malls");
-        for(int i=0;i<l.size();i++){
-            System.out.println(l.get(i).getName());
-            System.out.println(l.get(i).getCoordinate().getLatitude());
-            System.out.println(l.get(i).getCoordinate().getLongitude());
-            System.out.println(l.get(i).getOsmLink());
-            System.out.println(l.get(i).getFilter());
-
-        }
-    }
-    public static ArrayList<Location> getLocations(String cityName, double proximity, String filter){
+public class APIDataAccessObject implements ApiUserDataAccessInterface {
+//    public static void main(String[] args){
+//        ArrayList<Location> l=getLocations("Mumbai",1000000,"malls");
+//        for(int i=0;i<l.size();i++){
+//            System.out.println(l.get(i).getName());
+//            System.out.println(l.get(i).getCoordinate().getLatitude());
+//            System.out.println(l.get(i).getCoordinate().getLongitude());
+//            System.out.println(l.get(i).getOsmLink());
+//            System.out.println(l.get(i).getFilter());
+//        }
+//    }
+    public ArrayList<Location> getLocations(String cityName, double proximity, String filter){
         try {
 //            String apiKey = System.getenv("API_KEY");
             String apiKey = "insert API KEY";

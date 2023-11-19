@@ -19,7 +19,7 @@ public class ApiPresenter implements ApiOutputBoundary {
     @Override
     public void prepareSuccessView(ApiOutputData response) {
         ApiState apiState = apiViewModel.getState();
-        apiState.setLocation(response.getLocationName());
+        apiState.setLocation(response.getLocation());
         apiState.setFilter(response.getFilter());
         apiState.setProximityLocation(response.getProximityLocation());
         apiState.setProximityDistance(response.getProximityDistance());
