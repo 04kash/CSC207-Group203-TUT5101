@@ -1,5 +1,6 @@
 package use_case.signup;
 
+import entity.Planner;
 import entity.User;
 import entity.UserFactory;
 
@@ -22,7 +23,8 @@ public class SignupInteractor implements SignupInputBoundary{
         if (userDataAccessObject.existsByName(signupInputData.getUsername())) {
             userPresenter.prepareFailView("User already exists.");
         } else {
-            User user = userFactory.create(signupInputData.getUsername(), signupInputData.getPassword());
+            Planner planner = new Planner();
+            User user = userFactory.create(signupInputData.getUsername(), signupInputData.getPassword(), planner);
             userDataAccessObject.save(user);
 
             SignupOutputData signupOutputData = new SignupOutputData(user.getUsername(), false);

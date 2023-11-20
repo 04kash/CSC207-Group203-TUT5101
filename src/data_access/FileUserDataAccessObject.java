@@ -1,7 +1,6 @@
 package data_access;
 
 import entity.*;
-import use_case.api_returns.ApiUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
@@ -10,7 +9,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, ApiUserDataAccessInterface {
+public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface {
 
     private final File csvFile;
 
@@ -94,7 +93,6 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         this.save();
     }
 
-    @Override
     public void save() {
         BufferedWriter writer;
         try {
