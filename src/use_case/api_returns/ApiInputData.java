@@ -1,6 +1,5 @@
 package use_case.api_returns;
 
-import entity.City;
 import entity.Coordinate;
 
 public class ApiInputData {

@@ -6,8 +6,8 @@ public class Location {
     private final String osmLink;
     private final String filter;
 
-    public Location(String name, Coordinate coordinate, String osmLink,String filter){
-        this.name=name;
+    public Location(String name, Coordinate coordinate, String osmLink,String filter) {
+        this.name = name;
         this.coordinate = coordinate;
         this.osmLink = osmLink;
         this.filter = filter;
