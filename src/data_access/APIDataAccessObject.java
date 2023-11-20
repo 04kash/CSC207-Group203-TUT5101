@@ -65,7 +65,7 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface {
                  //System.out.println(jsonArray);
                 // Extract and print name and coordinates for each place
                 ArrayList<Location> locations= new ArrayList<>();
-                for (int i = 0; i < jsonArray.length(); i++) {
+                for (int i = 0; i < jsonArray.length() && i<=10; i++) {
                     JSONObject place = jsonArray.getJSONObject(i);
                     String name = place.optString("name", "");
                     String osmLink = place.optString("osm","");
