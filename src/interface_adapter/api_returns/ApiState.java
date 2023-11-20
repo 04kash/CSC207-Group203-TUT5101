@@ -1,23 +1,24 @@
 package interface_adapter.api_returns;
 
+import entity.City;
 import entity.Coordinate;
+import entity.Location;
+
+import java.util.ArrayList;
 
 public class ApiState {
 
     private String username = "";
     private String password = "";
-    private String location = "";
-    private String filter = "";
-    private Coordinate proximityLocation = new Coordinate(0.0, 0.0);
-    private double proximityDistance = 0.0;
+    private ArrayList<Location> locations = new ArrayList<Location>();
+
+    private String locationError = "";
 
     public ApiState(ApiState copy) {
         username = copy.username;
         password = copy.password;
-        location = copy.location;
-        filter = copy.filter;
-        proximityLocation = copy.proximityLocation;
-        proximityDistance = copy.proximityDistance;
+        locations = copy.locations;
+        locationError = copy.locationError;
     }
 
     public ApiState() {}
@@ -30,20 +31,8 @@ public class ApiState {
         return password;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public String getFilter() {
-        return filter;
-    }
-
-    public Coordinate getProximityLocation() {
-        return proximityLocation;
-    }
-
-    public double getProximityDistance() {
-        return proximityDistance;
+    public ArrayList<Location> getLocations() {
+        return locations;
     }
 
     public void setUsername(String username) {
@@ -54,22 +43,9 @@ public class ApiState {
         this.password = password;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLocations(ArrayList<Location> locations) {
+        this.locations = locations;
     }
 
-    public void setFilter(String filter) {
-        this.filter = filter;
-    }
-
-    public void setProximityLocation(Coordinate proximityLocation) {
-        this.proximityLocation = proximityLocation;
-    }
-
-    public void setProximityDistance(double proximityDistance) {
-        this.proximityDistance = proximityDistance;
-    }
-
-    public void setLocationError(String error) {
-    }
+    public void setLocationError(String error) { this.locationError = locationError;}
 }

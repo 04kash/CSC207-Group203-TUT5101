@@ -1,6 +1,10 @@
 package use_case.api_returns;
 
+import entity.City;
 import entity.Coordinate;
+import entity.Location;
+
+import java.util.ArrayList;
 
 public class ApiInteractor implements ApiInputBoundary{
     final ApiUserDataAccessInterface userDataAccessObject;
@@ -13,12 +17,9 @@ public class ApiInteractor implements ApiInputBoundary{
 
     @Override
     public void execute(ApiInputData apiInputData) {
-        String location = apiInputData.getLocation();
-        String filter = apiInputData.getFilter();
-        Coordinate proximityLocation = apiInputData.getProximityLocation();
-        double proximityDistance = apiInputData.getProximityDistance();
+        ArrayList<Location> locations = userDataAccessObject.getLocations(apiInputData.getLocation(), apiInputData.getProximityDistance(), apiInputData.getFilter());
 
-        ApiOutputData apiOutputData = new ApiOutputData(location, filter, proximityLocation, proximityDistance, false);
+        ApiOutputData apiOutputData = new ApiOutputData(locations, false);
         apiPresenter.prepareSuccessView(apiOutputData);
     }
 }
