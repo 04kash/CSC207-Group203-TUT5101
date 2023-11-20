@@ -6,6 +6,7 @@ import java.net.URL;
 
 import entity.City;
 import entity.Location;
+import entity.Proximity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import entity.Coordinate;
@@ -26,7 +27,7 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface {
 //            System.out.println(l.get(i).getFilter());
 //        }
 //    }
-    public ArrayList<Location> getLocations(String cityName, double proximity, String filter){
+    public ArrayList<Location> getLocations(String cityName, Proximity proximity, String filter){
         try {
 //            String apiKey = System.getenv("API_KEY");
             String apiKey = "insert API KEY";
@@ -145,4 +146,5 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface {
             e.printStackTrace();
         }
             return null;
-        }}
+        }
+}

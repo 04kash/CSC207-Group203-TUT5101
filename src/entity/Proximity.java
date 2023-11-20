@@ -4,7 +4,7 @@ public class Proximity {
     private final Coordinate referencePoint;
     private final double distance;
 
-    Proximity(Coordinate referencePoint, double distance) {
+    public Proximity(Coordinate referencePoint, double distance) {
         this.referencePoint = referencePoint;
         this.distance = distance;
     }
