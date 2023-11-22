@@ -1,4 +1,6 @@
-package src.use_case.CreateCategory;
+package src.use_case.CreateLabel;
 
-public interface CreateCategoryOutputBoundary {
+public interface CreateLabelOutputBoundary {
+    void prepareFailView(String error);
+    void prepareSuccessView(String success);
 }

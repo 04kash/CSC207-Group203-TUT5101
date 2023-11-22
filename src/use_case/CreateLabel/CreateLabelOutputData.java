@@ -1,4 +1,4 @@
-package src.use_case.CreateCategory;
+package src.use_case.CreateLabel;
 
-public class CreateCategoryOutputData {
+public class CreateLabelOutputData {
 }
