@@ -6,7 +6,6 @@ import java.net.URL;
 
 import entity.City;
 import entity.Location;
-import entity.Proximity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import entity.Coordinate;
@@ -27,7 +26,7 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface {
 //            System.out.println(l.get(i).getFilter());
 //        }
 //    }
-    public ArrayList<Location> getLocations(String cityName, Proximity proximity, String filter){
+    public ArrayList<Location> getLocations(String cityName, String filter){
         try {
 //            String apiKey = System.getenv("API_KEY");
             String apiKey = "insert API KEY";
@@ -36,7 +35,7 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface {
             double lon = coordinates.getLongitude();
 
             // Define the URL for fetching places in Toronto
-            String apiUrl = "https://api.opentripmap.com/0.1/en/places/radius?radius="+ proximity +"&lon="+lon+"&lat="+lat+"&kinds="+filter+"&format=json&apikey="+apiKey;
+            String apiUrl = "https://api.opentripmap.com/0.1/en/places/radius?radius="+ 10000 +"&lon="+lon+"&lat="+lat+"&kinds="+filter+"&format=json&apikey="+apiKey;
 
             // Create a URL object
             URL url = new URL(apiUrl);

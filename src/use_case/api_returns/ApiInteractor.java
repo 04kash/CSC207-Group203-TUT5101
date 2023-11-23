@@ -3,7 +3,6 @@ package use_case.api_returns;
 import entity.City;
 import entity.Coordinate;
 import entity.Location;
-import entity.Proximity;
 
 import java.util.ArrayList;
 
@@ -18,8 +17,8 @@ public class ApiInteractor implements ApiInputBoundary{
 
     @Override
     public void execute(ApiInputData apiInputData) {
-        Proximity proximity = new Proximity(apiInputData.getProximityLocation(), apiInputData.getProximityDistance());
-        ArrayList<Location> locations = userDataAccessObject.getLocations(apiInputData.getLocation(), proximity, apiInputData.getFilter());
+//        Proximity proximity = new Proximity(apiInputData.getProximityLocation(), apiInputData.getProximityDistance());
+        ArrayList<Location> locations = userDataAccessObject.getLocations(apiInputData.getLocation(), apiInputData.getFilter());
 
         ApiOutputData apiOutputData = new ApiOutputData(locations, false);
         apiPresenter.prepareSuccessView(apiOutputData);
