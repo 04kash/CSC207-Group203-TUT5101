@@ -1,5 +1,10 @@
 package view;
 
+import interface_adapter.ViewManagerModel;
+import interface_adapter.login.LoginController;
+import interface_adapter.login.LoginState;
+import interface_adapter.login.LoginViewModel;
+
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -8,18 +13,30 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class LogInView extends JPanel {
+public class LogInView extends JPanel implements ActionListener, PropertyChangeListener {
+
+	public final String viewName = "log in";
+	public SignUp signUp;
+	private final LoginViewModel loginViewModel;
+	private final LoginController loginController;
 
 	private static final long serialVersionUID = 1L;
-	private JTextField textField;
+	private JTextField usernameField;
 	private JPasswordField passwordField;
 
 	/**
 	 * Create the panel.
 	 */
-	public LogInView() {
+	public LogInView(LoginViewModel loginViewModel, LoginController controller) {
 		this.setLayout(null);
+		this.loginController = controller;
+		this.loginViewModel = loginViewModel;
+		this.loginViewModel.addPropertyChangeListener(this);
 		
 		JLabel lblNewLabel = new JLabel("username:");
 		lblNewLabel.setBounds(51, 81, 76, 14);
@@ -29,22 +46,18 @@ public class LogInView extends JPanel {
 		lblNewLabel_1.setBounds(51, 125, 76, 14);
 		add(lblNewLabel_1);
 		
-		textField = new JTextField();
-		textField.setBounds(227, 78, 177, 20);
-		add(textField);
-		textField.setColumns(10);
+		usernameField = new JTextField();
+		usernameField.setBounds(227, 78, 177, 20);
+		add(usernameField);
+		usernameField.setColumns(10);
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(227, 122, 177, 20);
 		add(passwordField);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton.setBounds(168, 174, 89, 23);
-		add(btnNewButton);
+		JButton logIn = new JButton("Log In");
+		logIn.setBounds(168, 174, 89, 23);
+		add(logIn);
 		
 		JLabel lblNewLabel_2 = new JLabel("If you do not have an account,");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -52,12 +65,90 @@ public class LogInView extends JPanel {
 		lblNewLabel_2.setBounds(61, 220, 315, 14);
 		add(lblNewLabel_2);
 		
-		JButton btnNewButton_1 = new JButton("Sign Up");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton_1.setBounds(168, 251, 89, 23);
-		add(btnNewButton_1);
+		JButton signUp = new JButton("Sign Up");
+		signUp.setBounds(168, 251, 89, 23);
+		add(signUp);
+
+		logIn.addActionListener(
+				new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent evt) {
+						if (evt.getSource().equals(logIn)) {
+							LoginState currentState = loginViewModel.getState();
+
+							loginController.execute(
+									currentState.getUsername(),
+									currentState.getPassword()
+							);
+						}
+					}
+				}
+		);
+
+		signUp.addActionListener(
+				new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						ViewManager.showSignUpView();
+					}
+				}
+		);
+
+		passwordField.addKeyListener(
+				new KeyListener() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						LoginState currentState = loginViewModel.getState();
+						currentState.setPassword(passwordField.getText() + e.getKeyChar());
+						loginViewModel.setState(currentState);
+					}
+
+					@Override
+					public void keyPressed(KeyEvent e) {
+
+					}
+
+					@Override
+					public void keyReleased(KeyEvent e) {
+
+					}
+				}
+		);
+
+		usernameField.addKeyListener(
+				new KeyListener() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						LoginState currentState = loginViewModel.getState();
+						currentState.setUsername(usernameField.getText() + e.getKeyChar());
+						loginViewModel.setState(currentState);
+					}
+
+					@Override
+					public void keyPressed(KeyEvent e) {
+
+					}
+
+					@Override
+					public void keyReleased(KeyEvent e) {
+
+					}
+				}
+		);
 	}
+
+	public void actionPerformed(ActionEvent evt) {
+		System.out.println("Click " + evt.getActionCommand());
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		LoginState state = (LoginState) evt.getNewValue();
+		setFields(state);
+	}
+
+	private void setFields(LoginState state) {
+		usernameField.setText(state.getUsername());
+	}
+
 }

@@ -41,8 +41,11 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                     String[] col = row.split(",");
                     String username = String.valueOf(col[headers.get("username")]);
                     String password = String.valueOf(col[headers.get("password")]);
-                    String planner = String.valueOf(col[headers.get("planner")]);
-                    Planner planner1 = parsePlanner(planner);
+                    Planner planner1 = new Planner();
+                    if (!String.valueOf(col[headers.get("planner")]).equals("[]")) {
+                        String planner = String.valueOf(col[headers.get("planner")]);
+                        planner1 = parsePlanner(planner);
+                    }
                     User user = userFactory.create(username, password, planner1);
                     accounts.put(username, user);
                 }
@@ -101,8 +104,8 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
             writer.newLine();
 
             for (User user : accounts.values()) {
-                String line = String.format("%s,%s",
-                        user.getUsername(), user.getPassword());
+//                String line = String.format("%s,%s",
+//                        user.getUsername(), user.getPassword());
                 Planner planner = user.getPlanner();
                 Set<Label> label = planner.getLabel();
                 ArrayList<ArrayList> stringPlanner = new ArrayList<>();
@@ -112,7 +115,9 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                     hashmap.add(String.valueOf(new ArrayList<>(List.of(planner.getLocations(category)))));
                     stringPlanner.add(hashmap);
                 }
-                line += String.valueOf(stringPlanner);
+                String line = String.format("%s,%s,%s",
+                        user.getUsername(), user.getPassword(), stringPlanner);
+//                line += String.valueOf(stringPlanner);
                 writer.write(line);
                 writer.newLine();
             }
