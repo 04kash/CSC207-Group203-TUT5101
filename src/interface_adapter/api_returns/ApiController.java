@@ -12,8 +12,8 @@ public class ApiController {
         this.apiUseCaseInteractor = apiUseCaseInteractor;
     }
 
-    public void execute(String location, String filter, Coordinate proximityLocation, double proximityDistance) {
-        ApiInputData apiInputData = new ApiInputData(location, filter, proximityLocation, proximityDistance);
+    public void execute(String location, String filter) {
+        ApiInputData apiInputData = new ApiInputData(location, filter);
 
         apiUseCaseInteractor.execute(apiInputData);
     }
