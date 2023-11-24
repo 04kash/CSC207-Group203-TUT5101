@@ -1,7 +1,5 @@
 package use_case.api_returns;
 
-import entity.City;
-import entity.Coordinate;
 import entity.Location;
 
 import java.util.ArrayList;

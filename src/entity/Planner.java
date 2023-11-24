@@ -6,7 +6,6 @@ import java.util.Set;
 public class Planner {
     private final HashMap<Label, Location[]> planner;
 
-
     public Planner() {this.planner = new HashMap<>();}
 
     Planner(HashMap<Label, Location[]> planner) {
