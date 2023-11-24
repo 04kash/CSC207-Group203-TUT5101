@@ -15,7 +15,8 @@ public class ApiInteractor implements ApiInputBoundary{
 
     @Override
     public void execute(ApiInputData apiInputData) {
-        ArrayList<Location> locations = userDataAccessObject.getLocations(apiInputData.getLocation(), apiInputData.getProximityDistance(), apiInputData.getFilter());
+//        Proximity proximity = new Proximity(apiInputData.getProximityLocation(), apiInputData.getProximityDistance());
+        ArrayList<Location> locations = userDataAccessObject.getLocations(apiInputData.getLocation(), apiInputData.getFilter());
 
         ApiOutputData apiOutputData = new ApiOutputData(locations, false);
         apiPresenter.prepareSuccessView(apiOutputData);

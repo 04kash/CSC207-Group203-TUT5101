@@ -2,16 +2,16 @@ package entity;
 
 public class Location {
     private final String name;
-    private final Coordinate coordinate;
+    private Coordinate coordinate = null;
 
-    private final Proximity proximity;
+   // private Proximity proximity;
     private final String osmLink;
-    private final String filter;
+    private String filter ="interesting_places";
 
-    public Location(String name, Coordinate coordinate, Proximity proximity, String osmLink,String filter){
+    public Location(String name, Coordinate coordinate, String osmLink,String filter){
         this.name = name;
         this.coordinate = coordinate;
-        this.proximity = proximity;
+        //this.proximity = proximity;
         this.osmLink = osmLink;
         this.filter = filter;
     }
@@ -24,9 +24,9 @@ public class Location {
         return coordinate;
     }
 
-    public Proximity getProximity() {
-        return proximity;
-    }
+    //public Proximity getProximity() {
+     //   return proximity;
+    //}
 
     public String getName() {
         return name;

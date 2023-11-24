@@ -8,8 +8,8 @@ public class SavingLocationController {
     public SavingLocationController(SavingLocationInputBoundary userSavingLocationInteractor){
            this.userSavingLocationInteractor=userSavingLocationInteractor;
     }
-    public void execute(String username,String password, String chosenLabel, String locationName, double latitude, double longitude, double proximity, String filter){
-        SavingLocationInputData savingLocationInputData = new SavingLocationInputData(username,password,chosenLabel,locationName,latitude,longitude,proximity,filter);
+    public void execute(String username,String password, String chosenLabel, String locationName, double latitude, double longitude, String mapLink, String filter){
+        SavingLocationInputData savingLocationInputData = new SavingLocationInputData(username,password,chosenLabel,locationName,latitude,longitude,mapLink,filter);
         userSavingLocationInteractor.execute(savingLocationInputData);
     }
 }

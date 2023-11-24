@@ -7,17 +7,17 @@ public class SavingLocationInputData {
     String locationName;
     double latitude;
     double longitude;
-    double proximity;
+    String mapLink;
     String filter;
 
-    public SavingLocationInputData(String username,String password, String chosenLabel, String locationName, double latitude, double longitude, double proximity, String filter) {
+    public SavingLocationInputData(String username,String password, String chosenLabel, String locationName, double latitude, double longitude, String mapLink, String filter) {
         this.username = username;
         this.password = password;
         this.chosenLabel = chosenLabel;
         this.locationName = locationName;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.proximity = proximity;
+        this.mapLink = mapLink;
         this.filter = filter;
     }
 
@@ -37,8 +37,8 @@ public class SavingLocationInputData {
         return longitude;
     }
 
-    public double getProximity() {
-        return proximity;
+    public String getLink() {
+        return mapLink;
     }
 
     public String getChosenLabel() {
