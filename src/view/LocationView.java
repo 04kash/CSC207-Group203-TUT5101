@@ -5,6 +5,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class LocationView extends JPanel {
+
+	public static final String viewName = "location view";
+	private static final long serialVersionUID = 1L;
+	private JTextField textField;
+
+
 	/**
 	 * Create the panel.
 	 */

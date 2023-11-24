@@ -4,16 +4,16 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class Planner {
-    private final HashMap<Label, City[]> planner;
+    private final HashMap<Label, Location[]> planner;
 
 
     public Planner() {this.planner = new HashMap<>();}
 
-    Planner(HashMap<Label, City[]> planner) {
+    Planner(HashMap<Label, Location[]> planner) {
         this.planner = planner;
     }
 
-    public HashMap<Label, City[]> getPlanner() {
+    public HashMap<Label, Location[]> getPlanner() {
         return planner;
     }
 
