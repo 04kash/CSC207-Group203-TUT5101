@@ -31,4 +31,24 @@ public class ViewManager implements PropertyChangeListener {
         viewManagerModel.setActiveView(SignUp.viewName);
         viewManagerModel.firePropertyChanged();
     }
+
+    public static void showSearchView() {
+        viewManagerModel.setActiveView(SearchView.viewName);
+        viewManagerModel.firePropertyChanged();
+    }
+
+//    public static void showPlannerView() {
+//        viewManagerModel.setActiveView(PlannerView.viewName);
+//        viewManagerModel.firePropertyChanged();
+//    }
+
+    public static void showLoginView() {
+        viewManagerModel.setActiveView(LogInView.viewName);
+        viewManagerModel.firePropertyChanged();
+    }
+
+    public static void showLoggedinView() {
+        viewManagerModel.setActiveView(LoggedInView.viewName);
+        viewManagerModel.firePropertyChanged();
+    }
 }

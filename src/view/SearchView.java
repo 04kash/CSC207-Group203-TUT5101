@@ -14,6 +14,7 @@ import java.awt.Color;
 
 public class SearchView extends JPanel {
 
+	public static final String viewName = "search";
 	private static final long serialVersionUID = 1L;
 	private JTextField textField;
 
@@ -27,10 +28,6 @@ public class SearchView extends JPanel {
 		JButton btnNewButton = new JButton("Go to Homepage");
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setBackground(new Color(0, 0, 0));
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btnNewButton.setBounds(289, 11, 151, 23);
 		add(btnNewButton);
 		
@@ -57,10 +54,6 @@ public class SearchView extends JPanel {
 		add(comboBox);
 		
 		JButton btnNewButton_1 = new JButton("Enter");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btnNewButton_1.setBounds(188, 227, 89, 23);
 		add(btnNewButton_1);
 	}

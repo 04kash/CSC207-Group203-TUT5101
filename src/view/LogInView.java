@@ -20,7 +20,7 @@ import java.beans.PropertyChangeListener;
 
 public class LogInView extends JPanel implements ActionListener, PropertyChangeListener {
 
-	public final String viewName = "log in";
+	public static final String viewName = "log in";
 	public SignUp signUp;
 	private final LoginViewModel loginViewModel;
 	private final LoginController loginController;
@@ -80,6 +80,8 @@ public class LogInView extends JPanel implements ActionListener, PropertyChangeL
 									currentState.getUsername(),
 									currentState.getPassword()
 							);
+
+							ViewManager.showLoggedinView();
 						}
 					}
 				}

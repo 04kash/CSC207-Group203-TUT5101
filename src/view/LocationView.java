@@ -14,6 +14,7 @@ import java.awt.Font;
 
 public class LocationView extends JPanel {
 
+	public static final String viewName = "location view";
 	private static final long serialVersionUID = 1L;
 	private JTextField textField;
 
