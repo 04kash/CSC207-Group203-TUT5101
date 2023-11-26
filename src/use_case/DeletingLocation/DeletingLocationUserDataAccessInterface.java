@@ -4,7 +4,7 @@ import entity.Location;
 
 import java.util.ArrayList;
 
-public class DeletingLocationUserDataAccessInterface {
+public interface DeletingLocationUserDataAccessInterface {
     boolean existsByName(String identifier);
     public ArrayList<String> getLocation();
 
