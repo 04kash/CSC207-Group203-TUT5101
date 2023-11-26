@@ -1,5 +1,5 @@
-package src.interface_adapter.CreateLabel;
-import src.use_case.CreateLabel.CreateLabelOutputBoundary;
+package interface_adapter.CreateLabel;
+import use_case.CreateLabel.CreateLabelOutputBoundary;
 
 public class CreateLabelPresenter implements CreateLabelOutputBoundary {
     CreateLabelViewModel createLabelViewModel;

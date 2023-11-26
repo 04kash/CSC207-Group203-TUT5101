@@ -1,6 +1,7 @@
 package data_access;
 
 import entity.*;
+import use_case.CreateLabel.CreateLabelDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
@@ -9,7 +10,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface {
+public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, CreateLabelDataAccessInterface {
 
     private final File csvFile;
 
@@ -60,7 +61,8 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         for (int i = 0; i < nestedArrayList.size(); i++) {
             ArrayList lists = nestedArrayList.get(i);
             Label label = (Label) lists.get(0);
-            Location[] locations = (Location[]) lists.get(1);
+            Location[] locationArray = (Location[]) lists.get(1);
+            ArrayList<Location> locations = new ArrayList<>(Arrays.asList(locationArray));
             planner.setLabel(label, locations);
         }
         return planner;
@@ -127,6 +129,27 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void addLabelToPlanner(String username, Label newLabel) {
+         Planner userPlanner = accounts.get(username).getPlanner();
+        userPlanner.setLabel(newLabel, new ArrayList<>());
+        save();
+        //TODO: Check If this is creating 2 copies of the user: existing one and new one. We only want new one.
+    }
+
+    @Override
+    public boolean labelExists(String username,Label label) {
+       User user = accounts.get(username);
+       Label[] labels = user.getPlanner().getLabel().toArray(new Label[0]);
+       for(Label labelInPlanner:labels){
+           if(Objects.equals(labelInPlanner.getTitle(), label.getTitle())){
+               return true;
+           }
+
+       }
+       return false;
     }
 
     @Override

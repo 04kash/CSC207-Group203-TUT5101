@@ -1,4 +1,4 @@
-package src.interface_adapter.CreateLabel;
+package interface_adapter.CreateLabel;
 import interface_adapter.ViewModel;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

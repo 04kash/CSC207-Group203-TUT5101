@@ -1,4 +1,4 @@
-package src.use_case.CreateLabel;
+package use_case.CreateLabel;
 
 public interface CreateLabelOutputBoundary {
     void prepareFailView(String error);
