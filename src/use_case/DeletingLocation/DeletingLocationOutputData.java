@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class DeletingLocationOutputData {
     private final ArrayList<String> deletedLocation;
 
-    public DeletingLocationOutputData(ArrayList<String> deletedUsers) {
+    public DeletingLocationOutputData(ArrayList<String> deletedLocation) {
         this.deletedLocation = deletedLocation;
     }
 

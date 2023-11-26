@@ -4,13 +4,13 @@ import use_case.DeletingLocation.DeletingLocationInputBoundary;
 import use_case.DeletingLocation.DeletingLocationInputData;
 
 public class DeletingLocationController {
-    final DeletingLocationInputBoundary userDeletingLocationUseCaseInteractor;
-    public DeletingLocationController(DeletingLocationInputBoundary userDeletingLocationUseCaseInteractor) {
-        this.userDeletingLocationUseCaseInteractor = userDeletingLocationUseCaseInteractor;
+    final DeletingLocationInputBoundary userDeletingLocationInteractor;
+    public DeletingLocationController(DeletingLocationInputBoundary userDeletingLocationInteractor) {
+        this.userDeletingLocationInteractor = userDeletingLocationInteractor;
     }
 
-    public void execute() {
-        DeletingLocationInputData deleteLocationInputData = new DeletingLocationInputData();
-        userDeletingLocationUseCaseInteractor.execute(deleteLocationInputData);
+    public void execute(String locationName) {
+        DeletingLocationInputData deletingLocationInputData = new DeletingLocationInputData(locationName);
+        userDeletingLocationInteractor.execute(deletingLocationInputData);
     }
 }

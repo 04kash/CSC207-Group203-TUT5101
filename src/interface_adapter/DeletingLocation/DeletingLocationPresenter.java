@@ -2,6 +2,7 @@ package interface_adapter.DeletingLocation;
 
 import interface_adapter.ViewManagerModel;
 import use_case.DeletingLocation.DeletingLocationOutputBoundary;
+import use_case.DeletingLocation.DeletingLocationOutputData;
 
 public class DeletingLocationPresenter implements DeletingLocationOutputBoundary {
     private final DeletingLocationViewModel deletingLocationViewModel;
@@ -14,9 +15,9 @@ public class DeletingLocationPresenter implements DeletingLocationOutputBoundary
     }
 
     @Override
-    public void prepareSuccessView(DeletingLocation response) {
+    public void prepareSuccessView(DeletingLocationOutputData response) {
         DeletingLocationState deletingLocationState = deletingLocationViewModel.getState();
-        deletingLocationState.setDeletedUsers(response.getDeletedUsers());
+        deletingLocationState.setDeletedLocation(response.getDeletedUsers());
         this.deletingLocationViewModel.setState(deletingLocationState);
         deletingLocationViewModel.firePropertyChanged();
     }
