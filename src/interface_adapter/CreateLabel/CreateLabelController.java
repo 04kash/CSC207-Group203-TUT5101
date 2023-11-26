@@ -1,8 +1,8 @@
-package src.interface_adapter.CreateLabel;
+package interface_adapter.CreateLabel;
 
-import src.use_case.CreateLabel.CreateLabelInputBoundary;
-import src.use_case.CreateLabel.CreateLabelInputBoundary;
-import src.use_case.CreateLabel.CreateLabelInputData;
+import use_case.CreateLabel.CreateLabelInputBoundary;
+import use_case.CreateLabel.CreateLabelInputBoundary;
+import use_case.CreateLabel.CreateLabelInputData;
 
 
 public class CreateLabelController {
