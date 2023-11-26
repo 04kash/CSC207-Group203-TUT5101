@@ -1,5 +1,5 @@
 package use_case.DeletingLocation;
 
-public class DeletingLocationInputBoundary {
+public interface DeletingLocationInputBoundary {
     void execute(DeletingLocationInputData deletingLocationInputData);
 }
