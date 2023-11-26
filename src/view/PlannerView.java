@@ -1,5 +1,4 @@
 package view;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -49,28 +48,10 @@ public class PlannerView extends JPanel {
 
 		for (String label : buttonLabels) {
 			JButton button = new JButton(label);
-			button.addActionListener(e -> JOptionPane.showMessageDialog(null,"Hi"));
+			button.addActionListener(e -> JOptionPane.showMessageDialog(null, "Hi"));
 
 			buttonList.add(button); // Add the button to the list
 			add(button);
-		}
-	}
-
-	private void showPopupWithComboBox(String labelText) {
-		JPanel popupPanel = new JPanel(new BorderLayout());
-
-		JLabel popupLabel = new JLabel(labelText);
-		popupPanel.add(popupLabel, BorderLayout.NORTH);
-
-		String[] comboOptions = {"Option 1", "Option 2", "Option 3"};
-		comboBox = new JComboBox<>(comboOptions);
-		popupPanel.add(comboBox, BorderLayout.CENTER);
-
-		int result = JOptionPane.showConfirmDialog(null, popupPanel, "Select an option", JOptionPane.OK_CANCEL_OPTION);
-
-		if (result == JOptionPane.OK_OPTION) {
-			String selectedOption = (String) comboBox.getSelectedItem();
-			JOptionPane.showMessageDialog(null, "Selected option: " + selectedOption);
 		}
 	}
 
@@ -129,7 +110,7 @@ public class PlannerView extends JPanel {
 		String newLabelName = JOptionPane.showInputDialog(null, "Enter label name:");
 		if (newLabelName != null && !newLabelName.isEmpty()) {
 			JButton newButton = new JButton(newLabelName);
-			newButton.addActionListener(evt -> showPopupWithComboBox(newLabelName));
+			newButton.addActionListener(evt -> JOptionPane.showMessageDialog(null, newLabelName));
 
 			buttonList.add(newButton);
 			add(newButton);
@@ -138,4 +119,6 @@ public class PlannerView extends JPanel {
 			revalidate();
 			repaint();
 		}
-	}}
+	}
+
+}
