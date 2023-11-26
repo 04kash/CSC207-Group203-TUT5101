@@ -1,5 +1,5 @@
 package use_case.DeletingLocation;
 
-public class DeletingLocationOutputBoundary {
+public interface DeletingLocationOutputBoundary {
     void prepareSuccessView(DeletingLocationOutputData location);
 }
