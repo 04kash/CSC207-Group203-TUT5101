@@ -16,13 +16,12 @@ public class SavingLocationInteractor {
     public void execute(SavingLocationInputData savingLocationInputData){
         Coordinate coordinate = new Coordinate(savingLocationInputData.getLatitude(), savingLocationInputData.getLongitude());
         Location chosenLocation = new Location(savingLocationInputData.getLocationName(),coordinate, savingLocationInputData.getLink(), savingLocationInputData.getFilters());
-        User currentUser = userDataAccessObject.getUser(savingLocationInputData.getUsername());
         Label chosenLabel = new Label(savingLocationInputData.getChosenLabel());
-        if(userDataAccessObject.locationExists(currentUser,coordinate)){
+        if(userDataAccessObject.locationExists(savingLocationInputData.getUsername(),coordinate)){
             userPresenter.prepareFailView("Location is already saved.");
         }else{
-            userDataAccessObject.updateUserPlanner(currentUser,chosenLocation,chosenLabel);
-            if(userDataAccessObject.locationExists(currentUser, coordinate)){
+            userDataAccessObject.addLocation(savingLocationInputData.getUsername(),chosenLocation,chosenLabel);
+            if(userDataAccessObject.locationExists(savingLocationInputData.getUsername(), coordinate)){
                 userPresenter.prepareSuccessView("Location saved successfully");
             }else{
                 userPresenter.prepareFailView("Location was not saved.Please try again.");
