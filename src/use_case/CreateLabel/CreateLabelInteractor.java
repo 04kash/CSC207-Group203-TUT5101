@@ -1,7 +1,5 @@
-package src.use_case.CreateLabel;
-import entity.Label;
-import entity.UserFactory;
-import entity.User;
+package use_case.CreateLabel;
+import entity.*;
 public class CreateLabelInteractor {
     final CreateLabelDataAccessInterface labelDataAccessObject;
     final CreateLabelOutputBoundary labelPresentor;

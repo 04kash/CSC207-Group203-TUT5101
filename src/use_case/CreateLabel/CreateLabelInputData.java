@@ -1,4 +1,4 @@
-package src.use_case.CreateLabel;
+package use_case.CreateLabel;
 
 public class CreateLabelInputData {
     private final String username;

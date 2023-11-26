@@ -1,4 +1,4 @@
-package src.use_case.CreateLabel;
+package use_case.CreateLabel;
 import entity.Label;
 import entity.User;
 public interface CreateLabelDataAccessInterface {
