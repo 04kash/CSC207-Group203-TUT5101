@@ -1,14 +1,13 @@
 package view;
 
-import interface_adapter.api_returns.ApiState;
-import interface_adapter.login.LoginState;
-
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class LoggedInView extends JPanel {
+public class LoggedInView extends JPanel implements ActionListener, PropertyChangeListener {
 
 	public static final String viewName = "logged in";
 	private static final long serialVersionUID = 1L;
@@ -39,7 +38,7 @@ public class LoggedInView extends JPanel {
 //				new ActionListener() {
 //					@Override
 //					public void actionPerformed(ActionEvent e) {
-//						ViewManager.showPlannerView();
+//						ViewManager.showLocationView();
 //					}
 //				}
 //		);
@@ -55,5 +54,15 @@ public class LoggedInView extends JPanel {
 					}
 				}
 		);
+	}
+
+	public void actionPerformed(ActionEvent evt) {
+		System.out.println("Click " + evt.getActionCommand());
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+//		LoggedInState state = (LoggedInState) evt.getNewValue();
+//		username.setText(state.getUsername());
 	}
 }

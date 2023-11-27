@@ -48,6 +48,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                         planner1 = parsePlanner(planner);
                     }
                     User user = userFactory.create(username, password, planner1);
+                    System.out.println(username);
                     accounts.put(username, user);
                 }
             }
@@ -159,6 +160,6 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
 
     @Override
     public boolean existsByName(String identifier) {
-        return false;
+        return accounts.containsKey(identifier);
     }
 }
