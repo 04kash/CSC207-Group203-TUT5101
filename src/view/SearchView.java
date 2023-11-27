@@ -3,6 +3,7 @@ package view;
 import interface_adapter.api_returns.ApiController;
 import interface_adapter.api_returns.ApiState;
 import interface_adapter.api_returns.ApiViewModel;
+import interface_adapter.displayingLocations.DisplayingLocationsController;
 import interface_adapter.login.LoginState;
 
 import javax.swing.JPanel;
@@ -24,6 +25,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 	public static final String viewName = "search";
 	public final ApiViewModel apiViewModel;
 	public final ApiController apiController;
+	public final DisplayingLocationsController displayingLocationsController;
 	private static final long serialVersionUID = 1L;
 	private JTextField cityField;
 	private String selectedFilter;
@@ -32,11 +34,12 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 	/**
 	 * Create the panel.
 	 */
-	public SearchView(ApiViewModel apiViewModel, ApiController apiController) {
+	public SearchView(ApiViewModel apiViewModel, ApiController apiController, DisplayingLocationsController displayingLocationsController) {
 		setBackground(new Color(204, 255, 255));
 		this.setLayout(null);
 		this.apiViewModel = apiViewModel;
 		this.apiController = apiController;
+		this.displayingLocationsController = displayingLocationsController;
 		this.apiViewModel.addPropertyChangeListener(this);
 		
 		JButton home = new JButton("Go to Homepage");
@@ -95,6 +98,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 							apiController.execute(
 									cityField.getText(), selectedFilter
 							);
+							displayingLocationsController.execute();
 						}
 					}
 				}

@@ -7,6 +7,6 @@ import java.util.ArrayList;
 public interface ApiUserDataAccessInterface {
     public ArrayList<Location> getLocations(String cityName, String filter);
 
-//    public void save(ArrayList<Location> locations);
+    public void save(ArrayList<Location> locations);
 
 }

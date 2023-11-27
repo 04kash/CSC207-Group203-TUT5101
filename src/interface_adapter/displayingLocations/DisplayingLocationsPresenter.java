@@ -20,6 +20,8 @@ public class DisplayingLocationsPresenter implements DisplayingLocationsOutputBo
         displayingLocationsState.setLocations(response.getLocations());
         this.displayingLocationsViewModel.setState(displayingLocationsState);
         displayingLocationsViewModel.firePropertyChanged();
+        viewManagerModel.firePropertyChanged();
+
     }
 
     @Override
