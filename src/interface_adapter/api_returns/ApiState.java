@@ -1,7 +1,5 @@
 package interface_adapter.api_returns;
 
-import entity.City;
-import entity.Coordinate;
 import entity.Location;
 
 import java.util.ArrayList;
@@ -10,7 +8,7 @@ public class ApiState {
 
     private String username = "";
     private String password = "";
-    private ArrayList<Location> locations = new ArrayList<Location>();
+    private static ArrayList<Location> locations = new ArrayList<>();
 
     private String locationError = "";
 

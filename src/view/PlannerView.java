@@ -120,5 +120,4 @@ public class PlannerView extends JPanel {
 			repaint();
 		}
 	}
-
 }

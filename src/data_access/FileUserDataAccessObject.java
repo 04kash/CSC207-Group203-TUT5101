@@ -2,6 +2,7 @@ package data_access;
 
 import entity.*;
 import use_case.SavingLocation.SavingLocationUserDataAccessInterface;
+import use_case.CreateLabel.CreateLabelDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
@@ -10,7 +11,9 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, SavingLocationUserDataAccessInterface {
+
+public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, CreateLableDataAccessInterface, SavingLocationUserDataAccessInterface {
+
 
     private final File csvFile;
 
@@ -42,9 +45,13 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                     String[] col = row.split(",");
                     String username = String.valueOf(col[headers.get("username")]);
                     String password = String.valueOf(col[headers.get("password")]);
-                    String planner = String.valueOf(col[headers.get("planner")]);
-                    Planner planner1 = parsePlanner(planner);
+                    Planner planner1 = new Planner();
+                    if (!String.valueOf(col[headers.get("planner")]).equals("[]")) {
+                        String planner = String.valueOf(col[headers.get("planner")]);
+                        planner1 = parsePlanner(planner);
+                    }
                     User user = userFactory.create(username, password, planner1);
+                    System.out.println(username);
                     accounts.put(username, user);
                 }
             }
@@ -103,8 +110,8 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
             writer.newLine();
 
             for (User user : accounts.values()) {
-                String line = String.format("%s,%s",
-                        user.getUsername(), user.getPassword());
+//                String line = String.format("%s,%s",
+//                        user.getUsername(), user.getPassword());
                 Planner planner = user.getPlanner();
                 Set<Label> label = planner.getLabel();
                 ArrayList<ArrayList> stringPlanner = new ArrayList<>();
@@ -114,7 +121,9 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                     hashmap.add(String.valueOf(new ArrayList<>(List.of(planner.getLocations(category)))));
                     stringPlanner.add(hashmap);
                 }
-                line += String.valueOf(stringPlanner);
+                String line = String.format("%s,%s,%s",
+                        user.getUsername(), user.getPassword(), stringPlanner);
+//                line += String.valueOf(stringPlanner);
                 writer.write(line);
                 writer.newLine();
             }
@@ -148,6 +157,28 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         }
 
         return false;
+    }
+
+
+
+    public void addLabelToPlanner(String username, Label newLabel) {
+         Planner userPlanner = accounts.get(username).getPlanner();
+        userPlanner.setLabel(newLabel, new ArrayList<>());
+        save();
+        //TODO: Check If this is creating 2 copies of the user: existing one and new one. We only want new one.
+    }
+
+    @Override
+    public boolean labelExists(String username,Label label) {
+       User user = accounts.get(username);
+       Label[] labels = user.getPlanner().getLabel().toArray(new Label[0]);
+       for(Label labelInPlanner:labels){
+           if(Objects.equals(labelInPlanner.getTitle(), label.getTitle())){
+               return true;
+           }
+
+       }
+       return false;
     }
 
 
