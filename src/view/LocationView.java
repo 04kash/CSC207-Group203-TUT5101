@@ -1,285 +1,320 @@
 package view;
+import entity.Location;
+import interface_adapter.api_returns.ApiViewModel;
+import interface_adapter.displayingLocations.DisplayingLocationsController;
+import interface_adapter.displayingLocations.DisplayingLocationsViewModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
-public class LocationView extends JPanel {
+public class LocationView extends JPanel implements ActionListener, PropertyChangeListener {
 
+	public DisplayingLocationsViewModel displayingLocationsViewModel;
+	public DisplayingLocationsController displayingLocationsController;
 	public static final String viewName = "location view";
+//	public static ApiViewModel displayingLocationsViewModel;
 	private static final long serialVersionUID = 1L;
-	private JTextField textField;
-
+//	private static JLabel location1;
 
 	/**
 	 * Create the panel.
 	 */
-	public LocationView() {
+	public LocationView(DisplayingLocationsViewModel displayingLocationsViewModel, DisplayingLocationsController displayingLocationsController){
 		this.setLayout(null);
+		this.displayingLocationsController = displayingLocationsController;
+		this.displayingLocationsViewModel = displayingLocationsViewModel;
+		this.displayingLocationsViewModel.addPropertyChangeListener(this);
+		ArrayList<Location> locations = new ArrayList<>();
+		if (!displayingLocationsViewModel.getState().getLocations().isEmpty()) {
+			locations = displayingLocationsViewModel.getState().getLocations();
+			System.out.println(locations);
+			System.out.println(locations.get(0).getName());
 
-		JButton btnNewButton_1 = new JButton("Save A Location");
-		btnNewButton_1.addActionListener(new ActionListener() {
+			JLabel location1 = new JLabel(locations.get(0).getName());
+			location1.setBounds(66, 45, 708, 14);
+			add(location1);
+			repaint();
+		}
+		else {
+			JLabel location1 = new JLabel("Location1");
+			location1.setBounds(66, 45, 708, 14);
+			add(location1);
+		}
+
+		JButton save = new JButton("Save A Location");
+		save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				showSaveLocationDialog();
 			}
 		});
-		btnNewButton_1.setBounds(37, 11, 197, 23);
-		add(btnNewButton_1);
+		save.setBounds(37, 11, 197, 23);
+		add(save);
 
 
-		JButton btnNewButton = new JButton("Go to HomePage");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton home = new JButton("Go to HomePage");
+		home.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ViewManager.showLoggedinView();
 			}
 		});
-		btnNewButton.setBounds(465, 11, 160, 23);
-		add(btnNewButton);
+		home.setBounds(465, 11, 160, 23);
+		add(home);
 
-		JLabel lblNewLabel = new JLabel("Suggested Places:");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel.setBounds(270, 11, 279, 39);
-		add(lblNewLabel);
+		JLabel heading = new JLabel("Suggested Places");
+		heading.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		heading.setBounds(270, 11, 279, 39);
+		add(heading);
 
-		JLabel lblNewLabel_1 = new JLabel("1.");
-		lblNewLabel_1.setBounds(26, 45, 17, 14);
-		add(lblNewLabel_1);
 
-		JLabel lblNewLabel_2 = new JLabel("Location1");
-		lblNewLabel_2.setBounds(66, 45, 708, 14);
-		add(lblNewLabel_2);
+		JLabel location1Label = new JLabel("1.");
+		location1Label.setBounds(26, 45, 17, 14);
+		add(location1Label);
 
-		JLabel lblNewLabel_2_1 = new JLabel("Location2");
-		lblNewLabel_2_1.setBounds(66, 105, 690, 14);
-		add(lblNewLabel_2_1);
 
-		JLabel lblNewLabel_2_2 = new JLabel("Link to OpenStreetMap:");
-		lblNewLabel_2_2.setBounds(66, 141, 212, 14);
-		add(lblNewLabel_2_2);
+//		location1 = new JLabel("Location1");
+//		location1.setBounds(66, 45, 708, 14);
+//		add(location1);
 
-		JLabel lblNewLabel_1_1 = new JLabel("2.");
-		lblNewLabel_1_1.setBounds(26, 105, 17, 14);
-		add(lblNewLabel_1_1);
 
-		JLabel lblNewLabel_3 = new JLabel("Link1");
-		lblNewLabel_3.setBounds(288, 80, 486, 14);
-		add(lblNewLabel_3);
+		JLabel location1coordinate = new JLabel("Coordinates");
+		location1coordinate.setBounds(66, 70, 160, 14);
+		add(location1coordinate);
 
-		JLabel lblNewLabel_1_1_1 = new JLabel("7.");
-		lblNewLabel_1_1_1.setBounds(26, 438, 17, 14);
-		add(lblNewLabel_1_1_1);
+		JLabel coordinate1 = new JLabel("C1");
+		coordinate1.setBounds(288, 70, 486, 14);
+		add(coordinate1);
 
-		JLabel lblNewLabel_1_1_1_1 = new JLabel("3.");
-		lblNewLabel_1_1_1_1.setBounds(26, 166, 17, 14);
-		add(lblNewLabel_1_1_1_1);
+		JLabel location1link = new JLabel("Link to OpenStreetMap:");
+		location1link.setBounds(66, 80, 212, 14);
+		add(location1link);
 
-		JLabel lblNewLabel_1_1_1_2 = new JLabel("4.");
-		lblNewLabel_1_1_1_2.setBounds(26, 234, 17, 14);
-		add(lblNewLabel_1_1_1_2);
+		JLabel link1 = new JLabel("Link1");
+		link1.setBounds(288, 80, 486, 14);
+		add(link1);
 
-		JLabel lblNewLabel_1_1_1_2_1 = new JLabel("5.");
-		lblNewLabel_1_1_1_2_1.setBounds(26, 296, 17, 14);
-		add(lblNewLabel_1_1_1_2_1);
+		JLabel location2label = new JLabel("2.");
+		location2label.setBounds(26, 105, 17, 14);
+		add(location2label);
 
-		JLabel lblNewLabel_1_1_1_2_2 = new JLabel("6.");
-		lblNewLabel_1_1_1_2_2.setBounds(26, 366, 17, 14);
-		add(lblNewLabel_1_1_1_2_2);
+		JLabel location2 = new JLabel("Location2");
+		location2.setBounds(66, 105, 690, 14);
+		add(location2);
 
-		JLabel lblNewLabel_2_2_1 = new JLabel("Link to OpenStreetMap:");
-		lblNewLabel_2_2_1.setBounds(66, 80, 212, 14);
-		add(lblNewLabel_2_2_1);
+		JLabel location2coordinate = new JLabel("Coordinates");
+		location2coordinate.setBounds(66, 130, 160, 14);
+		add(location2coordinate);
 
-		JLabel lblNewLabel_1_1_1_3 = new JLabel("8.");
-		lblNewLabel_1_1_1_3.setBounds(26, 504, 17, 14);
-		add(lblNewLabel_1_1_1_3);
+		JLabel coordinate2 = new JLabel("C2");
+		coordinate2.setBounds(288, 130, 486, 14);
+		add(coordinate2);
 
-		JLabel lblNewLabel_1_1_1_3_1 = new JLabel("9.");
-		lblNewLabel_1_1_1_3_1.setBounds(26, 575, 17, 14);
-		add(lblNewLabel_1_1_1_3_1);
+		JLabel location2Link = new JLabel("Link to OpenStreetMap:");
+		location2Link.setBounds(66, 141, 212, 14);
+		add(location2Link);
 
-		JLabel lblNewLabel_1_1_1_3_2 = new JLabel("10.");
-		lblNewLabel_1_1_1_3_2.setBounds(26, 649, 17, 14);
-		add(lblNewLabel_1_1_1_3_2);
+		JLabel link2 = new JLabel("Link2");
+		link2.setBounds(288, 141, 495, 14);
+		add(link2);
 
-		JLabel lblNewLabel_2_1_1 = new JLabel("Location3");
-		lblNewLabel_2_1_1.setBounds(66, 166, 690, 14);
-		add(lblNewLabel_2_1_1);
+		JLabel location3label = new JLabel("3.");
+		location3label.setBounds(26, 166, 17, 14);
+		add(location3label);
 
-		JLabel lblNewLabel_2_1_2 = new JLabel("Location4");
-		lblNewLabel_2_1_2.setBounds(66, 234, 690, 14);
-		add(lblNewLabel_2_1_2);
+		JLabel location3 = new JLabel("Location3");
+		location3.setBounds(66, 166, 690, 14);
+		add(location3);
 
-		JLabel lblNewLabel_2_1_3 = new JLabel("Location5");
-		lblNewLabel_2_1_3.setBounds(66, 296, 690, 14);
-		add(lblNewLabel_2_1_3);
+		JLabel location3coordinate = new JLabel("Coordinates");
+		location3coordinate.setBounds(66, 191, 160, 14);
+		add(location3coordinate);
 
-		JLabel lblNewLabel_2_1_4 = new JLabel("Location6");
-		lblNewLabel_2_1_4.setBounds(66, 366, 708, 14);
-		add(lblNewLabel_2_1_4);
+		JLabel coordinate3 = new JLabel("C3");
+		coordinate3.setBounds(288, 191, 486, 14);
+		add(coordinate3);
 
-		JLabel lblNewLabel_2_1_5 = new JLabel("Location7");
-		lblNewLabel_2_1_5.setBounds(66, 438, 690, 14);
-		add(lblNewLabel_2_1_5);
+		JLabel location3link = new JLabel("Link to OpenStreetMap:");
+		location3link.setBounds(66, 202, 212, 14);
+		add(location3link);
 
-		JLabel lblNewLabel_2_1_6 = new JLabel("Location8");
-		lblNewLabel_2_1_6.setBounds(66, 504, 708, 14);
-		add(lblNewLabel_2_1_6);
+		JLabel link3 = new JLabel("Link3");
+		link3.setBounds(288, 202, 496, 14);
+		add(link3);
 
-		JLabel lblNewLabel_2_1_7 = new JLabel("Location9");
-		lblNewLabel_2_1_7.setBounds(66, 575, 708, 14);
-		add(lblNewLabel_2_1_7);
+		JLabel location4label = new JLabel("4.");
+		location4label.setBounds(26, 234, 17, 14);
+		add(location4label);
 
-		JLabel lblNewLabel_2_1_8 = new JLabel("Location10");
-		lblNewLabel_2_1_8.setBounds(66, 649, 708, 14);
-		add(lblNewLabel_2_1_8);
+		JLabel location4 = new JLabel("Location4");
+		location4.setBounds(66, 234, 690, 14);
+		add(location4);
 
-		JLabel lblNewLabel_2_2_2 = new JLabel("Link to OpenStreetMap:");
-		lblNewLabel_2_2_2.setBounds(66, 202, 212, 14);
-		add(lblNewLabel_2_2_2);
+		JLabel location4coordinate = new JLabel("Coordinates");
+		location4coordinate.setBounds(66, 259, 160, 14);
+		add(location4coordinate);
 
-		JLabel lblNewLabel_2_2_3 = new JLabel("Link to OpenStreetMap:");
-		lblNewLabel_2_2_3.setBounds(66, 271, 212, 14);
-		add(lblNewLabel_2_2_3);
+		JLabel coordinate4 = new JLabel("C4");
+		coordinate4.setBounds(288, 259, 486, 14);
+		add(coordinate4);
 
-		JLabel lblNewLabel_2_2_4 = new JLabel("Link to OpenStreetMap:");
-		lblNewLabel_2_2_4.setBounds(66, 333, 212, 14);
-		add(lblNewLabel_2_2_4);
+		JLabel location4link = new JLabel("Link to OpenStreetMap:");
+		location4link.setBounds(66, 271, 212, 14);
+		add(location4link);
 
-		JLabel lblNewLabel_2_2_5 = new JLabel("Link to OpenStreetMap:");
-		lblNewLabel_2_2_5.setBounds(66, 405, 212, 14);
-		add(lblNewLabel_2_2_5);
+		JLabel link4 = new JLabel("Link4");
+		link4.setBounds(288, 271, 486, 14);
+		add(link4);
 
-		JLabel lblNewLabel_2_2_6 = new JLabel("Link to OpenStreetMap:");
-		lblNewLabel_2_2_6.setBounds(66, 477, 212, 14);
-		add(lblNewLabel_2_2_6);
+		JLabel location5label = new JLabel("5.");
+		location5label.setBounds(26, 296, 17, 14);
+		add(location5label);
 
-		JLabel lblNewLabel_2_2_7 = new JLabel("Link to OpenStreetMap:");
-		lblNewLabel_2_2_7.setBounds(66, 542, 212, 14);
-		add(lblNewLabel_2_2_7);
+		JLabel location5 = new JLabel("Location5");
+		location5.setBounds(66, 296, 690, 14);
+		add(location5);
 
-		JLabel lblNewLabel_2_2_8 = new JLabel("Link to OpenStreetMap:");
-		lblNewLabel_2_2_8.setBounds(66, 613, 212, 14);
-		add(lblNewLabel_2_2_8);
+		JLabel location5coordinate = new JLabel("Coordinates");
+		location5coordinate.setBounds(66, 321, 160, 14);
+		add(location5coordinate);
 
-		JLabel lblNewLabel_2_2_9 = new JLabel("Link to OpenStreetMap:");
-		lblNewLabel_2_2_9.setBounds(66, 688, 212, 14);
-		add(lblNewLabel_2_2_9);
+		JLabel coordinate5 = new JLabel("C5");
+		coordinate5.setBounds(288, 321, 486, 14);
+		add(coordinate5);
 
-		JLabel lblNewLabel_3_1 = new JLabel("Link2");
-		lblNewLabel_3_1.setBounds(288, 141, 495, 14);
-		add(lblNewLabel_3_1);
+		JLabel location5link = new JLabel("Link to OpenStreetMap:");
+		location5link.setBounds(66, 333, 212, 14);
+		add(location5link);
 
-		JLabel lblNewLabel_3_2 = new JLabel("Link3");
-		lblNewLabel_3_2.setBounds(288, 202, 496, 14);
-		add(lblNewLabel_3_2);
+		JLabel link5 = new JLabel("Link5");
+		link5.setBounds(288, 333, 486, 14);
+		add(link5);
 
-		JLabel lblNewLabel_3_3 = new JLabel("Link4");
-		lblNewLabel_3_3.setBounds(288, 271, 486, 14);
-		add(lblNewLabel_3_3);
+		JLabel location6label = new JLabel("6.");
+		location6label.setBounds(26, 366, 17, 14);
+		add(location6label);
 
-		JLabel lblNewLabel_3_4 = new JLabel("Link5");
-		lblNewLabel_3_4.setBounds(288, 333, 486, 14);
-		add(lblNewLabel_3_4);
+		JLabel location6 = new JLabel("Location6");
+		location6.setBounds(66, 366, 708, 14);
+		add(location6);
 
-		JLabel lblNewLabel_3_5 = new JLabel("Link6");
-		lblNewLabel_3_5.setBounds(288, 405, 486, 14);
-		add(lblNewLabel_3_5);
+		JLabel location6coordinate = new JLabel("Coordinates");
+		location6coordinate.setBounds(66, 391, 160, 14);
+		add(location6coordinate);
 
-		JLabel lblNewLabel_3_6 = new JLabel("Link7");
-		lblNewLabel_3_6.setBounds(288, 477, 486, 14);
-		add(lblNewLabel_3_6);
+		JLabel coordinate6 = new JLabel("C6");
+		coordinate6.setBounds(288, 391, 486, 14);
+		add(coordinate6);
 
-		JLabel lblNewLabel_3_7 = new JLabel("Link8");
-		lblNewLabel_3_7.setBounds(288, 542, 486, 14);
-		add(lblNewLabel_3_7);
+		JLabel location6link = new JLabel("Link to OpenStreetMap:");
+		location6link.setBounds(66, 405, 212, 14);
+		add(location6link);
 
-		JLabel lblNewLabel_3_8 = new JLabel("Link9");
-		lblNewLabel_3_8.setBounds(288, 613, 486, 14);
-		add(lblNewLabel_3_8);
+		JLabel link6 = new JLabel("Link6");
+		link6.setBounds(288, 405, 486, 14);
+		add(link6);
 
-		JLabel lblNewLabel_3_9 = new JLabel("Link10");
-		lblNewLabel_3_9.setBounds(288, 688, 486, 14);
-		add(lblNewLabel_3_9);
+		JLabel location7label = new JLabel("7.");
+		location7label.setBounds(26, 438, 17, 14);
+		add(location7label);
 
-		JLabel lblNewLabel_4 = new JLabel("Coordinates");
-		lblNewLabel_4.setBounds(66, 674, 160, 14);
-		add(lblNewLabel_4);
+		JLabel location7 = new JLabel("Location7");
+		location7.setBounds(66, 438, 690, 14);
+		add(location7);
 
-		JLabel lblNewLabel_3_9_1 = new JLabel("C10");
-		lblNewLabel_3_9_1.setBounds(288, 674, 486, 14);
-		add(lblNewLabel_3_9_1);
+		JLabel location7coordinate = new JLabel("Coordinates");
+		location7coordinate.setBounds(66, 463, 160, 14);
+		add(location7coordinate);
 
-		JLabel lblNewLabel_4_1 = new JLabel("Coordinates");
-		lblNewLabel_4_1.setBounds(66, 600, 160, 14);
-		add(lblNewLabel_4_1);
+		JLabel coordinate7 = new JLabel("C7");
+		coordinate7.setBounds(288, 463, 486, 14);
+		add(coordinate7);
 
-		JLabel lblNewLabel_4_2 = new JLabel("Coordinates");
-		lblNewLabel_4_2.setBounds(66, 529, 160, 14);
-		add(lblNewLabel_4_2);
+		JLabel location7link = new JLabel("Link to OpenStreetMap:");
+		location7link.setBounds(66, 477, 212, 14);
+		add(location7link);
 
-		JLabel lblNewLabel_4_3 = new JLabel("Coordinates");
-		lblNewLabel_4_3.setBounds(66, 463, 160, 14);
-		add(lblNewLabel_4_3);
+		JLabel link7 = new JLabel("Link7");
+		link7.setBounds(288, 477, 486, 14);
+		add(link7);
 
-		JLabel lblNewLabel_4_4 = new JLabel("Coordinates");
-		lblNewLabel_4_4.setBounds(66, 391, 160, 14);
-		add(lblNewLabel_4_4);
+		JLabel location8label = new JLabel("8.");
+		location8label.setBounds(26, 504, 17, 14);
+		add(location8label);
 
-		JLabel lblNewLabel_4_5 = new JLabel("Coordinates");
-		lblNewLabel_4_5.setBounds(66, 321, 160, 14);
-		add(lblNewLabel_4_5);
+		JLabel location8 = new JLabel("Location8");
+		location8.setBounds(66, 504, 708, 14);
+		add(location8);
 
-		JLabel lblNewLabel_4_6 = new JLabel("Coordinates");
-		lblNewLabel_4_6.setBounds(66, 259, 160, 14);
-		add(lblNewLabel_4_6);
+		JLabel location8coordinate = new JLabel("Coordinates");
+		location8coordinate.setBounds(66, 529, 160, 14);
+		add(location8coordinate);
 
-		JLabel lblNewLabel_4_7 = new JLabel("Coordinates");
-		lblNewLabel_4_7.setBounds(66, 191, 160, 14);
-		add(lblNewLabel_4_7);
+		JLabel coordinate8 = new JLabel("C8");
+		coordinate8.setBounds(288, 529, 486, 14);
+		add(coordinate8);
 
-		JLabel lblNewLabel_4_8 = new JLabel("Coordinates");
-		lblNewLabel_4_8.setBounds(66, 130, 160, 14);
-		add(lblNewLabel_4_8);
+		JLabel location8link = new JLabel("Link to OpenStreetMap:");
+		location8link.setBounds(66, 542, 212, 14);
+		add(location8link);
 
-		JLabel lblNewLabel_4_9 = new JLabel("Coordinates");
-		lblNewLabel_4_9.setBounds(66, 70, 160, 14);
-		add(lblNewLabel_4_9);
+		JLabel link8 = new JLabel("Link8");
+		link8.setBounds(288, 542, 486, 14);
+		add(link8);
 
-		JLabel lblNewLabel_3_9_1_1 = new JLabel("C9");
-		lblNewLabel_3_9_1_1.setBounds(288, 600, 486, 14);
-		add(lblNewLabel_3_9_1_1);
+		JLabel location9label = new JLabel("9.");
+		location9label.setBounds(26, 575, 17, 14);
+		add(location9label);
 
-		JLabel lblNewLabel_3_9_1_2 = new JLabel("C8");
-		lblNewLabel_3_9_1_2.setBounds(288, 529, 486, 14);
-		add(lblNewLabel_3_9_1_2);
+		JLabel location9 = new JLabel("Location9");
+		location9.setBounds(66, 575, 708, 14);
+		add(location9);
 
-		JLabel lblNewLabel_3_9_1_3 = new JLabel("C7");
-		lblNewLabel_3_9_1_3.setBounds(288, 463, 486, 14);
-		add(lblNewLabel_3_9_1_3);
+		JLabel location9coordinate = new JLabel("Coordinates");
+		location9coordinate.setBounds(66, 600, 160, 14);
+		add(location9coordinate);
 
-		JLabel lblNewLabel_3_9_1_4 = new JLabel("C6");
-		lblNewLabel_3_9_1_4.setBounds(288, 391, 486, 14);
-		add(lblNewLabel_3_9_1_4);
+		JLabel coordinate9 = new JLabel("C9");
+		coordinate9.setBounds(288, 600, 486, 14);
+		add(coordinate9);
 
-		JLabel lblNewLabel_3_9_1_5 = new JLabel("C5");
-		lblNewLabel_3_9_1_5.setBounds(288, 321, 486, 14);
-		add(lblNewLabel_3_9_1_5);
+		JLabel location9link = new JLabel("Link to OpenStreetMap:");
+		location9link.setBounds(66, 613, 212, 14);
+		add(location9link);
 
-		JLabel lblNewLabel_3_9_1_6 = new JLabel("C4");
-		lblNewLabel_3_9_1_6.setBounds(288, 259, 486, 14);
-		add(lblNewLabel_3_9_1_6);
+		JLabel link9 = new JLabel("Link9");
+		link9.setBounds(288, 613, 486, 14);
+		add(link9);
 
-		JLabel lblNewLabel_3_9_1_7 = new JLabel("C3");
-		lblNewLabel_3_9_1_7.setBounds(288, 191, 486, 14);
-		add(lblNewLabel_3_9_1_7);
+		JLabel location10label = new JLabel("10.");
+		location10label.setBounds(26, 649, 17, 14);
+		add(location10label);
 
-		JLabel lblNewLabel_3_9_1_8 = new JLabel("C2");
-		lblNewLabel_3_9_1_8.setBounds(288, 130, 486, 14);
-		add(lblNewLabel_3_9_1_8);
+		JLabel location10 = new JLabel("Location10");
+		location10.setBounds(66, 649, 708, 14);
+		add(location10);
 
-		JLabel lblNewLabel_3_9_1_9 = new JLabel("C1");
-		lblNewLabel_3_9_1_9.setBounds(288, 70, 486, 14);
-		add(lblNewLabel_3_9_1_9);
+		JLabel location10coordinate = new JLabel("Coordinates");
+		location10coordinate.setBounds(66, 674, 160, 14);
+		add(location10coordinate);
+
+		JLabel coordinate10 = new JLabel("C10");
+		coordinate10.setBounds(288, 674, 486, 14);
+		add(coordinate10);
+
+		JLabel location10link = new JLabel("Link to OpenStreetMap:");
+		location10link.setBounds(66, 688, 212, 14);
+		add(location10link);
+
+		JLabel link10 = new JLabel("Link10");
+		link10.setBounds(288, 688, 486, 14);
+		add(link10);
 	}
+
+
 	private void showSaveLocationDialog() {
 		// Create a JComboBox with some sample items
 		String[] locations = {"Location A", "Location B", "Location C"};
@@ -301,5 +336,15 @@ public class LocationView extends JPanel {
 			JOptionPane.showMessageDialog(this, "Location saved: " + selectedLocation);
 		}
 	}
+
+	public void actionPerformed(ActionEvent evt) {
+		System.out.println("Click " + evt.getActionCommand());
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+	}
 }
+
+
 

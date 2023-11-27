@@ -10,7 +10,7 @@ public class ApiState {
 
     private String username = "";
     private String password = "";
-    private ArrayList<Location> locations = new ArrayList<Location>();
+    private static ArrayList<Location> locations = new ArrayList<>();
 
     private String locationError = "";
 
