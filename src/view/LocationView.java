@@ -345,6 +345,3 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 	public void propertyChange(PropertyChangeEvent evt) {
 	}
 }
-
-
-
