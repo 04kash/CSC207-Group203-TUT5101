@@ -1,6 +1,7 @@
 package data_access;
 
 import entity.*;
+import use_case.SavingLocation.SavingLocationUserDataAccessInterface;
 import use_case.CreateLabel.CreateLabelDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
@@ -10,7 +11,9 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, CreateLabelDataAccessInterface {
+
+public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, CreateLableDataAccessInterface, SavingLocationUserDataAccessInterface {
+
 
     private final File csvFile;
 
@@ -133,6 +136,31 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
     }
 
     @Override
+    public void addLocation(String username, Location location, Label newLabel) {
+        ArrayList<Location> locations = accounts.get(username).getPlanner().getLocations(newLabel);
+        locations.add(location);
+        save();
+    }
+
+    @Override
+    public boolean locationExists(String username, Coordinate coordinate) {
+        User user = accounts.get(username);
+        Label[] labels = user.getPlanner().getLabel().toArray(new Label[0]);
+        for (Label label : labels) {
+            ArrayList<Location> locations = user.getPlanner().getLocations(label);
+
+            for (Location location : locations) {
+                if (location.getCoordinate().equals(coordinate)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+
+
     public void addLabelToPlanner(String username, Label newLabel) {
          Planner userPlanner = accounts.get(username).getPlanner();
         userPlanner.setLabel(newLabel, new ArrayList<>());
@@ -152,6 +180,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
        }
        return false;
     }
+
 
     @Override
     public User get(String username) {

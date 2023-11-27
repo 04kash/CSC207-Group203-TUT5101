@@ -7,6 +7,7 @@ import java.util.Set;
 public class Planner {
     private final HashMap<Label, ArrayList<Location>> planner;
 
+
     public Planner() {this.planner = new HashMap<>();}
 
     Planner(HashMap<Label, ArrayList<Location>> planner) {
