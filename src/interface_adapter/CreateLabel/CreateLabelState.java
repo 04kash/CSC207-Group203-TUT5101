@@ -1,4 +1,4 @@
-package src.interface_adapter.CreateLabel;
+package interface_adapter.CreateLabel;
 
 public class CreateLabelState {
 
@@ -7,13 +7,13 @@ public class CreateLabelState {
     private String chosenLabel = "Favorites";
     private String displayMsg = null;
 
-    public CreateLabelState(){
+    public CreateLabelState(CreateLabelState copy){
         username = copy.username;
         password = copy.password;
         chosenLabel = copy.chosenLabel;
         displayMsg = copy.displayMsg;
     }
-
+    CreateLabelState(){}
     public String getChosenLabel() {
         return chosenLabel;
     }

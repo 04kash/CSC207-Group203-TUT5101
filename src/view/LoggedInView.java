@@ -35,14 +35,14 @@ public class LoggedInView extends JPanel {
 		JButton planner = new JButton("View Your Planner");
 		planner.setBounds(93, 139, 272, 23);
 		add(planner);
-//		planner.addActionListener(
-//				new ActionListener() {
-//					@Override
-//					public void actionPerformed(ActionEvent e) {
-//						ViewManager.showPlannerView();
-//					}
-//				}
-//		);
+		planner.addActionListener(
+				new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						ViewManager.showPlannerView();
+					}
+				}
+		);
 
 		JButton logOut = new JButton("Log out");
 		logOut.setBounds(93, 192, 272, 23);

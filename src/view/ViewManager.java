@@ -19,6 +19,7 @@ public class ViewManager implements PropertyChangeListener {
         this.viewManagerModel.addPropertyChangeListener(this);
     }
 
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("view")) {
@@ -37,10 +38,10 @@ public class ViewManager implements PropertyChangeListener {
         viewManagerModel.firePropertyChanged();
     }
 
-//    public static void showPlannerView() {
-//        viewManagerModel.setActiveView(PlannerView.viewName);
-//        viewManagerModel.firePropertyChanged();
-//    }
+    public static void showPlannerView() {
+        viewManagerModel.setActiveView(PlannerView.viewName);
+        viewManagerModel.firePropertyChanged();
+    }
 
     public static void showLoginView() {
         viewManagerModel.setActiveView(LogInView.viewName);
