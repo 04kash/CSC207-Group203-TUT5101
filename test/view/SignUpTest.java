@@ -1,12 +1,9 @@
-package view;
-
-//import interface_adapter.SignupController;
-//import interface_adapter.SignupViewModel;
-//import use_case.SignupInputBoundary;
+package test.view;
 
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupViewModel;
 import use_case.signup.SignupInputBoundary;
+import view.SignUp;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -31,8 +28,8 @@ public class SignUpTest {
         jf.setVisible(true);
 
         // get a reference to the first password field
-        JLabel panel = (JLabel) signupView.getComponent(2);
-        JPasswordField pwdField = (JPasswordField) panel.getComponent(1);
+//        JLabel panel = (JLabel) signupView.getComponent(2);
+        JPasswordField pwdField = (JPasswordField) signupView.getComponent(3);
 
         // create and dispatch KeyEvents to the UI
         KeyEvent event = new KeyEvent(
@@ -43,7 +40,7 @@ public class SignUpTest {
                 KeyEvent.VK_UNDEFINED, // for KEY_TYPED, the KeyCode is undefined per documentation
                 'y'); // the character that is being typed
 
-        panel.dispatchEvent(event);
+        pwdField.dispatchEvent(event);
 
 
         // pause execution for a second
@@ -67,7 +64,7 @@ public class SignUpTest {
                 KeyEvent.VK_RIGHT,
                 KeyEvent.CHAR_UNDEFINED
         );
-        panel.dispatchEvent(eventRight);
+        pwdField.dispatchEvent(eventRight);
 
         // pause execution for a second
         try {
@@ -84,7 +81,7 @@ public class SignUpTest {
                 0,
                 KeyEvent.VK_UNDEFINED,
                 'z');
-        panel.dispatchEvent(event2);
+        pwdField.dispatchEvent(event2);
 
 
         // pause execution for 3 seconds
