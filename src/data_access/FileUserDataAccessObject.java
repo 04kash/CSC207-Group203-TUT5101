@@ -12,7 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, CreateLableDataAccessInterface, SavingLocationUserDataAccessInterface {
+public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, CreateLabelDataAccessInterface, SavingLocationUserDataAccessInterface {
 
 
     private final File csvFile;
@@ -21,6 +21,8 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
 
     private final Map<String, User> accounts = new HashMap<>();
     private UserFactory userFactory;
+
+    private String currentUser;
 
     public FileUserDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
         this.userFactory = userFactory;
@@ -137,10 +139,28 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
 
     @Override
     public void addLocation(String username, Location location, Label newLabel) {
-        ArrayList<Location> locations = accounts.get(username).getPlanner().getLocations(newLabel);
-        locations.add(location);
+        Set<Label> labels = accounts.get(username).getPlanner().getLabel();
+        Label savedLabel = new Label();
+        boolean inPlanner = false;
+        for (Label label: labels) {
+            System.out.println(label.getTitle());
+            System.out.println(newLabel.getTitle());
+            if (label.getTitle().equals(newLabel.getTitle())) {
+                savedLabel = label;
+                inPlanner = true;
+            }
+        }
+        if (inPlanner) {
+            accounts.get(username).getPlanner().getLocations(savedLabel).add(location);
+        } else {
+            ArrayList<Location> list = new ArrayList<>();
+            list.add(location);
+            accounts.get(username).getPlanner().setLabel(savedLabel, list);
+        }
+//        System.out.println(accounts.get(username).getPlanner().getLocations(savedLabel));
         save();
-    }
+        }
+
 
     @Override
     public boolean locationExists(String username, Coordinate coordinate) {
@@ -190,5 +210,13 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
     @Override
     public boolean existsByName(String identifier) {
         return accounts.containsKey(identifier);
+    }
+
+    public String getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(String currentString) {
+        this.currentUser = currentString;
     }
 }

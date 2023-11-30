@@ -42,6 +42,7 @@ public class Main {
         ApiViewModel apiViewModel = new ApiViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
         DisplayingLocationsViewModel displayingLocationsViewModel = new DisplayingLocationsViewModel();
+        SavingLocationViewModel savingLocationViewModel = new SavingLocationViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
@@ -69,7 +70,7 @@ public class Main {
         SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, apiViewModel, displayingLocationsViewModel, apiUserDataAccessObject, apiUserDataAccessObject);
         views.add(searchView, searchView.viewName);
 
-        LocationView locationView = LocationUseCaseFactory.create(viewManagerModel, displayingLocationsViewModel, apiUserDataAccessObject);
+        LocationView locationView = LocationUseCaseFactory.create(viewManagerModel, displayingLocationsViewModel, savingLocationViewModel, apiUserDataAccessObject, userDataAccessObject);
         views.add(locationView, locationView.viewName);
 
         viewManagerModel.setActiveView(loginView.viewName);

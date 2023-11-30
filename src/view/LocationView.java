@@ -1,5 +1,6 @@
 package view;
 
+import entity.Label;
 import entity.Location;
 import interface_adapter.SavingLocation.SavingLocationController;
 import interface_adapter.displayingLocations.DisplayingLocationsController;
@@ -26,7 +27,7 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 	public DisplayingLocationsViewModel displayingLocationsViewModel;
 	public DisplayingLocationsController displayingLocationsController;
 
-//	public SavingLocationController savingLocationController;
+	public SavingLocationController savingLocationController;
 	public static final String viewName = "location view";
 //	public static ApiViewModel displayingLocationsViewModel;
 	private static final long serialVersionUID = 1L;
@@ -82,10 +83,11 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 	/**
 	 * Create the panel.
 	 */
-	public LocationView(DisplayingLocationsViewModel displayingLocationsViewModel, DisplayingLocationsController displayingLocationsController){
+	public LocationView(DisplayingLocationsViewModel displayingLocationsViewModel, DisplayingLocationsController displayingLocationsController, SavingLocationController savingLocationController){
 		this.setLayout(null);
 		this.displayingLocationsController = displayingLocationsController;
 		this.displayingLocationsViewModel = displayingLocationsViewModel;
+		this.savingLocationController = savingLocationController;
 		this.displayingLocationsViewModel.addPropertyChangeListener(this);
 		displayingLocationsController.execute();
 
@@ -650,8 +652,9 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 			save.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					Location saved = showSaveLocationDialog(displayingLocationsViewModel.getState().getLocations());
-
-//					savingLocationController.execute(saved.getName(), saved.getCoordinate().getLatitude(), saved.getCoordinate().getLongitude(), saved.getOsmLink(), saved.getFilter());
+					Label chosenLabel = new Label();
+					System.out.println(chosenLabel.getTitle());
+					savingLocationController.execute(chosenLabel.getTitle(), saved.getName(), saved.getCoordinate().getLatitude(), saved.getCoordinate().getLongitude(), saved.getOsmLink(), saved.getFilter());
 				}
 			});
 			save.setBounds(37, 11, 197, 23);

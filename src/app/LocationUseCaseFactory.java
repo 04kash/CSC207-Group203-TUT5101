@@ -8,6 +8,7 @@ import interface_adapter.displayingLocations.DisplayingLocationsController;
 import interface_adapter.displayingLocations.DisplayingLocationsPresenter;
 import interface_adapter.displayingLocations.DisplayingLocationsViewModel;
 import use_case.SavingLocation.SavingLocationInputBoundary;
+import use_case.SavingLocation.SavingLocationInteractor;
 import use_case.SavingLocation.SavingLocationOutputBoundary;
 import use_case.SavingLocation.SavingLocationUserDataAccessInterface;
 import use_case.displayingLocations.DisplayingLocationsInputBoundary;
@@ -20,10 +21,10 @@ public class LocationUseCaseFactory {
 
     private LocationUseCaseFactory() {}
 
-    public static LocationView create(ViewManagerModel viewManagerModel, DisplayingLocationsViewModel displayingLocationsViewModel, DisplayingLocationsUserDataAccessInterface userDataAccessInterface) {
+    public static LocationView create(ViewManagerModel viewManagerModel, DisplayingLocationsViewModel displayingLocationsViewModel, SavingLocationViewModel savingLocationViewModel, DisplayingLocationsUserDataAccessInterface userDataAccessInterface, SavingLocationUserDataAccessInterface userDataAccessInterface2) {
         DisplayingLocationsController displayingLocationsController = createLocationUser(viewManagerModel, displayingLocationsViewModel, userDataAccessInterface);
-//        SavingLocationController savingLocationController = createInstance(viewManagerModel, savingLocationViewModel, userDataAccessInterface2);
-        return new LocationView(displayingLocationsViewModel, displayingLocationsController);
+        SavingLocationController savingLocationController = createInstance(viewManagerModel, savingLocationViewModel, userDataAccessInterface2);
+        return new LocationView(displayingLocationsViewModel, displayingLocationsController, savingLocationController);
     }
 
     public static DisplayingLocationsController createLocationUser(ViewManagerModel viewManagerModel, DisplayingLocationsViewModel displayingLocationsViewModel, DisplayingLocationsUserDataAccessInterface userDataAccessInterface) {
@@ -33,10 +34,10 @@ public class LocationUseCaseFactory {
         return new DisplayingLocationsController(displayingLocationsInputBoundary);
     }
 
-//    public static SavingLocationController createInstance(ViewManagerModel viewManagerModel, SavingLocationViewModel savingLocationViewModel, SavingLocationUserDataAccessInterface userDataAccessInterface) {
-//        SavingLocationOutputBoundary savingLocationOutputBoundary = new SavingLocationPresenter(savingLocationViewModel, viewManagerModel);
-//        SavingLocationInputBoundary savingLocationInputBoundary = new DisplayingLocationsInteractor(userDataAccessInterface, savingLocationOutputBoundary);
-//
-//        return new SavingLocationController(savingLocationInputBoundary);
-//    }
+    public static SavingLocationController createInstance(ViewManagerModel viewManagerModel, SavingLocationViewModel savingLocationViewModel, SavingLocationUserDataAccessInterface userDataAccessInterface) {
+        SavingLocationOutputBoundary savingLocationOutputBoundary = new SavingLocationPresenter(savingLocationViewModel, viewManagerModel);
+        SavingLocationInputBoundary savingLocationInputBoundary = new SavingLocationInteractor(userDataAccessInterface, savingLocationOutputBoundary);
+
+        return new SavingLocationController(savingLocationInputBoundary);
+    }
 }
