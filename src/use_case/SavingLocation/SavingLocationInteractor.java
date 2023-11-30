@@ -2,26 +2,24 @@ package use_case.SavingLocation;
 
 import entity.*;
 
-public class SavingLocationInteractor {
+public class SavingLocationInteractor implements SavingLocationInputBoundary{
     final SavingLocationUserDataAccessInterface userDataAccessObject;
     final SavingLocationOutputBoundary userPresenter;
-    final UserFactory userFactory;
     public SavingLocationInteractor(SavingLocationUserDataAccessInterface savingLocationDataAccessInterface,
-                                    SavingLocationOutputBoundary savingLocationOutputBoundary,
-                                    UserFactory userFactory) {
+                                    SavingLocationOutputBoundary savingLocationOutputBoundary) {
         this.userDataAccessObject = savingLocationDataAccessInterface;
         this.userPresenter = savingLocationOutputBoundary;
-        this.userFactory = userFactory;
     }
     public void execute(SavingLocationInputData savingLocationInputData){
         Coordinate coordinate = new Coordinate(savingLocationInputData.getLatitude(), savingLocationInputData.getLongitude());
+        String currentUser = userDataAccessObject.getCurrentUser();
         Location chosenLocation = new Location(savingLocationInputData.getLocationName(),coordinate, savingLocationInputData.getLink(), savingLocationInputData.getFilters());
         Label chosenLabel = new Label(savingLocationInputData.getChosenLabel());
-        if(userDataAccessObject.locationExists(savingLocationInputData.getUsername(),coordinate)){
+        if(userDataAccessObject.locationExists(currentUser,coordinate)){
             userPresenter.prepareFailView("Location is already saved.");
         }else{
-            userDataAccessObject.addLocation(savingLocationInputData.getUsername(),chosenLocation,chosenLabel);
-            if(userDataAccessObject.locationExists(savingLocationInputData.getUsername(), coordinate)){
+            userDataAccessObject.addLocation(currentUser, chosenLocation, chosenLabel);
+            if(userDataAccessObject.locationExists(currentUser, coordinate)){
                 userPresenter.prepareSuccessView("Location saved successfully");
             }else{
                 userPresenter.prepareFailView("Location was not saved.Please try again.");
