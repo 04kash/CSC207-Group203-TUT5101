@@ -1,0 +1,102 @@
+package test.view;
+
+import interface_adapter.signup.SignupController;
+import interface_adapter.signup.SignupViewModel;
+import use_case.signup.SignupInputBoundary;
+import view.SignUp;
+
+import javax.swing.*;
+import java.awt.event.KeyEvent;
+
+import static java.lang.Thread.sleep;
+import static org.junit.Assert.assertEquals;
+//TODO: the test passes if you open up the screen but fails otherwise, I have no clue why, FIX THIS!!
+public class SignUpTest {
+
+    @org.junit.Test
+    public void testSignUp() {
+
+        // create the UI; note, we don't make a real SignupInputBoundary,
+        // since we don't need it for this test.
+        SignupInputBoundary sib = null;
+        SignupController controller = new SignupController(sib);
+        SignupViewModel viewModel = new SignupViewModel();
+        JPanel signupView = new SignUp(controller, viewModel);
+        JFrame jf = new JFrame();
+        jf.setContentPane(signupView);
+        jf.pack();
+        jf.setVisible(true);
+
+        // get a reference to the first password field
+//        JLabel panel = (JLabel) signupView.getComponent(2);
+        JPasswordField pwdField = (JPasswordField) signupView.getComponent(3);
+
+        // create and dispatch KeyEvents to the UI
+        KeyEvent event = new KeyEvent(
+                pwdField, // we are interacting with the pwdField
+                KeyEvent.KEY_TYPED, //
+                System.currentTimeMillis(), // say the event happened right now
+                0, // no modifiers
+                KeyEvent.VK_UNDEFINED, // for KEY_TYPED, the KeyCode is undefined per documentation
+                'y'); // the character that is being typed
+
+        pwdField.dispatchEvent(event);
+
+
+        // pause execution for a second
+        try {
+            sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        // print the current values the password field and view-model hold
+        System.out.println("field 1: " + new String(pwdField.getPassword()));
+        System.out.println("view-model: " + viewModel.getState().getPassword());
+
+        // move to the right in the password field, otherwise the event
+        // will type the character as the first character instead of the last!
+        KeyEvent eventRight = new KeyEvent(
+                pwdField,
+                KeyEvent.KEY_PRESSED,
+                System.currentTimeMillis(),
+                0,
+                KeyEvent.VK_RIGHT,
+                KeyEvent.CHAR_UNDEFINED
+        );
+        pwdField.dispatchEvent(eventRight);
+
+        // pause execution for a second
+        try {
+            sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        // type a second character
+        KeyEvent event2 = new KeyEvent(
+                pwdField,
+                KeyEvent.KEY_TYPED,
+                System.currentTimeMillis(),
+                0,
+                KeyEvent.VK_UNDEFINED,
+                'z');
+        pwdField.dispatchEvent(event2);
+
+
+        // pause execution for 3 seconds
+        try {
+            sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        // print the current values the password field and view-model hold
+        System.out.println("field 1: " + new String(pwdField.getPassword()));
+        System.out.println("view-model: " + viewModel.getState().getPassword());
+
+        // assert that the values are as expected.
+        assertEquals("yz", new String(pwdField.getPassword()));
+        assertEquals("yz", viewModel.getState().getPassword());
+    }
+}

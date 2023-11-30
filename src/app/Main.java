@@ -1,13 +1,14 @@
 package app;
 
+import data_access.APIDataAccessObject;
 import data_access.FileUserDataAccessObject;
 import entity.CommonUserFactory;
+import interface_adapter.SavingLocation.SavingLocationViewModel;
 import interface_adapter.api_returns.ApiViewModel;
+import interface_adapter.displayingLocations.DisplayingLocationsViewModel;
 import interface_adapter.login.LoginViewModel;
-//import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
-import use_case.login.LoginUserDataAccessInterface;
 import view.*;
 
 import javax.swing.*;
@@ -15,7 +16,7 @@ import java.awt.*;
 import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // Build the main program window, the main panel containing the
         // various cards, and the layout, and stitch them together.
 
@@ -38,8 +39,10 @@ public class Main {
         // results from the use case. The ViewModels are observable, and will
         // be observed by the Views.
         LoginViewModel loginViewModel = new LoginViewModel();
-        ApiViewModel loggedInViewModel = new ApiViewModel();
+        ApiViewModel apiViewModel = new ApiViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
+        DisplayingLocationsViewModel displayingLocationsViewModel = new DisplayingLocationsViewModel();
+        SavingLocationViewModel savingLocationViewModel = new SavingLocationViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
@@ -48,17 +51,27 @@ public class Main {
             throw new RuntimeException(e);
         }
 
+        APIDataAccessObject apiUserDataAccessObject;
+        try {
+            apiUserDataAccessObject = new APIDataAccessObject("./locations.csv");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         SignUp signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
         views.add(signupView, signupView.viewName);
 
-        LogInView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject);
+        LogInView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, apiViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
         LoggedInView loggedInView = new LoggedInView();
         views.add(loggedInView, loggedInView.viewName);
 
-        SearchView searchView = new SearchView();
+        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, apiViewModel, displayingLocationsViewModel, apiUserDataAccessObject, apiUserDataAccessObject);
         views.add(searchView, searchView.viewName);
+
+        LocationView locationView = LocationUseCaseFactory.create(viewManagerModel, displayingLocationsViewModel, savingLocationViewModel, apiUserDataAccessObject, userDataAccessObject);
+        views.add(locationView, locationView.viewName);
 
         viewManagerModel.setActiveView(loginView.viewName);
         viewManagerModel.firePropertyChanged();
