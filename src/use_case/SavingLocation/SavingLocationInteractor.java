@@ -2,26 +2,23 @@ package use_case.SavingLocation;
 
 import entity.*;
 
-public class SavingLocationInteractor {
+public class SavingLocationInteractor implements SavingLocationInputBoundary{
     final SavingLocationUserDataAccessInterface userDataAccessObject;
     final SavingLocationOutputBoundary userPresenter;
-    final UserFactory userFactory;
     public SavingLocationInteractor(SavingLocationUserDataAccessInterface savingLocationDataAccessInterface,
-                                    SavingLocationOutputBoundary savingLocationOutputBoundary,
-                                    UserFactory userFactory) {
+                                    SavingLocationOutputBoundary savingLocationOutputBoundary) {
         this.userDataAccessObject = savingLocationDataAccessInterface;
         this.userPresenter = savingLocationOutputBoundary;
-        this.userFactory = userFactory;
     }
     public void execute(SavingLocationInputData savingLocationInputData){
         Coordinate coordinate = new Coordinate(savingLocationInputData.getLatitude(), savingLocationInputData.getLongitude());
+        String currentUser = userDataAccessObject.getCurrentUser();
         Location chosenLocation = new Location(savingLocationInputData.getLocationName(),coordinate, savingLocationInputData.getLink(), savingLocationInputData.getFilters());
-        User currentUser = userDataAccessObject.getUser(savingLocationInputData.getUsername());
         Label chosenLabel = new Label(savingLocationInputData.getChosenLabel());
         if(userDataAccessObject.locationExists(currentUser,coordinate)){
             userPresenter.prepareFailView("Location is already saved.");
         }else{
-            userDataAccessObject.updateUserPlanner(currentUser,chosenLocation,chosenLabel);
+            userDataAccessObject.addLocation(currentUser, chosenLocation, chosenLabel);
             if(userDataAccessObject.locationExists(currentUser, coordinate)){
                 userPresenter.prepareSuccessView("Location saved successfully");
             }else{

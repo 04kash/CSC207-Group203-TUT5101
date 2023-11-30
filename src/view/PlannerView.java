@@ -1,19 +1,41 @@
 package view;
+
+import entity.Label;
+import interface_adapter.LocationsFromLabel.LocationsFromLabelController;
+import interface_adapter.LocationsFromLabel.LocationsFromLabelViewModel;
+import interface_adapter.displayingLabels.DisplayingLabelsController;
+import interface_adapter.displayingLabels.DisplayingLabelsViewModel;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-public class PlannerView extends JPanel {
+public class PlannerView extends JPanel implements ActionListener, PropertyChangeListener {
 	public static final String viewName = "planner";
-
+	public DisplayingLabelsViewModel displayingLabelsViewModel;
+	public DisplayingLabelsController displayingLabelsController;
+	public LocationsFromLabelController locationsFromLabelController;
+	public LocationsFromLabelViewModel locationsFromLabelViewModel;
 	private static final long serialVersionUID = 1L;
 	private List<JButton> buttonList;
 	private JComboBox<String> locationComboBox;
 	private JPanel centerButtonPanel; // Updated to make it accessible for dynamic updates
-
-	public PlannerView() {
-		setLayout(new BorderLayout()); // Use BorderLayout for the main panel
+  
+	public PlannerView(DisplayingLabelsViewModel displayingLabelsViewModel, DisplayingLabelsController displayingLabelsController, LocationsFromLabelViewModel locationsFromLabelViewModel, LocationsFromLabelController locationsFromLabelController) {
+		this.displayingLabelsController = displayingLabelsController;
+		this.displayingLabelsViewModel = displayingLabelsViewModel;
+		this.locationsFromLabelViewModel = locationsFromLabelViewModel;
+		this.locationsFromLabelController = locationsFromLabelController;
+		this.locationsFromLabelViewModel.addPropertyChangeListener(this);
+		this.displayingLabelsViewModel.addPropertyChangeListener(this);
+		setLayout(new BorderLayout());
+		displayingLabelsController.execute();
 
 		// Create a panel for the top buttons with a horizontal layout
 		JPanel topButtonPanel = new JPanel();
@@ -122,6 +144,7 @@ public class PlannerView extends JPanel {
 		}
 	}
 
+
 	private void addButton(String label, String message) {
 		JButton newButton = new JButton(label);
 		newButton.addActionListener(evt -> JOptionPane.showMessageDialog(null, message));
@@ -133,3 +156,28 @@ public class PlannerView extends JPanel {
 		revalidate();
 		repaint();
 	}}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		buttonList = new ArrayList<>(); // Initialize the list to store buttons
+
+		Set<Label> labels = displayingLabelsViewModel.getState().getLabels();
+		String[] buttonLabels = {};
+		for (Label label : labels) {
+			buttonLabels = new String[]{label.getTitle()};
+		}
+
+		for (String label : buttonLabels) {
+			JButton button = new JButton(label);
+			button.addActionListener(e -> JOptionPane.showMessageDialog(null, "Hi"));
+
+			buttonList.add(button); // Add the button to the list
+			add(button);
+		}
+	}
+}

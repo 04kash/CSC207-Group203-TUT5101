@@ -9,16 +9,14 @@ public class LocationsFromLabelInteractor implements LocationsFromLabelInputBoun
 
     final LocationsFromLabelUserDataAccessInterface userDataAccessObject;
     final LocationsFromLabelOutputBoundary userPresenter;
-    final UserFactory userFactory;
+//    final UserFactory userFactory;
     public LocationsFromLabelInteractor(LocationsFromLabelUserDataAccessInterface locationsFromLabelUserDataAccessInterface,
-                                    LocationsFromLabelOutputBoundary locationsFromLabelOutputBoundary,
-                                    UserFactory userFactory) {
+                                    LocationsFromLabelOutputBoundary locationsFromLabelOutputBoundary) {
         this.userDataAccessObject = locationsFromLabelUserDataAccessInterface;
         this.userPresenter = locationsFromLabelOutputBoundary;
-        this.userFactory = userFactory;
     }
     @Override
-    public static void execute(LocationsFromLabelInputData locationsFromLabelInputData) {
+    public void execute(LocationsFromLabelInputData locationsFromLabelInputData) {
         String username = userDataAccessObject.getCurrentUser();
         if(userDataAccessObject.labelExists(username,new Label(locationsFromLabelInputData.getLabel()))){
             LocationsFromLabelOutputData outputData;

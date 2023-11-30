@@ -31,13 +31,13 @@ public class SignUp extends JPanel implements ActionListener, PropertyChangeList
 		this.signupController = controller;
 		signupViewModel.addPropertyChangeListener(this);
 		
-		JLabel lblNewLabel = new JLabel("username:");
-		lblNewLabel.setBounds(81, 79, 97, 14);
-		add(lblNewLabel);
+		JLabel username = new JLabel("username:");
+		username.setBounds(81, 79, 97, 14);
+		add(username);
 		
-		JLabel lblNewLabel_1 = new JLabel("password:");
-		lblNewLabel_1.setBounds(81, 132, 97, 14);
-		add(lblNewLabel_1);
+		JLabel password = new JLabel("password:");
+		password.setBounds(81, 132, 97, 14);
+		add(password);
 		
 		usernameField = new JTextField();
 		usernameField.setBounds(200, 76, 140, 20);

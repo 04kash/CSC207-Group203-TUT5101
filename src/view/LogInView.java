@@ -81,7 +81,7 @@ public class LogInView extends JPanel implements ActionListener, PropertyChangeL
 									currentState.getPassword()
 							);
 
-							ViewManager.showLoggedinView();
+//							ViewManager.showLoggedinView();
 						}
 					}
 				}

@@ -22,7 +22,7 @@ public class LocationsFromLabelPresenter implements LocationsFromLabelOutputBoun
     @Override
     public void prepareSuccessView(LocationsFromLabelOutputData locationsFromLabelOutputData) {
         LocationsFromLabelState locationsFromLabelState = locationsFromLabelViewModel.getState();
-        locationsFromLabelState.setLocations(locationsFromLabelOutputData.locations);
+        locationsFromLabelState.setLocation(locationsFromLabelOutputData.locations);
         this.locationsFromLabelViewModel.setState(locationsFromLabelState);
         this.locationsFromLabelViewModel.firePropertyChanged();
 
@@ -34,7 +34,7 @@ public class LocationsFromLabelPresenter implements LocationsFromLabelOutputBoun
     @Override
     public void prepareFailView(String error) {
         LocationsFromLabelState locationsFromLabelState = locationsFromLabelViewModel.getState();
-        locationsFromLabelState.setError(error);
+        locationsFromLabelState.setLocationsError(error);
         locationsFromLabelViewModel.firePropertyChanged();
     }
 }
