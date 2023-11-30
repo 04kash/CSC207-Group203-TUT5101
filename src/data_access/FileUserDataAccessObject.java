@@ -4,6 +4,7 @@ import entity.*;
 import use_case.SavingLocation.SavingLocationUserDataAccessInterface;
 import use_case.CreateLabel.CreateLabelDataAccessInterface;
 import use_case.LocationsFromLabel.LocationsFromLabelUserDataAccessInterface;
+import use_case.displayingLabels.DisplayingLabelsUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
@@ -12,7 +13,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, CreateLabelDataAccessInterface, SavingLocationUserDataAccessInterface, LocationsFromLabelUserDataAccessInterface {
+public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, CreateLabelDataAccessInterface, SavingLocationUserDataAccessInterface, LocationsFromLabelUserDataAccessInterface, DisplayingLabelsUserDataAccessInterface {
 
     private final File csvFile;
 

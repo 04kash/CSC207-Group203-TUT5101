@@ -3,8 +3,11 @@ package app;
 import data_access.APIDataAccessObject;
 import data_access.FileUserDataAccessObject;
 import entity.CommonUserFactory;
+import entity.Planner;
+import interface_adapter.LocationsFromLabel.LocationsFromLabelViewModel;
 import interface_adapter.SavingLocation.SavingLocationViewModel;
 import interface_adapter.api_returns.ApiViewModel;
+import interface_adapter.displayingLabels.DisplayingLabelsViewModel;
 import interface_adapter.displayingLocations.DisplayingLocationsViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
@@ -43,6 +46,8 @@ public class Main {
         SignupViewModel signupViewModel = new SignupViewModel();
         DisplayingLocationsViewModel displayingLocationsViewModel = new DisplayingLocationsViewModel();
         SavingLocationViewModel savingLocationViewModel = new SavingLocationViewModel();
+        LocationsFromLabelViewModel locationsFromLabelViewModel = new LocationsFromLabelViewModel();
+        DisplayingLabelsViewModel displayingLabelsViewModel = new DisplayingLabelsViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
@@ -72,6 +77,9 @@ public class Main {
 
         LocationView locationView = LocationUseCaseFactory.create(viewManagerModel, displayingLocationsViewModel, savingLocationViewModel, apiUserDataAccessObject, userDataAccessObject);
         views.add(locationView, locationView.viewName);
+
+        PlannerView plannerView = PlannerUseCaseFactory.create(viewManagerModel, displayingLabelsViewModel, locationsFromLabelViewModel, userDataAccessObject, userDataAccessObject);
+        views.add(plannerView, plannerView.viewName);
 
         viewManagerModel.setActiveView(loginView.viewName);
         viewManagerModel.firePropertyChanged();
