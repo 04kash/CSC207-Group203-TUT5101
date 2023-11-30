@@ -1,22 +1,45 @@
 package view;
+
+import entity.Label;
+import interface_adapter.LocationsFromLabel.LocationsFromLabelController;
+import interface_adapter.LocationsFromLabel.LocationsFromLabelViewModel;
+import interface_adapter.displayingLabels.DisplayingLabelsController;
+import interface_adapter.displayingLabels.DisplayingLabelsViewModel;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-public class PlannerView extends JPanel {
+public class PlannerView extends JPanel implements ActionListener, PropertyChangeListener {
 	public static final String viewName = "planner";
-
+	public DisplayingLabelsViewModel displayingLabelsViewModel;
+	public DisplayingLabelsController displayingLabelsController;
+	public LocationsFromLabelController locationsFromLabelController;
+	public LocationsFromLabelViewModel locationsFromLabelViewModel;
 	private static final long serialVersionUID = 1L;
 	private List<JButton> buttonList;
-	private JComboBox<String> comboBox;
 	private JComboBox<String> locationComboBox;
+	private JPanel centerButtonPanel; // Updated to make it accessible for dynamic updates
+  
+	public PlannerView(DisplayingLabelsViewModel displayingLabelsViewModel, DisplayingLabelsController displayingLabelsController, LocationsFromLabelViewModel locationsFromLabelViewModel, LocationsFromLabelController locationsFromLabelController) {
+		this.displayingLabelsController = displayingLabelsController;
+		this.displayingLabelsViewModel = displayingLabelsViewModel;
+		this.locationsFromLabelViewModel = locationsFromLabelViewModel;
+		this.locationsFromLabelController = locationsFromLabelController;
+		this.locationsFromLabelViewModel.addPropertyChangeListener(this);
+		this.displayingLabelsViewModel.addPropertyChangeListener(this);
+		setLayout(new BorderLayout());
+		displayingLabelsController.execute();
 
-	public PlannerView() {
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-		// Create a panel for the top buttons with a horizontal flow layout
-		JPanel topButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		// Create a panel for the top buttons with a horizontal layout
+		JPanel topButtonPanel = new JPanel();
+		topButtonPanel.setLayout(new FlowLayout());
 
 		// Add the "Delete Location" button
 		JButton deleteLocationButton = new JButton("Delete Location");
@@ -28,32 +51,38 @@ public class PlannerView extends JPanel {
 		deleteLabelButton.addActionListener(e -> showDeleteLabelPopup());
 		topButtonPanel.add(deleteLabelButton);
 
+		// Add the "Create Label" button
+		JButton createLabelButton = new JButton("Create Label");
+		createLabelButton.addActionListener(e -> showCreateLabelPopup());
+		topButtonPanel.add(createLabelButton);
+
 		// Add the "Go to Homepage" button
 		JButton goToHomepageButton = new JButton("Go to Homepage");
 		topButtonPanel.add(goToHomepageButton);
 
-		// Add the "Add a new Label" button
-		JButton addNewLabelButton = new JButton("Add a new Label");
-		addNewLabelButton.addActionListener(e -> showAddNewLabelPopup());
-		topButtonPanel.add(addNewLabelButton);
-
-		// Add the top button panel to the main panel
-		add(topButtonPanel);
-
-		JLabel lblNewLabel = new JLabel("Your Labels:");
-		add(lblNewLabel);
+		// Add the top button panel to the NORTH position
+		add(topButtonPanel, BorderLayout.NORTH);
 
 		buttonList = new ArrayList<>(); // Initialize the list to store buttons
 
-		String[] buttonLabels = {"Button 1", "Button 2", "Button 3", "Button 4", "Button 5"};
+		// Initialize the center panel with buttons
+		initializeCenterPanel();
+	}
 
-		for (String label : buttonLabels) {
-			JButton button = new JButton(label);
-			button.addActionListener(e -> JOptionPane.showMessageDialog(null, "Hi"));
+	private void initializeCenterPanel() {
+		// Create a panel for the center buttons with a vertical layout
+		centerButtonPanel = new JPanel();
+		centerButtonPanel.setLayout(new BoxLayout(centerButtonPanel, BoxLayout.Y_AXIS));
 
-			buttonList.add(button); // Add the button to the list
-			add(button);
-		}
+		// Wrap the center button panel with a JScrollPane
+		JScrollPane scrollPane = new JScrollPane(centerButtonPanel);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); // Set scroll bar policy
+
+		// Add the scroll pane to the CENTER position
+		add(scrollPane, BorderLayout.CENTER);
+
+		// Add the "Favourites" button initially
+		addButton("Favourites", "Hi");
 	}
 
 	private void showDeleteLabelPopup() {
@@ -76,6 +105,7 @@ public class PlannerView extends JPanel {
 			for (JButton button : buttonList) {
 				if (button.getText().equals(selectedLabel)) {
 					buttonList.remove(button);
+					centerButtonPanel.remove(button); // Remove the button from centerButtonPanel
 					remove(button);
 
 					// Revalidate and repaint
@@ -106,19 +136,48 @@ public class PlannerView extends JPanel {
 		}
 	}
 
-	private void showAddNewLabelPopup() {
-		// Implement the logic for "Add a new Label" popup here
+	private void showCreateLabelPopup() {
+		// Implement the logic for "Create Label" popup here
 		String newLabelName = JOptionPane.showInputDialog(null, "Enter label name:");
 		if (newLabelName != null && !newLabelName.isEmpty()) {
-			JButton newButton = new JButton(newLabelName);
-			newButton.addActionListener(evt -> JOptionPane.showMessageDialog(null, newLabelName));
+			addButton(newLabelName, newLabelName);
+		}
+	}
 
-			buttonList.add(newButton);
-			add(newButton);
 
-			// Revalidate and repaint
-			revalidate();
-			repaint();
+	private void addButton(String label, String message) {
+		JButton newButton = new JButton(label);
+		newButton.addActionListener(evt -> JOptionPane.showMessageDialog(null, message));
+
+		buttonList.add(newButton);
+		centerButtonPanel.add(newButton); // Add the button to the centerButtonPanel
+
+		// Revalidate and repaint
+		revalidate();
+		repaint();
+	}}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		buttonList = new ArrayList<>(); // Initialize the list to store buttons
+
+		Set<Label> labels = displayingLabelsViewModel.getState().getLabels();
+		String[] buttonLabels = {};
+		for (Label label : labels) {
+			buttonLabels = new String[]{label.getTitle()};
+		}
+
+		for (String label : buttonLabels) {
+			JButton button = new JButton(label);
+			button.addActionListener(e -> JOptionPane.showMessageDialog(null, "Hi"));
+
+			buttonList.add(button); // Add the button to the list
+			add(button);
 		}
 	}
 }
