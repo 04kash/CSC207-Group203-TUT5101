@@ -13,9 +13,7 @@ public class CreateLabelState {
         chosenLabel = copy.chosenLabel;
         displayMsg = copy.displayMsg;
     }
-
-    public CreateLabelState(){};
-
+    CreateLabelState(){}
     public String getChosenLabel() {
         return chosenLabel;
     }

@@ -2,7 +2,6 @@ package interface_adapter.SavingLocation;
 
 public class SavingLocationState {
     private String username=""; //TODO:get username from APIState
-    private String password="";
     private String chosenLabel = "favourites";
     private String locationName="";
     private double latitude=0;
@@ -12,7 +11,6 @@ public class SavingLocationState {
     private String displayMsg=null;
     public SavingLocationState(SavingLocationState copy){
         username = copy.username;
-        password = copy.password;
         chosenLabel = copy.chosenLabel;
         locationName = copy.locationName;
         latitude = copy.latitude;
@@ -29,10 +27,6 @@ public class SavingLocationState {
 
     public String getUsername() {
         return username;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public String getLocationName() {
@@ -61,10 +55,6 @@ public class SavingLocationState {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public void setLocationName(String locationName) {

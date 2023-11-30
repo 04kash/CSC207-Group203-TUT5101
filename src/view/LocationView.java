@@ -115,7 +115,6 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 		heading.setBounds(270, 11, 279, 39);
 		add(heading);
 
-
 		JLabel location1Label = new JLabel("1.");
 		location1Label.setBounds(26, 45, 17, 14);
 		add(location1Label);
