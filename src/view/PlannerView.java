@@ -82,7 +82,7 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 		add(scrollPane, BorderLayout.CENTER);
 
 		// Add the "Favourites" button initially
-		addButton("Favourites", "Hi");
+		//addButton("Favourites");
 	}
 
 	private void showDeleteLabelPopup() {
@@ -140,22 +140,12 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 		// Implement the logic for "Create Label" popup here
 		String newLabelName = JOptionPane.showInputDialog(null, "Enter label name:");
 		if (newLabelName != null && !newLabelName.isEmpty()) {
-			addButton(newLabelName, newLabelName);
+			//addButton(newLabelName);
 		}
 	}
 
 
-	private void addButton(String label, String message) {
-		JButton newButton = new JButton(label);
-		newButton.addActionListener(evt -> JOptionPane.showMessageDialog(null, message));
 
-		buttonList.add(newButton);
-		centerButtonPanel.add(newButton); // Add the button to the centerButtonPanel
-
-		// Revalidate and repaint
-		revalidate();
-		repaint();
-	}}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -167,17 +157,18 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 		buttonList = new ArrayList<>(); // Initialize the list to store buttons
 
 		Set<Label> labels = displayingLabelsViewModel.getState().getLabels();
-		String[] buttonLabels = {};
+		ArrayList<String> buttonLabels = new ArrayList<>();
 		for (Label label : labels) {
-			buttonLabels = new String[]{label.getTitle()};
+			buttonLabels.add(label.getTitle());
 		}
 
 		for (String label : buttonLabels) {
 			JButton button = new JButton(label);
-			button.addActionListener(e -> JOptionPane.showMessageDialog(null, "Hi"));
-
+			locationsFromLabelController.execute(button.getText());
+			JOptionPane.showMessageDialog(null, locationsFromLabelViewModel.getState().getLocation());
 			buttonList.add(button); // Add the button to the list
 			add(button);
 		}
 	}
 }
+

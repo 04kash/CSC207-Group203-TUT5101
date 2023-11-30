@@ -1,5 +1,7 @@
 package view;
 
+import interface_adapter.displayingLabels.DisplayingLabelsController;
+
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -11,11 +13,13 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 
 	public static final String viewName = "logged in";
 	private static final long serialVersionUID = 1L;
+	public final DisplayingLabelsController displayingLabelsController;
 
 	/**
 	 * Create the panel.
 	 */
-	public LoggedInView() {
+	public LoggedInView(DisplayingLabelsController displayingLabelsController) {
+		this.displayingLabelsController=displayingLabelsController;
 		this.setLayout(null);
 
 		JButton locationSearch = new JButton("Search New Locations");
@@ -34,14 +38,15 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 		JButton planner = new JButton("View Your Planner");
 		planner.setBounds(93, 139, 272, 23);
 		add(planner);
-//		planner.addActionListener(
-//				new ActionListener() {
-//					@Override
-//					public void actionPerformed(ActionEvent e) {
-//						ViewManager.showLocationView();
-//					}
-//				}
-//		);
+		planner.addActionListener(
+				new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						ViewManager.showPlannerView();
+						displayingLabelsController.execute();
+					}
+				}
+		);
 
 		JButton logOut = new JButton("Log out");
 		logOut.setBounds(93, 192, 272, 23);
