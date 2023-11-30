@@ -1,6 +1,7 @@
 package data_access;
 
 import entity.*;
+import use_case.SavingLocation.SavingLocationUserDataAccessInterface;
 import use_case.CreateLabel.CreateLabelDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
@@ -10,7 +11,9 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, CreateLabelDataAccessInterface {
+
+public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, CreateLabelDataAccessInterface, SavingLocationUserDataAccessInterface {
+
 
     private final File csvFile;
 
@@ -18,6 +21,8 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
 
     private final Map<String, User> accounts = new HashMap<>();
     private UserFactory userFactory;
+
+    private String currentUser;
 
     public FileUserDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
         this.userFactory = userFactory;
@@ -48,6 +53,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                         planner1 = parsePlanner(planner);
                     }
                     User user = userFactory.create(username, password, planner1);
+                    System.out.println(username);
                     accounts.put(username, user);
                 }
             }
@@ -132,6 +138,49 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
     }
 
     @Override
+    public void addLocation(String username, Location location, Label newLabel) {
+        Set<Label> labels = accounts.get(username).getPlanner().getLabel();
+        Label savedLabel = new Label();
+        boolean inPlanner = false;
+        for (Label label: labels) {
+            System.out.println(label.getTitle());
+            System.out.println(newLabel.getTitle());
+            if (label.getTitle().equals(newLabel.getTitle())) {
+                savedLabel = label;
+                inPlanner = true;
+            }
+        }
+        if (inPlanner) {
+            accounts.get(username).getPlanner().getLocations(savedLabel).add(location);
+        } else {
+            ArrayList<Location> list = new ArrayList<>();
+            list.add(location);
+            accounts.get(username).getPlanner().setLabel(savedLabel, list);
+        }
+//        System.out.println(accounts.get(username).getPlanner().getLocations(savedLabel));
+        save();
+        }
+
+
+    @Override
+    public boolean locationExists(String username, Coordinate coordinate) {
+        User user = accounts.get(username);
+        Label[] labels = user.getPlanner().getLabel().toArray(new Label[0]);
+        for (Label label : labels) {
+            ArrayList<Location> locations = user.getPlanner().getLocations(label);
+
+            for (Location location : locations) {
+                if (location.getCoordinate().equals(coordinate)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+
+
     public void addLabelToPlanner(String username, Label newLabel) {
          Planner userPlanner = accounts.get(username).getPlanner();
         userPlanner.setLabel(newLabel, new ArrayList<>());
@@ -152,6 +201,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
        return false;
     }
 
+
     @Override
     public User get(String username) {
         return accounts.get(username);
@@ -160,5 +210,13 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
     @Override
     public boolean existsByName(String identifier) {
         return accounts.containsKey(identifier);
+    }
+
+    public String getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(String currentString) {
+        this.currentUser = currentString;
     }
 }

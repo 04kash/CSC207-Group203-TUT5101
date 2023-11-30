@@ -1,8 +1,7 @@
 package use_case.SavingLocation;
 
 public class SavingLocationInputData {
-    final private String username;
-    private final String password;
+//    final private String username;
     private String chosenLabel = "favourites";
     String locationName;
     double latitude;
@@ -10,23 +9,13 @@ public class SavingLocationInputData {
     String mapLink;
     String filter;
 
-    public SavingLocationInputData(String username,String password, String chosenLabel, String locationName, double latitude, double longitude, String mapLink, String filter) {
-        this.username = username;
-        this.password = password;
+    public SavingLocationInputData(String chosenLabel, String locationName, double latitude, double longitude, String mapLink, String filter) {
         this.chosenLabel = chosenLabel;
         this.locationName = locationName;
         this.latitude = latitude;
         this.longitude = longitude;
         this.mapLink = mapLink;
         this.filter = filter;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public double getLatitude() {

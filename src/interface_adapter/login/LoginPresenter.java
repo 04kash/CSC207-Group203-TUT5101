@@ -5,6 +5,7 @@ import interface_adapter.api_returns.ApiViewModel;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
 import interface_adapter.ViewManagerModel;
+import view.ViewManager;
 
 public class LoginPresenter implements LoginOutputBoundary {
 
@@ -28,9 +29,10 @@ public class LoginPresenter implements LoginOutputBoundary {
         loggedInState.setUsername(response.getUsername());
         this.loggedInViewModel.setState(loggedInState);
         this.loggedInViewModel.firePropertyChanged();
-
+//
         this.viewManagerModel.setActiveView(loggedInViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
+//        ViewManager.showLoggedinView();
     }
 
     @Override

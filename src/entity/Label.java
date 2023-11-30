@@ -1,8 +1,9 @@
 package entity;
 
 public class Label {
-    private final String title;
+    private String title = "favorite";
 
+    public Label() {}
     public Label(String title) {
         this.title = title;
     }
