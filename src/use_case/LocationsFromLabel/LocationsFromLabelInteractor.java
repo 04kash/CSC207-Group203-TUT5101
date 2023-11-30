@@ -18,7 +18,7 @@ public class LocationsFromLabelInteractor implements LocationsFromLabelInputBoun
         this.userFactory = userFactory;
     }
     @Override
-    public static void execute(LocationsFromLabelInputData locationsFromLabelInputData) {
+    public void execute(LocationsFromLabelInputData locationsFromLabelInputData) {
         String username = userDataAccessObject.getCurrentUser();
         if(userDataAccessObject.labelExists(username,new Label(locationsFromLabelInputData.getLabel()))){
             LocationsFromLabelOutputData outputData;

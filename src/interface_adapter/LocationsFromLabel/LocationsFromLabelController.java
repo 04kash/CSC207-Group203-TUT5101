@@ -12,6 +12,6 @@ public class LocationsFromLabelController {
     }
     public void execute(String chosenLabel){
         LocationsFromLabelInputData savingLocationInputData = new LocationsFromLabelInputData(chosenLabel);
-        LocationsFromLabelInteractor.execute(savingLocationInputData);
+        locationsFromLabelInteractor.execute(savingLocationInputData);
     }
 }
