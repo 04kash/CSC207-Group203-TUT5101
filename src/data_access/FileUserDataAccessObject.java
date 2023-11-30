@@ -2,6 +2,7 @@ package data_access;
 
 import entity.*;
 import use_case.CreateLabel.CreateLabelDataAccessInterface;
+import use_case.LocationsFromLabel.LocationsFromLabelUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
@@ -10,7 +11,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, CreateLabelDataAccessInterface {
+public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, CreateLabelDataAccessInterface, LocationsFromLabelUserDataAccessInterface {
 
     private final File csvFile;
 
@@ -140,6 +141,12 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
     }
 
     @Override
+    public ArrayList<Location> getLocationsFromLabel(String username, Label label) {
+        ArrayList<Location> locations = accounts.get(username).getPlanner().getLocations(label);
+        return locations;
+    }
+
+    @Override
     public boolean labelExists(String username,Label label) {
        User user = accounts.get(username);
        Label[] labels = user.getPlanner().getLabel().toArray(new Label[0]);
@@ -150,6 +157,11 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
 
        }
        return false;
+    }
+
+    @Override
+    public String getCurrentUser() {
+        return null;
     }
 
     @Override
