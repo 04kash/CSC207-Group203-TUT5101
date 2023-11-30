@@ -1,4 +1,4 @@
-package use_case.CreateLabel;
+package test.use_case.CreateLabel;
 
 import entity.Planner;
 import org.junit.jupiter.api.BeforeEach;
