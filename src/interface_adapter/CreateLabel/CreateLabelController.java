@@ -12,8 +12,8 @@ public class CreateLabelController {
         this.createLabelInteractor = createLabelInteractor;
     }
 
-    public void execute(String username, String password, String label){
-        CreateLabelInputData createLabelInputData = new CreateLabelInputData(username, password, label);
+    public void execute(String label){
+        CreateLabelInputData createLabelInputData = new CreateLabelInputData(label);
         createLabelInteractor.excecute(createLabelInputData);
     }
 }
