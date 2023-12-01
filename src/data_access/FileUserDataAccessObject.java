@@ -241,15 +241,15 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
 
     @Override
     public boolean labelExists(String username,Label label) {
-       User user = accounts.get(username);
-       Label[] labels = user.getPlanner().getLabel().toArray(new Label[0]);
-       for(Label labelInPlanner:labels){
-           if(Objects.equals(labelInPlanner.getTitle(), label.getTitle())){
-               return true;
-           }
+        User user = accounts.get(username);
+        Label[] labels = user.getPlanner().getLabel().toArray(new Label[0]);
+        for(Label labelInPlanner:labels){
+            if(Objects.equals(labelInPlanner.getTitle(), label.getTitle())){
+                return true;
+            }
 
-       }
-       return false;
+        }
+        return false;
     }
 
 
@@ -267,6 +267,21 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
     @Override
     public String getCurrentUser() {
         return currentUser;
+    }
+
+    @Override
+    public boolean labelIsEmpty(String username,Label label) {
+        User user = accounts.get(username);
+        Label[] labels = user.getPlanner().getLabel().toArray(new Label[0]);
+        for(Label labelInPlanner:labels){
+            if(Objects.equals(labelInPlanner.getTitle(), label.getTitle())){
+                if(user.getPlanner().getLocations(labelInPlanner).isEmpty()){
+                    return true;
+                }
+            }
+
+        }
+        return false;
     }
 
     @Override

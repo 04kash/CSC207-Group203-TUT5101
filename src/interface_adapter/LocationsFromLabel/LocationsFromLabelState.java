@@ -5,26 +5,20 @@ import entity.Location;
 import java.util.ArrayList;
 
 public class LocationsFromLabelState {
-    private static String location = null;
+    private static String displayMsg = null;
 
-    private String locationsError = "";
 
     public LocationsFromLabelState() {}
 
     public LocationsFromLabelState(LocationsFromLabelState copy) {
-        location = copy.location;
-        locationsError = copy.locationsError;
+        displayMsg = copy.displayMsg;
     }
 
-    public static void setLocation(String location) {
-        LocationsFromLabelState.location = location;
+    public static void setDisplayMsg(String msg) {
+        LocationsFromLabelState.displayMsg = msg;
     }
 
-    public void setLocationsError(String locationsError) {
-        this.locationsError = locationsError;
-    }
-
-    public static String getLocation() {
-        return location;
+    public static String getDisplayMsg() {
+        return displayMsg;
     }
 }
