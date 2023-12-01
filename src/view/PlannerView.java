@@ -2,8 +2,10 @@ package view;
 
 import entity.Label;
 import interface_adapter.LocationsFromLabel.LocationsFromLabelController;
+import interface_adapter.LocationsFromLabel.LocationsFromLabelState;
 import interface_adapter.LocationsFromLabel.LocationsFromLabelViewModel;
 import interface_adapter.displayingLabels.DisplayingLabelsController;
+import interface_adapter.displayingLabels.DisplayingLabelsState;
 import interface_adapter.displayingLabels.DisplayingLabelsViewModel;
 
 import javax.swing.*;
@@ -23,7 +25,7 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 	public LocationsFromLabelController locationsFromLabelController;
 	public LocationsFromLabelViewModel locationsFromLabelViewModel;
 	private static final long serialVersionUID = 1L;
-	private List<JButton> buttonList;
+	private final List<JButton> buttonList;
 	private JComboBox<String> locationComboBox;
 	private JPanel centerButtonPanel; // Updated to make it accessible for dynamic updates
   
@@ -140,35 +142,58 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 		// Implement the logic for "Create Label" popup here
 		String newLabelName = JOptionPane.showInputDialog(null, "Enter label name:");
 		if (newLabelName != null && !newLabelName.isEmpty()) {
-			//addButton(newLabelName);
+			addButton(newLabelName);
 		}
 	}
 
+	private void addButton(String label) {
+		JButton newButton = new JButton(label);
+		newButton.addActionListener(evt -> JOptionPane.showMessageDialog(null, "Button Label: " + newButton.getText()));
 
+		buttonList.add(newButton);
+		centerButtonPanel.add(newButton); // Add the button to the centerButtonPanel
 
+		// Revalidate and repaint
+		revalidate();
+		repaint();
+	}
 
-	@Override
+    @Override
 	public void actionPerformed(ActionEvent e) {
 
 	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		buttonList = new ArrayList<>(); // Initialize the list to store buttons
+		SwingUtilities.invokeLater(() -> {
+			buttonList.clear(); // Clear the existing list
 
-		Set<Label> labels = displayingLabelsViewModel.getState().getLabels();
-		ArrayList<String> buttonLabels = new ArrayList<>();
-		for (Label label : labels) {
-			buttonLabels.add(label.getTitle());
-		}
+			Set<Label> labels = DisplayingLabelsState.getLabels();
+			ArrayList<String> buttonLabels = new ArrayList<>();
+			for (Label label : labels) {
+				buttonLabels.add(label.getTitle());
+			}
 
-		for (String label : buttonLabels) {
-			JButton button = new JButton(label);
-			locationsFromLabelController.execute(button.getText());
-			JOptionPane.showMessageDialog(null, locationsFromLabelViewModel.getState().getLocation());
-			buttonList.add(button); // Add the button to the list
-			add(button);
-		}
+			centerButtonPanel.removeAll(); // Clear existing buttons from the panel
+
+			for (String label : buttonLabels) {
+				JButton button = new JButton(label);
+
+				// Add a listener to each button
+				button.addActionListener(e -> {
+					locationsFromLabelController.execute(button.getText());
+					JOptionPane.showMessageDialog(null, "Button Label: " + LocationsFromLabelState.getLocation());
+				});
+
+				buttonList.add(button); // Add the button to the list
+				centerButtonPanel.add(button); // Add the button to the panel
+			}
+
+			// Revalidate and repaint the panel
+			centerButtonPanel.revalidate();
+			centerButtonPanel.repaint();
+		});
 	}
+
 }
 
