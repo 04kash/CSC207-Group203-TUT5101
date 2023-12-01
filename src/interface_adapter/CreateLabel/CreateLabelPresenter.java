@@ -12,6 +12,7 @@ public class CreateLabelPresenter implements CreateLabelOutputBoundary {
         CreateLabelState state = createLabelViewModel.getState();
         state.setDisplayMessage(success);
         createLabelViewModel.firePropertyChanged();
+
     }
     @Override
     public void prepareFailView(String error){

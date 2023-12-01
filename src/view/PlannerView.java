@@ -61,12 +61,16 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 
 		// Add the "Create Label" button
 		JButton createLabelButton = new JButton("Create Label");
-		createLabelButton.addActionListener(e -> showCreateLabelPopup());
+		createLabelButton.addActionListener(e -> {showCreateLabelPopup();
+			revalidate();
+			repaint();
+		});
 		topButtonPanel.add(createLabelButton);
 
 		// Add the "Go to Homepage" button
 		JButton goToHomepageButton = new JButton("Go to Homepage");
 		topButtonPanel.add(goToHomepageButton);
+		goToHomepageButton.addActionListener(e->ViewManager.showLoggedinView());
 
 		// Add the top button panel to the NORTH position
 		add(topButtonPanel, BorderLayout.NORTH);
@@ -147,25 +151,49 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 	private void showCreateLabelPopup() {
 		// Implement the logic for "Create Label" popup here
 		String newLabelName = JOptionPane.showInputDialog(null, "Enter label name:");
+
 		if (newLabelName != null && !newLabelName.isEmpty()) {
-			//addButton(newLabelName);
 			createLabelController.execute(newLabelName);
-			JOptionPane.showMessageDialog(null,createLabelViewModel.getState().getDisplayMsg());
 
+			// Create a custom dialog with a button
+			JDialog dialog = new JDialog();
+			dialog.setTitle("Add a New Label");
+
+			JPanel panel = new JPanel();
+			JButton okButton = new JButton("OK");
+			panel.add(new JLabel(createLabelViewModel.getState().getDisplayMsg()));
+			panel.add(okButton);
+
+			okButton.addActionListener(e -> {
+				displayingLabelsController.execute();
+				dialog.dispose();  // Close the dialog
+			});
+
+			dialog.add(panel);
+			dialog.pack();
+			dialog.setLocationRelativeTo(null);  // Center the dialog on the screen
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);  // Dispose on close, no default close operation
+
+			dialog.setVisible(true);
+
+			// addButton(newLabelName);
 		}
-	}
 
-	private void addButton(String label) {
-		JButton newButton = new JButton(label);
-		newButton.addActionListener(evt -> JOptionPane.showMessageDialog(null, "Button Label: " + newButton.getText()));
-
-		buttonList.add(newButton);
-		centerButtonPanel.add(newButton); // Add the button to the centerButtonPanel
-
-		// Revalidate and repaint
 		revalidate();
 		repaint();
 	}
+
+//	private void addButton(String label) {
+//		JButton newButton = new JButton(label);
+//		newButton.addActionListener(evt -> JOptionPane.showMessageDialog(null, "Button Label: " + newButton.getText()));
+//
+//		buttonList.add(newButton);
+//		centerButtonPanel.add(newButton); // Add the button to the centerButtonPanel
+//
+//		// Revalidate and repaint
+//		revalidate();
+//		repaint();
+//	}
 
     @Override
 	public void actionPerformed(ActionEvent e) {
@@ -175,8 +203,6 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		SwingUtilities.invokeLater(() -> {
-			buttonList.clear(); // Clear the existing list
-
 			Set<Label> labels = displayingLabelsViewModel.getState().getLabels();
 
 			ArrayList<String> buttonLabels = new ArrayList<>();
@@ -192,7 +218,7 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 				// Add a listener to each button
 				button.addActionListener(e -> {
 					locationsFromLabelController.execute(button.getText());
-					JOptionPane.showMessageDialog(null, "Button Label: " + LocationsFromLabelState.getLocation());
+					//JOptionPane.showMessageDialog(null, "Button Label: " + LocationsFromLabelState.getLocation());
 				});
 
 				buttonList.add(button); // Add the button to the list
@@ -201,17 +227,25 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 
 
 			for (JButton button : buttonList) {
-				button.addActionListener(
-						new ActionListener() {
-							@Override
-							public void actionPerformed(ActionEvent e) {
-								System.out.println(button.getText());
-								locationsFromLabelController.execute(button.getText());
-								JOptionPane.showMessageDialog(null, locationsFromLabelViewModel.getState().getLocation());
-							}
-						}
-				);
+				button.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						System.out.println(button.getText());
+						locationsFromLabelController.execute(button.getText());
+
+						// Customize the title of the message dialog
+						String title = "Your Saved Locations:";
+
+						JOptionPane.showMessageDialog(
+								null,
+								locationsFromLabelViewModel.getState().getDisplayMsg(),
+								title,
+								JOptionPane.INFORMATION_MESSAGE
+						);
+					}
+				});
 			}
+
 
 
 			// Revalidate and repaint the panel

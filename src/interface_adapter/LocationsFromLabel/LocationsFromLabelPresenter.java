@@ -36,7 +36,7 @@ public class LocationsFromLabelPresenter implements LocationsFromLabelOutputBoun
             }
 
             String outputData = outputDataBuilder.toString();
-            locationsFromLabelState.setLocation(outputData);
+            locationsFromLabelState.setDisplayMsg(outputData);
             this.locationsFromLabelViewModel.setState(locationsFromLabelState);
             locationsFromLabelViewModel.firePropertyChanged();
 
@@ -48,7 +48,7 @@ public class LocationsFromLabelPresenter implements LocationsFromLabelOutputBoun
     @Override
     public void prepareFailView(String error) {
         LocationsFromLabelState locationsFromLabelState = locationsFromLabelViewModel.getState();
-        locationsFromLabelState.setLocationsError(error);
+        locationsFromLabelState.setDisplayMsg(error);
         locationsFromLabelViewModel.firePropertyChanged();
     }
 }
