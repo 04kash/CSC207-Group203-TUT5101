@@ -13,11 +13,11 @@ public class CreateLabelInteractor {
     }
     public void execute(CreateLabelInputData createLabelInputData){
         Label label = new Label(createLabelInputData.getChosenLabel());
-        User currentUser = labelDataAccessObject.get(createLabelInputData.getUsername());
-        if(labelDataAccessObject.labelExists(createLabelInputData.getUsername(), label)){
+        //User currentUser = labelDataAccessObject.get(createLabelInputData.getUsername());
+        if(labelDataAccessObject.labelExists(createLabelInputData.getUsername(),label)){
             labelPresentor.prepareFailView("Label Name already exists");
         }
-        else {labelDataAccessObject.addLabelToPlanner(createLabelInputData.getUsername(), label);
+        else {labelDataAccessObject.addLabelToPlanner(createLabelInputData.getUsername(),label);
             if(labelDataAccessObject.labelExists(createLabelInputData.getUsername(), label)){
                 labelPresentor.prepareSuccessView("Location saved successfully");
             }else{

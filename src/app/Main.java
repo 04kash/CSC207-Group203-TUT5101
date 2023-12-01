@@ -69,7 +69,7 @@ public class Main {
         LogInView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, apiViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        LoggedInView loggedInView = new LoggedInView();
+        LoggedInView loggedInView = LoggedInUseCaseFactory.create(viewManagerModel,displayingLabelsViewModel,userDataAccessObject);
         views.add(loggedInView, loggedInView.viewName);
 
         SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, apiViewModel, displayingLocationsViewModel, apiUserDataAccessObject, apiUserDataAccessObject);
