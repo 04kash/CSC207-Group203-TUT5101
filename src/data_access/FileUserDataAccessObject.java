@@ -9,6 +9,7 @@ import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,11 +41,11 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                 String header = reader.readLine();
 
                 // For later: clean this up by creating a new Exception subclass and handling it in the UI.
-                assert header.equals("username,password,creation_time");
+                assert header.equals("username,password,planner");
 
                 String row;
                 while ((row = reader.readLine()) != null) {
-                    String[] col = row.split(",");
+                    String[] col = row.split(",", 3);
                     String username = String.valueOf(col[headers.get("username")]);
                     String password = String.valueOf(col[headers.get("password")]);
                     Planner planner1 = new Planner();
@@ -53,7 +54,6 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                         planner1 = parsePlanner(planner);
                     }
                     User user = userFactory.create(username, password, planner1);
-                    System.out.println(username);
                     accounts.put(username, user);
                 }
             }
@@ -61,17 +61,44 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
     }
 
     private static Planner parsePlanner(String plannerInfo) {
-
         Planner planner = new Planner();
         ArrayList<ArrayList> nestedArrayList = stringToNestedArrayList(plannerInfo);
+        Label label = new Label();
         for (int i = 0; i < nestedArrayList.size(); i++) {
             ArrayList lists = nestedArrayList.get(i);
-            Label label = (Label) lists.get(0);
-            Location[] locationArray = (Location[]) lists.get(1);
-            ArrayList<Location> locations = new ArrayList<>(Arrays.asList(locationArray));
+            System.out.println(lists);
+            ArrayList<String> result = convertToObject(String.valueOf(lists));
+            Location location = new Location(result.get(0), new Coordinate(Double.parseDouble(result.get(1)), Double.parseDouble(result.get(2))), result.get(3), result.get(4));
+            ArrayList<Location> locations = new ArrayList<>();
+            locations.add(location);
+            System.out.println(locations);
             planner.setLabel(label, locations);
         }
         return planner;
+    }
+
+    public static ArrayList<String> convertToObject(String input) {
+        ArrayList<String> result = new ArrayList<>();
+
+        // Remove outer brackets and split by comma
+        String[] elements = input.substring(0, input.length() - 1).split(", ");
+
+        for (String element : elements) {
+            // Remove leading and trailing parentheses
+            element = element.replaceAll("^\\(|\\)$", "");
+
+            // Handle nested elements
+            if (element.startsWith("(") && element.endsWith(")")) {
+                // Process the nested coordinates
+                String[] coordinates = element.split(", ");
+                result.addAll(Arrays.asList(coordinates));
+            } else {
+                // Add non-nested elements directly
+                result.add(element);
+            }
+        }
+
+        return result;
     }
 
     private static ArrayList<ArrayList> stringToNestedArrayList(String stringRepresentation) {
@@ -90,7 +117,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                 result.add(stringToNestedArrayList(match));
             } else {
                 // Convert simple elements to ArrayList
-                String[] elements = match.split(", ");
+                String[] elements = match.split(", ", 2);
                 List<String> list = List.of(elements);
                 result.add(new ArrayList<>(list));
             }
@@ -112,20 +139,27 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
             writer.newLine();
 
             for (User user : accounts.values()) {
-//                String line = String.format("%s,%s",
-//                        user.getUsername(), user.getPassword());
                 Planner planner = user.getPlanner();
                 Set<Label> label = planner.getLabel();
                 ArrayList<ArrayList> stringPlanner = new ArrayList<>();
                 for (Label category : label) {
                     ArrayList<Object> hashmap = new ArrayList<>();
-                    hashmap.add(String.valueOf(category));
-                    hashmap.add(String.valueOf(new ArrayList<>(List.of(planner.getLocations(category)))));
+                    hashmap.add(category.getTitle());
+                    ArrayList<Location> locations = planner.getLocations(category);
+                    ArrayList<String> locationString = new ArrayList<>();
+                    for (Location location : locations) {
+                        String string = "[" + location.getName() + ", " +
+                                "(" + location.getCoordinate().getLongitude() + ", " + location.getCoordinate().getLatitude() + ")" + ", " +
+                                location.getOsmLink() + ", " +
+                                location.getFilter() + "]";
+                        locationString.add(string);
+                    }
+                    hashmap.add(String.valueOf(locationString));
                     stringPlanner.add(hashmap);
                 }
+
                 String line = String.format("%s,%s,%s",
                         user.getUsername(), user.getPassword(), stringPlanner);
-//                line += String.valueOf(stringPlanner);
                 writer.write(line);
                 writer.newLine();
             }
@@ -143,8 +177,6 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         Label savedLabel = new Label();
         boolean inPlanner = false;
         for (Label label: labels) {
-            System.out.println(label.getTitle());
-            System.out.println(newLabel.getTitle());
             if (label.getTitle().equals(newLabel.getTitle())) {
                 savedLabel = label;
                 inPlanner = true;
@@ -157,9 +189,8 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
             list.add(location);
             accounts.get(username).getPlanner().setLabel(savedLabel, list);
         }
-//        System.out.println(accounts.get(username).getPlanner().getLocations(savedLabel));
         save();
-        }
+    }
 
 
     @Override
@@ -182,17 +213,31 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
 
 
     public void addLabelToPlanner(String username, Label newLabel) {
-         Planner userPlanner = accounts.get(username).getPlanner();
+        Planner userPlanner = accounts.get(username).getPlanner();
         userPlanner.setLabel(newLabel, new ArrayList<>());
         save();
         //TODO: Check If this is creating 2 copies of the user: existing one and new one. We only want new one.
     }
 
     @Override
-    public ArrayList<Location> getLocationsFromLabel(String username, Label label) {
-        ArrayList<Location> locations = accounts.get(username).getPlanner().getLocations(label);
-        return locations;
+    public ArrayList<Location> getLocationsFromLabel(String username, Label newLabel) {
+        Set<Label> labels = accounts.get(username).getPlanner().getLabel();
+        Label savedLabel = new Label();
+        boolean inPlanner = false;
+        for (Label label : labels) {
+            if (label.getTitle().equals(newLabel.getTitle())) {
+                savedLabel = label;
+                inPlanner = true;
+            }
+        }
+        if (inPlanner) {
+            return accounts.get(username).getPlanner().getLocations(savedLabel);
+        } else {
+            ArrayList<Location> list = new ArrayList<>();
+            return list;
+        }
     }
+
 
     @Override
     public boolean labelExists(String username,Label label) {

@@ -168,7 +168,8 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 		SwingUtilities.invokeLater(() -> {
 			buttonList.clear(); // Clear the existing list
 
-			Set<Label> labels = DisplayingLabelsState.getLabels();
+			Set<Label> labels = displayingLabelsViewModel.getState().getLabels();
+
 			ArrayList<String> buttonLabels = new ArrayList<>();
 			for (Label label : labels) {
 				buttonLabels.add(label.getTitle());
@@ -188,6 +189,21 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 				buttonList.add(button); // Add the button to the list
 				centerButtonPanel.add(button); // Add the button to the panel
 			}
+
+
+			for (JButton button : buttonList) {
+				button.addActionListener(
+						new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								System.out.println(button.getText());
+								locationsFromLabelController.execute(button.getText());
+								JOptionPane.showMessageDialog(null, locationsFromLabelViewModel.getState().getLocation());
+							}
+						}
+				);
+			}
+
 
 			// Revalidate and repaint the panel
 			centerButtonPanel.revalidate();

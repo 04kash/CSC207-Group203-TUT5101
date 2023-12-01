@@ -430,6 +430,37 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 	}
 
 
+	private Location showSaveLocationDialog(ArrayList<Location> locations) {
+        // Create a JComboBox with some sample items
+        String[] locationString = new String[0];
+        if (locations.isEmpty()) {
+        } else {
+			ArrayList<String> locationsString = new ArrayList<>();
+			for (int i = 0; i < locations.size(); i++) {
+				locationsString.add(locations.get(i).getName());
+			}
+			locationString = locationsString.toArray(new String[0]);
+        }
+        JComboBox<String> comboBox = new JComboBox<>(locationString);
+
+        // Show the dialog with the JComboBox
+        int result = JOptionPane.showConfirmDialog(
+                this,
+                comboBox,
+                "Select a Location",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE
+        );
+
+        // Check if the user clicked OK
+        if (result == JOptionPane.OK_OPTION) {
+            String selectedLocation = (String) comboBox.getSelectedItem();
+            // Do something with the selected location, e.g., save it
+            JOptionPane.showMessageDialog(this, "Location saved: " + selectedLocation);
+        }
+
+		return locations.get(result);
+    }
 
 //	private Location showSaveLocationDialog(ArrayList<Location> locations) {
 //        // Create a JComboBox with some sample items
@@ -468,6 +499,7 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 //		return locations.get(result);
 //    }
 
+
 	public void actionPerformed(ActionEvent evt) {
 		System.out.println("Click " + evt.getActionCommand());
 	}
@@ -479,244 +511,264 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 			locations = displayingLocationsViewModel.getState().getLocations();
 
 			remove(location1);
-			location1 = new JLabel(locations.get(0).getName());
-			location1.setBounds(66, 45, 708, 14);
-			add(location1);
-
 			remove(coordinate1);
-			coordinate1 = new JLabel("(" + locations.get(0).getCoordinate().getLatitude() + ", " + locations.get(0).getCoordinate().getLongitude() + ")");
-			coordinate1.setBounds(288, 70, 486, 14);
-			add(coordinate1);
-
 			remove(link1);
-			link1 = new JLabel("<html><a href='#'>Link</a></html>");
-			String link = locations.get(0).getOsmLink();
-			link1.addMouseListener(
-					new MouseAdapter() {
-						@Override
-						public void mouseClicked(MouseEvent e) {
-							openWebPage("https://www.openstreetmap.org/" + link);
+			if (locations.size() >= 1) {
+				location1 = new JLabel(locations.get(0).getName());
+				location1.setBounds(66, 45, 708, 14);
+				add(location1);
+
+				coordinate1 = new JLabel("(" + locations.get(0).getCoordinate().getLatitude() + ", " + locations.get(0).getCoordinate().getLongitude() + ")");
+				coordinate1.setBounds(288, 70, 486, 14);
+				add(coordinate1);
+
+				link1 = new JLabel("<html><a href='#'>Link</a></html>");
+				String link = locations.get(0).getOsmLink();
+				link1.addMouseListener(
+						new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								openWebPage("https://www.openstreetmap.org/" + link);
+							}
 						}
-					}
-			);
-			link1.setBounds(288, 80, 486, 14);
-			add(link1);
+				);
+				link1.setBounds(288, 80, 486, 14);
+				add(link1);
+			}
 
 			remove(location2);
-			location2 = new JLabel(locations.get(1).getName());
-			location2.setBounds(66, 105, 690, 14);
-			add(location2);
-
 			remove(coordinate2);
-			coordinate2 = new JLabel("(" + locations.get(1).getCoordinate().getLatitude() + ", " + locations.get(1).getCoordinate().getLongitude() + ")");
-			coordinate2.setBounds(288, 130, 486, 14);
-			add(coordinate2);
-
 			remove(link2);
-			link2 = new JLabel("<html><a href='#'>Link</a></html>");
-			String links2 = locations.get(1).getOsmLink();
-			link2.addMouseListener(
-					new MouseAdapter() {
-						@Override
-						public void mouseClicked(MouseEvent e) {
-							openWebPage("https://www.openstreetmap.org/" + links2);
+			if (locations.size() >= 2) {
+				location2 = new JLabel(locations.get(1).getName());
+				location2.setBounds(66, 105, 690, 14);
+				add(location2);
+
+				coordinate2 = new JLabel("(" + locations.get(1).getCoordinate().getLatitude() + ", " + locations.get(1).getCoordinate().getLongitude() + ")");
+				coordinate2.setBounds(288, 130, 486, 14);
+				add(coordinate2);
+
+				link2 = new JLabel("<html><a href='#'>Link</a></html>");
+				String links2 = locations.get(1).getOsmLink();
+				link2.addMouseListener(
+						new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								openWebPage("https://www.openstreetmap.org/" + links2);
+							}
 						}
-					}
-			);
-			link2.setBounds(288, 141, 495, 14);
-			add(link2);
+				);
+				link2.setBounds(288, 141, 495, 14);
+				add(link2);
+			}
 
 			remove(location3);
-			location3 = new JLabel(locations.get(2).getName());
-			location3.setBounds(66, 166, 690, 14);
-			add(location3);
-
 			remove(coordinate3);
-			coordinate3 = new JLabel("(" + locations.get(2).getCoordinate().getLatitude() + ", " + locations.get(2).getCoordinate().getLongitude() + ")");
-			coordinate3.setBounds(288, 191, 486, 14);
-			add(coordinate3);
-
 			remove(link3);
-			link3 = new JLabel("<html><a href='#'>Link</a></html>");
-			String links3 = locations.get(2).getOsmLink();
-			link3.addMouseListener(
-					new MouseAdapter() {
-						@Override
-						public void mouseClicked(MouseEvent e) {
-							openWebPage("https://www.openstreetmap.org/" + links3);
-						}
-					}
-			);
-			link3.setBounds(288, 202, 496, 14);
-			add(link3);
+			if (locations.size() >= 3) {
+				location3 = new JLabel(locations.get(2).getName());
+				location3.setBounds(66, 166, 690, 14);
+				add(location3);
 
+				coordinate3 = new JLabel("(" + locations.get(2).getCoordinate().getLatitude() + ", " + locations.get(2).getCoordinate().getLongitude() + ")");
+				coordinate3.setBounds(288, 191, 486, 14);
+				add(coordinate3);
+
+				link3 = new JLabel("<html><a href='#'>Link</a></html>");
+				String links3 = locations.get(2).getOsmLink();
+				link3.addMouseListener(
+						new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								openWebPage("https://www.openstreetmap.org/" + links3);
+							}
+						}
+				);
+				link3.setBounds(288, 202, 496, 14);
+				add(link3);
+			}
 			remove(location4);
-			location4 = new JLabel(locations.get(3).getName());
-			location4.setBounds(66, 234, 690, 14);
-			add(location4);
-
 			remove(coordinate4);
-			coordinate4 = new JLabel("(" + locations.get(3).getCoordinate().getLatitude() + ", " + locations.get(3).getCoordinate().getLongitude() + ")");
-			coordinate4.setBounds(288, 259, 486, 14);
-			add(coordinate4);
-
 			remove(link4);
-			link4 = new JLabel("<html><a href='#'>Link</a></html>");
-			String links4 = locations.get(3).getOsmLink();
-			link4.addMouseListener(
-					new MouseAdapter() {
-						@Override
-						public void mouseClicked(MouseEvent e) {
-							openWebPage("https://www.openstreetmap.org/" + links4);
+			if (locations.size() >= 4) {
+				location4 = new JLabel(locations.get(3).getName());
+				location4.setBounds(66, 234, 690, 14);
+				add(location4);
+
+				coordinate4 = new JLabel("(" + locations.get(3).getCoordinate().getLatitude() + ", " + locations.get(3).getCoordinate().getLongitude() + ")");
+				coordinate4.setBounds(288, 259, 486, 14);
+				add(coordinate4);
+
+				link4 = new JLabel("<html><a href='#'>Link</a></html>");
+				String links4 = locations.get(3).getOsmLink();
+				link4.addMouseListener(
+						new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								openWebPage("https://www.openstreetmap.org/" + links4);
+							}
 						}
-					}
-			);
-			link4.setBounds(288, 271, 486, 14);
-			add(link4);
+				);
+				link4.setBounds(288, 271, 486, 14);
+				add(link4);
+			}
 
 			remove(location5);
-			location5 = new JLabel(locations.get(4).getName());
-			location5.setBounds(66, 296, 690, 14);
-			add(location5);
-
 			remove(coordinate5);
-			coordinate5 = new JLabel("(" + locations.get(4).getCoordinate().getLatitude() + ", " + locations.get(4).getCoordinate().getLongitude() + ")");
-			coordinate5.setBounds(288, 321, 486, 14);
-			add(coordinate5);
-
 			remove(link5);
-			link5 = new JLabel("<html><a href='#'>Link</a></html>");
-			String links5 = locations.get(4).getOsmLink();
-			link5.addMouseListener(
-					new MouseAdapter() {
-						@Override
-						public void mouseClicked(MouseEvent e) {
-							openWebPage("https://www.openstreetmap.org/" + links5);
+			if (locations.size() >= 5) {
+				location5 = new JLabel(locations.get(4).getName());
+				location5.setBounds(66, 296, 690, 14);
+				add(location5);
+
+
+				coordinate5 = new JLabel("(" + locations.get(4).getCoordinate().getLatitude() + ", " + locations.get(4).getCoordinate().getLongitude() + ")");
+				coordinate5.setBounds(288, 321, 486, 14);
+				add(coordinate5);
+
+				link5 = new JLabel("<html><a href='#'>Link</a></html>");
+				String links5 = locations.get(4).getOsmLink();
+				link5.addMouseListener(
+						new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								openWebPage("https://www.openstreetmap.org/" + links5);
+							}
 						}
-					}
-			);
-			link5.setBounds(288, 333, 486, 14);
-			add(link5);
+				);
+				link5.setBounds(288, 333, 486, 14);
+				add(link5);
+			}
 
 			remove(location6);
-			location6 = new JLabel(locations.get(5).getName());
-			location6.setBounds(66, 366, 708, 14);
-			add(location6);
-
 			remove(coordinate6);
-			coordinate6 = new JLabel("(" + locations.get(5).getCoordinate().getLatitude() + ", " + locations.get(5).getCoordinate().getLongitude() + ")");
-			coordinate6.setBounds(288, 391, 486, 14);
-			add(coordinate6);
-
 			remove(link6);
-			link6 = new JLabel("<html><a href='#'>Link</a></html>");
-			String links6 = locations.get(5).getOsmLink();
-			link6.addMouseListener(
-					new MouseAdapter() {
-						@Override
-						public void mouseClicked(MouseEvent e) {
-							openWebPage("https://www.openstreetmap.org/" + links6);
+			if (locations.size() >= 6) {
+				location6 = new JLabel(locations.get(5).getName());
+				location6.setBounds(66, 366, 708, 14);
+				add(location6);
+
+				coordinate6 = new JLabel("(" + locations.get(5).getCoordinate().getLatitude() + ", " + locations.get(5).getCoordinate().getLongitude() + ")");
+				coordinate6.setBounds(288, 391, 486, 14);
+				add(coordinate6);
+
+				link6 = new JLabel("<html><a href='#'>Link</a></html>");
+				String links6 = locations.get(5).getOsmLink();
+				link6.addMouseListener(
+						new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								openWebPage("https://www.openstreetmap.org/" + links6);
+							}
 						}
-					}
-			);
-			link6.setBounds(288, 405, 486, 14);
-			add(link6);
+				);
+				link6.setBounds(288, 405, 486, 14);
+				add(link6);
+			}
 
 			remove(location7);
-			location7 = new JLabel(locations.get(6).getName());
-			location7.setBounds(66, 438, 690, 14);
-			add(location7);
-
 			remove(coordinate7);
-			coordinate7 = new JLabel("(" + locations.get(6).getCoordinate().getLatitude() + ", " + locations.get(6).getCoordinate().getLongitude() + ")");
-			coordinate7.setBounds(288, 463, 486, 14);
-			add(coordinate7);
-
 			remove(link7);
-			link7 = new JLabel("<html><a href='#'>Link</a></html>");
-			String links7 = locations.get(6).getOsmLink();
-			link7.addMouseListener(
-					new MouseAdapter() {
-						@Override
-						public void mouseClicked(MouseEvent e) {
-							openWebPage("https://www.openstreetmap.org/" + links7);
+			if (locations.size() >= 7) {
+				location7 = new JLabel(locations.get(6).getName());
+				location7.setBounds(66, 438, 690, 14);
+				add(location7);
+
+				coordinate7 = new JLabel("(" + locations.get(6).getCoordinate().getLatitude() + ", " + locations.get(6).getCoordinate().getLongitude() + ")");
+				coordinate7.setBounds(288, 463, 486, 14);
+				add(coordinate7);
+
+				link7 = new JLabel("<html><a href='#'>Link</a></html>");
+				String links7 = locations.get(6).getOsmLink();
+				link7.addMouseListener(
+						new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								openWebPage("https://www.openstreetmap.org/" + links7);
+							}
 						}
-					}
-			);
-			link7.setBounds(288, 477, 486, 14);
-			add(link7);
+				);
+				link7.setBounds(288, 477, 486, 14);
+				add(link7);
+			}
 
 			remove(location8);
-			location8 = new JLabel(locations.get(7).getName());
-			location8.setBounds(66, 504, 708, 14);
-			add(location8);
-
 			remove(coordinate8);
-			coordinate8 = new JLabel("(" + locations.get(7).getCoordinate().getLatitude() + ", " + locations.get(7).getCoordinate().getLongitude() + ")");
-			coordinate8.setBounds(288, 529, 486, 14);
-			add(coordinate8);
-
 			remove(link8);
-			link8 = new JLabel("<html><a href='#'>Link</a></html>");
-			String links8 = locations.get(7).getOsmLink();
-			link8.addMouseListener(
-					new MouseAdapter() {
-						@Override
-						public void mouseClicked(MouseEvent e) {
-							openWebPage("https://www.openstreetmap.org/" + links8);
+			if (locations.size() >= 8) {
+				location8 = new JLabel(locations.get(7).getName());
+				location8.setBounds(66, 504, 708, 14);
+				add(location8);
+
+				coordinate8 = new JLabel("(" + locations.get(7).getCoordinate().getLatitude() + ", " + locations.get(7).getCoordinate().getLongitude() + ")");
+				coordinate8.setBounds(288, 529, 486, 14);
+				add(coordinate8);
+
+				link8 = new JLabel("<html><a href='#'>Link</a></html>");
+				String links8 = locations.get(7).getOsmLink();
+				link8.addMouseListener(
+						new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								openWebPage("https://www.openstreetmap.org/" + links8);
+							}
 						}
-					}
-			);
-			link8.setBounds(288, 542, 486, 14);
-			add(link8);
+				);
+				link8.setBounds(288, 542, 486, 14);
+				add(link8);
+			}
 
 			remove(location9);
-			location9 = new JLabel(locations.get(8).getName());
-			location9.setBounds(66, 575, 708, 14);
-			add(location9);
-
 			remove(coordinate9);
-			coordinate9 = new JLabel("(" + locations.get(8).getCoordinate().getLatitude() + ", " + locations.get(8).getCoordinate().getLongitude() + ")");
-			coordinate9.setBounds(288, 600, 486, 14);
-			add(coordinate9);
-
 			remove(link9);
-			link9 = new JLabel("<html><a href='#'>Link</a></html>");
-			String links9 = locations.get(8).getOsmLink();
-			link9.addMouseListener(
-					new MouseAdapter() {
-						@Override
-						public void mouseClicked(MouseEvent e) {
-							openWebPage("https://www.openstreetmap.org/" + links9);
+			if (locations.size() >= 9) {
+				location9 = new JLabel(locations.get(8).getName());
+				location9.setBounds(66, 575, 708, 14);
+				add(location9);
+
+				coordinate9 = new JLabel("(" + locations.get(8).getCoordinate().getLatitude() + ", " + locations.get(8).getCoordinate().getLongitude() + ")");
+				coordinate9.setBounds(288, 600, 486, 14);
+				add(coordinate9);
+
+				link9 = new JLabel("<html><a href='#'>Link</a></html>");
+				String links9 = locations.get(8).getOsmLink();
+				link9.addMouseListener(
+						new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								openWebPage("https://www.openstreetmap.org/" + links9);
+							}
 						}
-					}
-			);
-			link9.setBounds(288, 613, 486, 14);
-			add(link9);
+				);
+				link9.setBounds(288, 613, 486, 14);
+				add(link9);
+			}
 
 			remove(location10);
-			location10 = new JLabel(locations.get(9).getName());
-			location10.setBounds(66, 649, 708, 14);
-			add(location10);
-
 			remove(coordinate10);
-			coordinate10 = new JLabel("(" + locations.get(9).getCoordinate().getLatitude() + ", " + locations.get(9).getCoordinate().getLongitude() + ")");
-			coordinate10.setBounds(288, 674, 486, 14);
-			add(coordinate10);
-
 			remove(link10);
-			link10 = new JLabel("<html><a href='#'>Link</a></html>");
-			String links10 = locations.get(9).getOsmLink();
-			link10.addMouseListener(
-					new MouseAdapter() {
-						@Override
-						public void mouseClicked(MouseEvent e) {
-							openWebPage("https://www.openstreetmap.org/" + links10);
-						}
-					}
-			);			link10.setBounds(288, 688, 486, 14);
-			add(link10);
+			if (locations.size() >= 10) {
+				location10 = new JLabel(locations.get(9).getName());
+				location10.setBounds(66, 649, 708, 14);
+				add(location10);
 
+				coordinate10 = new JLabel("(" + locations.get(9).getCoordinate().getLatitude() + ", " + locations.get(9).getCoordinate().getLongitude() + ")");
+				coordinate10.setBounds(288, 674, 486, 14);
+				add(coordinate10);
+
+				link10 = new JLabel("<html><a href='#'>Link</a></html>");
+				String links10 = locations.get(9).getOsmLink();
+				link10.addMouseListener(
+						new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								openWebPage("https://www.openstreetmap.org/" + links10);
+							}
+						}
+				);
+				link10.setBounds(288, 688, 486, 14);
+				add(link10);
+			}
 			remove(save);
 
 			save = new JButton("Save A Location");

@@ -9,7 +9,7 @@ import use_case.SavingLocation.SavingLocationInputData;
 public class LocationsFromLabelController {
     final LocationsFromLabelInputBoundary locationsFromLabelInputBoundary;
     public LocationsFromLabelController(LocationsFromLabelInputBoundary locationsFromLabelInputBoundary){
-        this.locationsFromLabelInputBoundary=locationsFromLabelInputBoundary;
+        this.locationsFromLabelInputBoundary = locationsFromLabelInputBoundary;
     }
     public void execute(String chosenLabel){
         LocationsFromLabelInputData savingLocationInputData = new LocationsFromLabelInputData(chosenLabel);
