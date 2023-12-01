@@ -5,7 +5,7 @@ import entity.Location;
 import java.util.ArrayList;
 
 public class LocationsFromLabelState {
-    private static ArrayList<Location> location = new ArrayList<>();
+    private static String location = null;
 
     private String locationsError = "";
 
@@ -16,7 +16,7 @@ public class LocationsFromLabelState {
         locationsError = copy.locationsError;
     }
 
-    public static void setLocation(ArrayList<Location> location) {
+    public static void setLocation(String location) {
         LocationsFromLabelState.location = location;
     }
 
@@ -24,7 +24,7 @@ public class LocationsFromLabelState {
         this.locationsError = locationsError;
     }
 
-    public static ArrayList<Location> getLocation() {
+    public static String getLocation() {
         return location;
     }
 }
