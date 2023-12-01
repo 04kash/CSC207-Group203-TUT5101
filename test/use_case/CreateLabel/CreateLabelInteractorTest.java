@@ -1,4 +1,4 @@
-package use_case.CreateLabel;
+package test.use_case.CreateLabel;
 
 import org.junit.jupiter.api.Test;
 

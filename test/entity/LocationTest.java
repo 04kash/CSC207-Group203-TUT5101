@@ -1,5 +1,7 @@
-package entity;
+package test.entity;
 
+import entity.Coordinate;
+import entity.Location;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

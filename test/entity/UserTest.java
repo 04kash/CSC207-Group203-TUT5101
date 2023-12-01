@@ -1,5 +1,6 @@
-package entity;
+package test.entity;
 
+import entity.Planner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import entity.User;
