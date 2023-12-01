@@ -4,6 +4,7 @@ import data_access.APIDataAccessObject;
 import data_access.FileUserDataAccessObject;
 import entity.CommonUserFactory;
 import entity.Planner;
+import interface_adapter.CreateLabel.CreateLabelViewModel;
 import interface_adapter.LocationsFromLabel.LocationsFromLabelViewModel;
 import interface_adapter.SavingLocation.SavingLocationViewModel;
 import interface_adapter.api_returns.ApiViewModel;
@@ -48,6 +49,7 @@ public class Main {
         SavingLocationViewModel savingLocationViewModel = new SavingLocationViewModel();
         LocationsFromLabelViewModel locationsFromLabelViewModel = new LocationsFromLabelViewModel();
         DisplayingLabelsViewModel displayingLabelsViewModel = new DisplayingLabelsViewModel();
+        CreateLabelViewModel createLabelViewModel = new CreateLabelViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
@@ -78,7 +80,7 @@ public class Main {
         LocationView locationView = LocationUseCaseFactory.create(viewManagerModel, displayingLocationsViewModel, savingLocationViewModel, displayingLabelsViewModel, apiUserDataAccessObject, userDataAccessObject);
         views.add(locationView, locationView.viewName);
 
-        PlannerView plannerView = PlannerUseCaseFactory.create(viewManagerModel, displayingLabelsViewModel, locationsFromLabelViewModel, userDataAccessObject, userDataAccessObject);
+        PlannerView plannerView = PlannerUseCaseFactory.create(viewManagerModel, displayingLabelsViewModel, locationsFromLabelViewModel, userDataAccessObject, userDataAccessObject,createLabelViewModel,userDataAccessObject);
         views.add(plannerView, plannerView.viewName);
 
         viewManagerModel.setActiveView(loginView.viewName);
