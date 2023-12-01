@@ -5,6 +5,7 @@ import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -30,27 +31,53 @@ public class SignUp extends JPanel implements ActionListener, PropertyChangeList
 		this.signupViewModel = signupViewModel;
 		this.signupController = controller;
 		signupViewModel.addPropertyChangeListener(this);
+
+		JLabel discoverLabel = new JLabel("<html><center><b>Discover City</b></center></html>");
+		discoverLabel.setFont(new Font("Arial", Font.BOLD, 20));
+		discoverLabel.setBounds(150, 10, 300, 50); // Adjust the bounds as needed
+		add(discoverLabel);
+
+		JLabel descriptionLabel = new JLabel("<html><center>Unlock your city's secrets with Discover City – your pocket-sized guide to hidden gems and local favorites. Explore effortlessly, live adventurously.</center></html>");
+		descriptionLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		descriptionLabel.setVerticalAlignment(SwingConstants.BOTTOM);
+		descriptionLabel.setBounds(20, 30, 460, 60); // Adjust the bounds as needed
+		add(descriptionLabel);
 		
 		JLabel username = new JLabel("username:");
-		username.setBounds(81, 79, 97, 14);
+		username.setBounds(81, 129, 97, 14);
 		add(username);
 		
 		JLabel password = new JLabel("password:");
-		password.setBounds(81, 132, 97, 14);
+		password.setBounds(81, 182, 97, 14);
 		add(password);
 		
 		usernameField = new JTextField();
-		usernameField.setBounds(200, 76, 140, 20);
+		usernameField.setBounds(200, 126, 140, 20);
 		add(usernameField);
 		usernameField.setColumns(10);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(200, 129, 140, 20);
+		passwordField.setBounds(200, 179, 140, 20);
 		add(passwordField);
 		
 		JButton signUp = new JButton("Sign Up");
-		signUp.setBounds(177, 209, 89, 23);
+		signUp.setBounds(60, 230, 139, 23);
 		add(signUp);
+
+		JButton back = new JButton("Back to LogIn");
+		back.setBounds(250, 230, 139, 23);
+		add(back);
+		back.addActionListener(
+				new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if(e.getSource().equals(back)){
+							ViewManager.showLoginView();
+						}
+					}
+				}
+
+		);
 
 		signUp.addActionListener(
 				new ActionListener() {
