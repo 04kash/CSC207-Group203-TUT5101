@@ -228,7 +228,8 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
     public void save() {
         BufferedWriter writer;
         try {
-            writer = new BufferedWriter(new FileWriter(csvFile));
+
+            writer = new BufferedWriter(new FileWriter(csvFile, false));
             writer.write(String.join(",", headers.keySet()));
             writer.newLine();
             String line = "";

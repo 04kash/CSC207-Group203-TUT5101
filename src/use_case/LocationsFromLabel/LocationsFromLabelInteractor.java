@@ -18,9 +18,11 @@ public class LocationsFromLabelInteractor implements LocationsFromLabelInputBoun
     @Override
     public void execute(LocationsFromLabelInputData locationsFromLabelInputData) {
         String username = userDataAccessObject.getCurrentUser();
+//        System.out.println(userDataAccessObject.labelExists(username,new Label(locationsFromLabelInputData.getLabel())));
         if(userDataAccessObject.labelExists(username,new Label(locationsFromLabelInputData.getLabel()))){
             LocationsFromLabelOutputData outputData;
             outputData = new LocationsFromLabelOutputData(userDataAccessObject.getLocationsFromLabel(username,new Label(locationsFromLabelInputData.getLabel())),false);
+            System.out.println(outputData);
             userPresenter.prepareSuccessView(outputData);
         }else{
             userPresenter.prepareFailView("Locations could not be found.");

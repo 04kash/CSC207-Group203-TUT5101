@@ -154,21 +154,42 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		buttonList = new ArrayList<>(); // Initialize the list to store buttons
+		SwingUtilities.invokeLater(() -> {
+			buttonList.clear(); // Clear the existing list
 
-		Set<Label> labels = displayingLabelsViewModel.getState().getLabels();
-		ArrayList<String> buttonLabels = new ArrayList<>();
-		for (Label label : labels) {
-			buttonLabels.add(label.getTitle());
-		}
+			Set<Label> labels = displayingLabelsViewModel.getState().getLabels();
+			ArrayList<String> buttonLabels = new ArrayList<>();
+			for (Label label : labels) {
+				buttonLabels.add(label.getTitle());
+			}
 
-		for (String label : buttonLabels) {
-			JButton button = new JButton(label);
-			locationsFromLabelController.execute(button.getText());
-			JOptionPane.showMessageDialog(null, locationsFromLabelViewModel.getState().getLocation());
-			buttonList.add(button); // Add the button to the list
-			add(button);
-		}
+			centerButtonPanel.removeAll(); // Clear existing buttons from the panel
+
+			for (String label : buttonLabels) {
+				JButton button = new JButton(label);
+				//locationsFromLabelController.execute(button.getText());
+				//JOptionPane.showMessageDialog(null, locationsFromLabelViewModel.getState().getLocation());
+				buttonList.add(button); // Add the button to the list
+				centerButtonPanel.add(button); // Add the button to the panel
+			}
+
+			for (JButton button : buttonList) {
+				button.addActionListener(
+						new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								System.out.println(button.getText());
+								locationsFromLabelController.execute(button.getText());
+								JOptionPane.showMessageDialog(null, locationsFromLabelViewModel.getState().getLocation());
+							}
+						}
+				);
+			}
+
+			// Revalidate and repaint the panel
+			centerButtonPanel.revalidate();
+			centerButtonPanel.repaint();
+		});
 	}
 }
 
