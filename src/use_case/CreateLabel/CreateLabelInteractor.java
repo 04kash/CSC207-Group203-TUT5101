@@ -1,17 +1,19 @@
 package use_case.CreateLabel;
 import entity.*;
-public class CreateLabelInteractor {
+public class CreateLabelInteractor implements CreateLabelInputBoundary{
     final CreateLabelDataAccessInterface labelDataAccessObject;
     final CreateLabelOutputBoundary labelPresentor;
-    final UserFactory userFactory;
+    //final UserFactory userFactory;
 
     public CreateLabelInteractor(CreateLabelDataAccessInterface labelDataAccessObject,
-                                 CreateLabelOutputBoundary labelPresentor, UserFactory userFactory){
+                                 CreateLabelOutputBoundary labelPresentor){
         this.labelDataAccessObject = labelDataAccessObject;
         this.labelPresentor = labelPresentor;
-        this.userFactory = userFactory;
+        //this.userFactory = userFactory;
     }
-    public void execute(CreateLabelInputData createLabelInputData){
+
+    @Override
+    public void excecute(CreateLabelInputData createLabelInputData) {
         Label label = new Label(createLabelInputData.getChosenLabel());
         String currentUser = labelDataAccessObject.getCurrentUser();
         if(labelDataAccessObject.labelExists(currentUser,label)){
@@ -19,9 +21,10 @@ public class CreateLabelInteractor {
         }
         else {labelDataAccessObject.addLabelToPlanner(currentUser,label);
             if(labelDataAccessObject.labelExists(currentUser, label)){
-                labelPresentor.prepareSuccessView("Location saved successfully");
+                labelPresentor.prepareSuccessView("Label saved successfully");
             }else{
-                labelPresentor.prepareFailView("Location was not saved.Please try again.");
+                labelPresentor.prepareFailView("Label was not saved.Please try again.");
             }
+        }
     }
-}}
+}

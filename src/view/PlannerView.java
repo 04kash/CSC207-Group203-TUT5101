@@ -1,6 +1,8 @@
 package view;
 
 import entity.Label;
+import interface_adapter.CreateLabel.CreateLabelController;
+import interface_adapter.CreateLabel.CreateLabelViewModel;
 import interface_adapter.LocationsFromLabel.LocationsFromLabelController;
 import interface_adapter.LocationsFromLabel.LocationsFromLabelState;
 import interface_adapter.LocationsFromLabel.LocationsFromLabelViewModel;
@@ -20,20 +22,24 @@ import java.util.Set;
 
 public class PlannerView extends JPanel implements ActionListener, PropertyChangeListener {
 	public static final String viewName = "planner";
+	private final CreateLabelViewModel createLabelViewModel;
 	public DisplayingLabelsViewModel displayingLabelsViewModel;
 	public DisplayingLabelsController displayingLabelsController;
 	public LocationsFromLabelController locationsFromLabelController;
+	public CreateLabelController createLabelController;
 	public LocationsFromLabelViewModel locationsFromLabelViewModel;
 	private static final long serialVersionUID = 1L;
 	private final List<JButton> buttonList;
 	private JComboBox<String> locationComboBox;
 	private JPanel centerButtonPanel; // Updated to make it accessible for dynamic updates
   
-	public PlannerView(DisplayingLabelsViewModel displayingLabelsViewModel, DisplayingLabelsController displayingLabelsController, LocationsFromLabelViewModel locationsFromLabelViewModel, LocationsFromLabelController locationsFromLabelController) {
+	public PlannerView(DisplayingLabelsViewModel displayingLabelsViewModel, DisplayingLabelsController displayingLabelsController, LocationsFromLabelViewModel locationsFromLabelViewModel, LocationsFromLabelController locationsFromLabelController, CreateLabelController createLabelController, CreateLabelViewModel createLabelViewModel) {
 		this.displayingLabelsController = displayingLabelsController;
 		this.displayingLabelsViewModel = displayingLabelsViewModel;
 		this.locationsFromLabelViewModel = locationsFromLabelViewModel;
 		this.locationsFromLabelController = locationsFromLabelController;
+		this.createLabelViewModel = createLabelViewModel;
+		this.createLabelController = createLabelController;
 		this.locationsFromLabelViewModel.addPropertyChangeListener(this);
 		this.displayingLabelsViewModel.addPropertyChangeListener(this);
 		setLayout(new BorderLayout());
@@ -142,7 +148,10 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 		// Implement the logic for "Create Label" popup here
 		String newLabelName = JOptionPane.showInputDialog(null, "Enter label name:");
 		if (newLabelName != null && !newLabelName.isEmpty()) {
-			addButton(newLabelName);
+			//addButton(newLabelName);
+			createLabelController.execute(newLabelName);
+			JOptionPane.showMessageDialog(null,createLabelViewModel.getState().getDisplayMsg());
+
 		}
 	}
 
