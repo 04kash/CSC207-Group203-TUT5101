@@ -6,7 +6,6 @@ public class CommonUserFactory implements UserFactory{
 //    private final Planner initialPlanner = new Planner(new HashMap<>());
     @Override
     public User create(String name, String password, Planner planner) {
-        return new User(name, password, planner);
+        return new CommonUser(name, password, planner);
     }
-
 }

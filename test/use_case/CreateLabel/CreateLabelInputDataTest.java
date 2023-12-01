@@ -1,6 +1,8 @@
 package test.use_case.CreateLabel;
 
+import entity.CommonUser;
 import entity.Planner;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import entity.User;
@@ -18,7 +20,7 @@ class CreateLabelInputDataTest {
 
     @BeforeEach
     void init(){
-        this.user = new User("rileyfewer", "1234riley4321", planner);
+        this.user = new CommonUser("rileyfewer", "1234riley4321", planner);
         ArrayList locations = new ArrayList();
         locations.add("McDon");
         this.planner = new Planner();
@@ -32,11 +34,11 @@ class CreateLabelInputDataTest {
 
     @Test
     void getPassword() {
-        assertEquals("1234riley4321", user.getPassword());
+        Assertions.assertEquals("1234riley4321", user.getPassword());
     }
 
     @Test
     void getUsername() {
-        assertEquals("rileyfewer", user.getUsername());
+        Assertions.assertEquals("rileyfewer", user.getUsername());
     }
 }
