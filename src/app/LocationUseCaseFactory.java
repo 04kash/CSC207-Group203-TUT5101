@@ -4,6 +4,7 @@ import interface_adapter.SavingLocation.SavingLocationController;
 import interface_adapter.SavingLocation.SavingLocationPresenter;
 import interface_adapter.SavingLocation.SavingLocationViewModel;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.displayingLabels.DisplayingLabelsViewModel;
 import interface_adapter.displayingLocations.DisplayingLocationsController;
 import interface_adapter.displayingLocations.DisplayingLocationsPresenter;
 import interface_adapter.displayingLocations.DisplayingLocationsViewModel;
@@ -21,10 +22,10 @@ public class LocationUseCaseFactory {
 
     private LocationUseCaseFactory() {}
 
-    public static LocationView create(ViewManagerModel viewManagerModel, DisplayingLocationsViewModel displayingLocationsViewModel, SavingLocationViewModel savingLocationViewModel, DisplayingLocationsUserDataAccessInterface userDataAccessInterface, SavingLocationUserDataAccessInterface userDataAccessInterface2) {
+    public static LocationView create(ViewManagerModel viewManagerModel, DisplayingLocationsViewModel displayingLocationsViewModel, SavingLocationViewModel savingLocationViewModel, DisplayingLabelsViewModel displayingLabelsViewModel, DisplayingLocationsUserDataAccessInterface userDataAccessInterface, SavingLocationUserDataAccessInterface userDataAccessInterface2) {
         DisplayingLocationsController displayingLocationsController = createLocationUser(viewManagerModel, displayingLocationsViewModel, userDataAccessInterface);
         SavingLocationController savingLocationController = createInstance(viewManagerModel, savingLocationViewModel, userDataAccessInterface2);
-        return new LocationView(displayingLocationsViewModel, displayingLocationsController, savingLocationController);
+        return new LocationView(displayingLocationsViewModel, displayingLocationsController, savingLocationController,displayingLabelsViewModel);
     }
 
     public static DisplayingLocationsController createLocationUser(ViewManagerModel viewManagerModel, DisplayingLocationsViewModel displayingLocationsViewModel, DisplayingLocationsUserDataAccessInterface userDataAccessInterface) {

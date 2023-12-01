@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -37,36 +38,47 @@ public class LogInView extends JPanel implements ActionListener, PropertyChangeL
 		this.loginController = controller;
 		this.loginViewModel = loginViewModel;
 		this.loginViewModel.addPropertyChangeListener(this);
+
+		JLabel discoverLabel = new JLabel("<html><center><b>Discover City</b></center></html>");
+		discoverLabel.setFont(new Font("Arial", Font.BOLD, 20));
+		discoverLabel.setBounds(150, 10, 300, 50); // Adjust the bounds as needed
+		add(discoverLabel);
+
+		JLabel descriptionLabel = new JLabel("<html><center>Unlock your city's secrets with Discover City – your pocket-sized guide to hidden gems and local favorites. Explore effortlessly, live adventurously.</center></html>");
+		descriptionLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		descriptionLabel.setVerticalAlignment(SwingConstants.BOTTOM);
+		descriptionLabel.setBounds(20, 30, 460, 60); // Adjust the bounds as needed
+		add(descriptionLabel);
 		
 		JLabel lblNewLabel = new JLabel("username:");
-		lblNewLabel.setBounds(51, 81, 76, 14);
+		lblNewLabel.setBounds(51, 150, 76, 14);
 		add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("password:");
-		lblNewLabel_1.setBounds(51, 125, 76, 14);
+		lblNewLabel_1.setBounds(51, 194, 76, 14);
 		add(lblNewLabel_1);
 		
 		usernameField = new JTextField();
-		usernameField.setBounds(227, 78, 177, 20);
+		usernameField.setBounds(227, 147, 177, 20);
 		add(usernameField);
 		usernameField.setColumns(10);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(227, 122, 177, 20);
+		passwordField.setBounds(227, 191, 177, 20);
 		add(passwordField);
 		
 		JButton logIn = new JButton("Log In");
-		logIn.setBounds(168, 174, 89, 23);
+		logIn.setBounds(168, 243, 89, 23);
 		add(logIn);
 		
 		JLabel lblNewLabel_2 = new JLabel("If you do not have an account,");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setVerticalAlignment(SwingConstants.BOTTOM);
-		lblNewLabel_2.setBounds(61, 220, 315, 14);
+		lblNewLabel_2.setBounds(61, 289, 315, 14);
 		add(lblNewLabel_2);
 		
 		JButton signUp = new JButton("Sign Up");
-		signUp.setBounds(168, 251, 89, 23);
+		signUp.setBounds(168, 320, 89, 23);
 		add(signUp);
 
 		logIn.addActionListener(

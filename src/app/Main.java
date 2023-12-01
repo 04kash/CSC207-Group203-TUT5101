@@ -24,7 +24,7 @@ public class Main {
         // various cards, and the layout, and stitch them together.
 
         // The main application window.
-        JFrame application = new JFrame("Login Example");
+        JFrame application = new JFrame("Discover City");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         CardLayout cardLayout = new CardLayout();
@@ -72,10 +72,10 @@ public class Main {
         LoggedInView loggedInView = LoggedInUseCaseFactory.create(viewManagerModel,displayingLabelsViewModel,userDataAccessObject);
         views.add(loggedInView, loggedInView.viewName);
 
-        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, apiViewModel, displayingLocationsViewModel, apiUserDataAccessObject, apiUserDataAccessObject);
+        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, apiViewModel, displayingLocationsViewModel, apiUserDataAccessObject, apiUserDataAccessObject,displayingLabelsViewModel,userDataAccessObject);
         views.add(searchView, searchView.viewName);
 
-        LocationView locationView = LocationUseCaseFactory.create(viewManagerModel, displayingLocationsViewModel, savingLocationViewModel, apiUserDataAccessObject, userDataAccessObject);
+        LocationView locationView = LocationUseCaseFactory.create(viewManagerModel, displayingLocationsViewModel, savingLocationViewModel, displayingLabelsViewModel, apiUserDataAccessObject, userDataAccessObject);
         views.add(locationView, locationView.viewName);
 
         PlannerView plannerView = PlannerUseCaseFactory.create(viewManagerModel, displayingLabelsViewModel, locationsFromLabelViewModel, userDataAccessObject, userDataAccessObject);
