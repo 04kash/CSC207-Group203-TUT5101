@@ -1,5 +1,6 @@
 package test.entity;
 
+import entity.CommonUser;
 import entity.Planner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ class UserTest {
 
     @BeforeEach
     void init(){
-        User user = new User("rileyfewer", "1234riley", planner);
+        User user = new CommonUser("rileyfewer", "1234riley", planner);
         this.user = user;
     }
 
