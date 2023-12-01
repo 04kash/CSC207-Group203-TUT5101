@@ -7,6 +7,7 @@ import entity.User;
 import entity.Label;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,16 +18,16 @@ class CreateLabelInputDataTest {
 
     @BeforeEach
     void init(){
+        this.user = new User("rileyfewer", "1234riley4321", planner);
         ArrayList locations = new ArrayList();
         locations.add("McDon");
-        planner.setLabel(label,locations);
-        Planner planner = new Planner();
-        User user = new User("rileyfewer", "1234riley4321", planner);
+        this.planner = new Planner();
+        planner.setLabel(this.label, locations);
     }
 
     @Test
     void getChosenLabel() {
-        assertEquals(label, planner.getLabel());
+        assert(planner.getLabel().contains(label));
     }
 
     @Test
