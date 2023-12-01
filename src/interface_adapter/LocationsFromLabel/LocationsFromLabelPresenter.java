@@ -27,22 +27,22 @@ public class LocationsFromLabelPresenter implements LocationsFromLabelOutputBoun
         LocationsFromLabelState locationsFromLabelState = locationsFromLabelViewModel.getState();
         ArrayList<Location> locations= locationsFromLabelOutputData.getLocations();
         StringBuilder outputDataBuilder = new StringBuilder();
+        if (locations != null) {
+            for (Location l : locations) {
+                outputDataBuilder.append(l.getName())
+                        .append("\n")
+                        .append(l.getOsmLink())
+                        .append("\n\n");
+            }
 
-        for (Location l : locations) {
-            outputDataBuilder.append(l.getName())
-                    .append("\n")
-                    .append(l.getOsmLink())
-                    .append("\n\n");
+            String outputData = outputDataBuilder.toString();
+            locationsFromLabelState.setLocation(outputData);
+            this.locationsFromLabelViewModel.setState(locationsFromLabelState);
+            this.locationsFromLabelViewModel.firePropertyChanged();
+
+            this.viewManagerModel.setActiveView(locationsFromLabelViewModel.getViewName());
+            this.viewManagerModel.firePropertyChanged();
         }
-
-        String outputData = outputDataBuilder.toString();
-        locationsFromLabelState.setLocation(outputData);
-        this.locationsFromLabelViewModel.setState(locationsFromLabelState);
-        this.locationsFromLabelViewModel.firePropertyChanged();
-
-        this.viewManagerModel.setActiveView(locationsFromLabelViewModel.getViewName());
-        this.viewManagerModel.firePropertyChanged();
-
     }
 
     @Override
