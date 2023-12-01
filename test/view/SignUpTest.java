@@ -2,6 +2,7 @@ package test.view;
 
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupViewModel;
+import org.junit.Assert;
 import use_case.signup.SignupInputBoundary;
 import view.SignUp;
 
@@ -29,7 +30,7 @@ public class SignUpTest {
 
         // get a reference to the first password field
 //        JLabel panel = (JLabel) signupView.getComponent(2);
-        JPasswordField pwdField = (JPasswordField) signupView.getComponent(3);
+        JPasswordField pwdField = (JPasswordField) signupView.getComponent(5);
 
         // create and dispatch KeyEvents to the UI
         KeyEvent event = new KeyEvent(
@@ -96,7 +97,7 @@ public class SignUpTest {
         System.out.println("view-model: " + viewModel.getState().getPassword());
 
         // assert that the values are as expected.
-        assertEquals("yz", new String(pwdField.getPassword()));
-        assertEquals("yz", viewModel.getState().getPassword());
+        Assert.assertEquals("yz", new String(pwdField.getPassword()));
+        Assert.assertEquals("yz", viewModel.getState().getPassword());
     }
 }

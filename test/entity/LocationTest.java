@@ -1,5 +1,8 @@
-package entity;
+package test.entity;
 
+import entity.Coordinate;
+import entity.Location;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,21 +22,21 @@ class LocationTest {
 
     @Test
     void getFilter() {
-        assertEquals("interesting places", location.getFilter());
+        Assertions.assertEquals("interesting places", location.getFilter());
     }
 
     @Test
     void getCoordinate() {
-        assertEquals(coordinate, location.getCoordinate());
+        Assertions.assertEquals(coordinate, location.getCoordinate());
     }
 
     @Test
     void getName() {
-        assertEquals("McDonalds", location.getName());
+        Assertions.assertEquals("McDonalds", location.getName());
     }
 
     @Test
     void getOsmLink() {
-        assertEquals("abc", location.getOsmLink());
+        Assertions.assertEquals("abc", location.getOsmLink());
     }
 }

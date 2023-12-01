@@ -1,9 +1,9 @@
-package entity;
+package test.entity;
 
+import entity.Coordinate;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CoordinateTest {
     private Coordinate coordinate;
@@ -15,11 +15,11 @@ class CoordinateTest {
     }
     @Test
     void getLatitude() {
-        assertEquals(1.234455, coordinate.getLatitude());
+        Assertions.assertEquals(1.234455, coordinate.getLatitude());
     }
 
     @Test
     void getLongitude() {
-        assertEquals(1.223344, coordinate.getLongitude());
+        Assertions.assertEquals(1.223344, coordinate.getLongitude());
     }
 }
