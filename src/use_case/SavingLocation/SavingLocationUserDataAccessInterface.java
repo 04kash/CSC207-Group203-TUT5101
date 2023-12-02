@@ -4,8 +4,7 @@ import entity.*;
 
 public interface SavingLocationUserDataAccessInterface {
   void addLocation(String username, Location location, Label newLabel);
-  boolean locationExists(String username, Coordinate coordinate);
-  User get(String username);
+  boolean locationExists(String username, Location location);
 
   String getCurrentUser();
 }

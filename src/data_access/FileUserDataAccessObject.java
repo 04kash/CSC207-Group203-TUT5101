@@ -194,14 +194,15 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
 
 
     @Override
-    public boolean locationExists(String username, Coordinate coordinate) {
+    public boolean locationExists(String username, Location chosenLocation) {
         User user = accounts.get(username);
         Label[] labels = user.getPlanner().getLabel().toArray(new Label[0]);
         for (Label label : labels) {
             ArrayList<Location> locations = user.getPlanner().getLocations(label);
 
             for (Location location : locations) {
-                if (location.getCoordinate().equals(coordinate)) {
+                if ((Double.compare(location.getCoordinate().getLatitude(),chosenLocation.getCoordinate().getLatitude())==0 && Double.compare(location.getCoordinate().getLongitude(),chosenLocation.getCoordinate().getLongitude())==0 ) && location.getName().equals(chosenLocation.getName())){
+                   System.out.println("chosen location:"+chosenLocation.getName()+"location:"+location.getName());
                     return true;
                 }
             }
@@ -209,7 +210,6 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
 
         return false;
     }
-
 
 
     public void addLabelToPlanner(String username, Label newLabel) {
