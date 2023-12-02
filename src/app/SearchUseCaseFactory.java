@@ -1,6 +1,5 @@
 package app;
 
-import interface_adapter.SavingLocation.SavingLocationViewModel;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.api_returns.ApiController;
 import interface_adapter.api_returns.ApiPresenter;
@@ -24,7 +23,6 @@ import use_case.displayingLocations.DisplayingLocationsInteractor;
 import use_case.displayingLocations.DisplayingLocationsOutputBoundary;
 import use_case.displayingLocations.DisplayingLocationsUserDataAccessInterface;
 import view.SearchView;
-import view.ViewManager;
 
 public class SearchUseCaseFactory {
 

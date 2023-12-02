@@ -1,9 +1,5 @@
 package interface_adapter.LocationsFromLabel;
 
-import entity.Location;
-
-import java.util.ArrayList;
-
 public class LocationsFromLabelState {
     private static String displayMsg = null;
 

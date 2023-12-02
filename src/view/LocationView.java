@@ -33,7 +33,6 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 
 	public SavingLocationController savingLocationController;
 	public static final String viewName = "location view";
-	//	public static ApiViewModel displayingLocationsViewModel;
 	private static final long serialVersionUID = 1L;
 
 	private String username;

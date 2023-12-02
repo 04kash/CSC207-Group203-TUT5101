@@ -214,7 +214,6 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         Planner userPlanner = accounts.get(username).getPlanner();
         userPlanner.setLabel(newLabel, new ArrayList<>());
         save();
-        //TODO: Check If this is creating 2 copies of the user: existing one and new one. We only want new one.
     }
 
     @Override

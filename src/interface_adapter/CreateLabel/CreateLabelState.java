@@ -1,15 +1,10 @@
 package interface_adapter.CreateLabel;
 
 public class CreateLabelState {
-
-//    private String username = "";
-//    private String password = "";
     private String chosenLabel;
     private String displayMsg = null;
 
     public CreateLabelState(CreateLabelState copy){
-//        username = copy.username;
-//        password = copy.password;
         chosenLabel = copy.chosenLabel;
         displayMsg = copy.displayMsg;
     }
@@ -17,14 +12,6 @@ public class CreateLabelState {
     public String getChosenLabel() {
         return chosenLabel;
     }
-
-    //public String getUsername() {
-     //   return username;
-   // }
-
-    //public String getPassword() {
-    //    return password;
-   // }
 
     public String getDisplayMsg() {
         return displayMsg;

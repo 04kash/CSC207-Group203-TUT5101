@@ -1,7 +1,6 @@
 package use_case.SavingLocation;
 
 public class SavingLocationInputData {
-//    final private String username;
     private String chosenLabel = "favourites";
     String locationName;
     double latitude;

@@ -84,20 +84,9 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
         return result;
     }
 
-//    public static void main(String[] args){
-//        ArrayList<Location> l = getLocations("Mumbai","interesting_places");
-//        for (int i = 0; i < l.size();i++) {
-//            System.out.println(l.get(i).getName());
-//            System.out.println(l.get(i).getCoordinate().getLatitude());
-//            System.out.println(l.get(i).getCoordinate().getLongitude());
-//            System.out.println(l.get(i).getOsmLink());
-//            System.out.println(l.get(i).getFilter());
-//        }
-//    }
     public ArrayList<Location> getLocations(String cityName, String filter){
 
         try {
-//            String apiKey = System.getenv("API_KEY");
             String apiKey = "5ae2e3f221c38a28845f05b69a5f07fa5c748e49837877179a12c1a3";
             Coordinate coordinates = getCoordinates(cityName);
             double lat = coordinates.getLatitude();
@@ -123,8 +112,8 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
             int responseCode = connection.getResponseCode();
 
             if (responseCode == HttpURLConnection.HTTP_OK) {
-                // Read the response data
 
+                // Read the response data
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 StringBuilder response = new StringBuilder();
                 String line;
@@ -135,7 +124,7 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
 
                 // Parse the JSON response
                 JSONArray jsonArray = new JSONArray(response.toString());
-                 //System.out.println(jsonArray);
+
                 // Extract and print name and coordinates for each place
                 ArrayList<Location> locations= new ArrayList<>();
                 for (int i = 0; i < jsonArray.length() && i<=10; i++) {
@@ -150,10 +139,6 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
                     double longitude = point.getDouble("lon");
 
                     if (!name.isEmpty()) {
-//                        System.out.println("Name: " + name);
-//                        System.out.println("Latitude: " + latitude);
-//                        System.out.println("Longitude: " + longitude);
-//                        System.out.println();
                         Coordinate curr_coordinates= new Coordinate(latitude,longitude);
                         Location location = new Location(name,curr_coordinates,osmLink,filter);
                         locations.add(location);
@@ -190,6 +175,7 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
             // Get the response code
             int responseCode = connection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
+
                 // Read the response data
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 StringBuilder response = new StringBuilder();

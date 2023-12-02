@@ -3,13 +3,11 @@ import entity.*;
 public class CreateLabelInteractor implements CreateLabelInputBoundary{
     final CreateLabelDataAccessInterface labelDataAccessObject;
     final CreateLabelOutputBoundary labelPresentor;
-    //final UserFactory userFactory;
 
     public CreateLabelInteractor(CreateLabelDataAccessInterface labelDataAccessObject,
                                  CreateLabelOutputBoundary labelPresentor){
         this.labelDataAccessObject = labelDataAccessObject;
         this.labelPresentor = labelPresentor;
-        //this.userFactory = userFactory;
     }
 
     @Override

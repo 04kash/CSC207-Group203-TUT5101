@@ -13,7 +13,7 @@ public class Planner {
         planner.put(new Label(), new ArrayList<Location>());
     }
 
-    Planner(HashMap<Label, ArrayList<Location>> planner) {
+    public Planner(HashMap<Label, ArrayList<Location>> planner) {
         this.planner = planner;
     }
 
