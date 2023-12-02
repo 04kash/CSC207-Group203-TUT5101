@@ -67,4 +67,9 @@ public class DisplayingLocationsInteractorTest {
         DisplayingLocationsInputBoundary interactor = new DisplayingLocationsInteractor(userDataAccessInterface, successPresenter);
         interactor.execute(inputData);
     }
+
+    @Test
+    void failTest() {
+
+    }
 }

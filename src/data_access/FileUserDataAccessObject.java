@@ -45,7 +45,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
 
                 String row;
                 while ((row = reader.readLine()) != null) {
-                    String[] col = row.split(",", 3);
+                    String[] col = row.split(",");
                     String username = String.valueOf(col[headers.get("username")]);
                     String password = String.valueOf(col[headers.get("password")]);
                     Planner planner1 = new Planner();
@@ -66,12 +66,10 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         Label label = new Label();
         for (int i = 0; i < nestedArrayList.size(); i++) {
             ArrayList lists = nestedArrayList.get(i);
-            System.out.println(lists);
             ArrayList<String> result = convertToObject(String.valueOf(lists));
             Location location = new Location(result.get(0), new Coordinate(Double.parseDouble(result.get(1)), Double.parseDouble(result.get(2))), result.get(3), result.get(4));
             ArrayList<Location> locations = new ArrayList<>();
             locations.add(location);
-            System.out.println(locations);
             planner.setLabel(label, locations);
         }
         return planner;
