@@ -50,7 +50,7 @@ public class LocationsFromLabelInteractorTest {
     @Test
     //Label doesn't exist
     void FailLabelTest(){
-        LocationsFromLabelOutputBoundary successPresenter = new LocationsFromLabelOutputBoundary() {
+        LocationsFromLabelOutputBoundary failPresenter = new LocationsFromLabelOutputBoundary() {
             @Override
             public void prepareSuccessView(LocationsFromLabelOutputData outputData) {
                 Assertions.fail("Use case success is unexpected.");
@@ -62,12 +62,12 @@ public class LocationsFromLabelInteractorTest {
             }
         };
         LocationsFromLabelInputData locationsFromLabelInputData = new LocationsFromLabelInputData("Favorites Places to Shop");
-        LocationsFromLabelInteractor locationsFromLabelInteractor = new LocationsFromLabelInteractor(Repository,successPresenter);
+        LocationsFromLabelInteractor locationsFromLabelInteractor = new LocationsFromLabelInteractor(Repository,failPresenter);
         locationsFromLabelInteractor.execute(locationsFromLabelInputData);
     }
     @Test
     void FailLocationTest(){
-        LocationsFromLabelOutputBoundary successPresenter = new LocationsFromLabelOutputBoundary() {
+        LocationsFromLabelOutputBoundary failPresenter = new LocationsFromLabelOutputBoundary() {
             @Override
             public void prepareSuccessView(LocationsFromLabelOutputData outputData) {
                 Assertions.fail("Use case success is unexpected.");
@@ -79,7 +79,7 @@ public class LocationsFromLabelInteractorTest {
             }
         };
         LocationsFromLabelInputData locationsFromLabelInputData = new LocationsFromLabelInputData("favorite");
-        LocationsFromLabelInteractor locationsFromLabelInteractor = new LocationsFromLabelInteractor(Repository,successPresenter);
+        LocationsFromLabelInteractor locationsFromLabelInteractor = new LocationsFromLabelInteractor(Repository,failPresenter);
         locationsFromLabelInteractor.execute(locationsFromLabelInputData);
     }
 }

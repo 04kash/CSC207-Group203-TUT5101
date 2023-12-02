@@ -21,8 +21,6 @@ public class SavingLocationInteractor implements SavingLocationInputBoundary{
             userDataAccessObject.addLocation(currentUser, chosenLocation, chosenLabel);
             if(userDataAccessObject.locationExists(currentUser, coordinate)){
                 userPresenter.prepareSuccessView("Location saved successfully");
-            }else{
-                userPresenter.prepareFailView("Location was not saved.Please try again.");
             }
         }
     }
