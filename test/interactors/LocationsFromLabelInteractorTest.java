@@ -47,4 +47,39 @@ public class LocationsFromLabelInteractorTest {
         LocationsFromLabelInteractor locationsFromLabelInteractor = new LocationsFromLabelInteractor(Repository,successPresenter);
         locationsFromLabelInteractor.execute(locationsFromLabelInputData);
     }
+    @Test
+    //Label doesn't exist
+    void FailLabelTest(){
+        LocationsFromLabelOutputBoundary successPresenter = new LocationsFromLabelOutputBoundary() {
+            @Override
+            public void prepareSuccessView(LocationsFromLabelOutputData outputData) {
+                Assertions.fail("Use case success is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("This Label does not exist",error);
+            }
+        };
+        LocationsFromLabelInputData locationsFromLabelInputData = new LocationsFromLabelInputData("Favorites Places to Shop");
+        LocationsFromLabelInteractor locationsFromLabelInteractor = new LocationsFromLabelInteractor(Repository,successPresenter);
+        locationsFromLabelInteractor.execute(locationsFromLabelInputData);
+    }
+    @Test
+    void FailLocationTest(){
+        LocationsFromLabelOutputBoundary successPresenter = new LocationsFromLabelOutputBoundary() {
+            @Override
+            public void prepareSuccessView(LocationsFromLabelOutputData outputData) {
+                Assertions.fail("Use case success is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("No locations have been saved under this Label.",error);
+            }
+        };
+        LocationsFromLabelInputData locationsFromLabelInputData = new LocationsFromLabelInputData("favorite");
+        LocationsFromLabelInteractor locationsFromLabelInteractor = new LocationsFromLabelInteractor(Repository,successPresenter);
+        locationsFromLabelInteractor.execute(locationsFromLabelInputData);
+    }
 }
