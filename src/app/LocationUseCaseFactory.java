@@ -25,7 +25,7 @@ public class LocationUseCaseFactory {
     public static LocationView create(ViewManagerModel viewManagerModel, DisplayingLocationsViewModel displayingLocationsViewModel, SavingLocationViewModel savingLocationViewModel, DisplayingLabelsViewModel displayingLabelsViewModel, DisplayingLocationsUserDataAccessInterface userDataAccessInterface, SavingLocationUserDataAccessInterface userDataAccessInterface2) {
         DisplayingLocationsController displayingLocationsController = createLocationUser(viewManagerModel, displayingLocationsViewModel, userDataAccessInterface);
         SavingLocationController savingLocationController = createInstance(viewManagerModel, savingLocationViewModel, userDataAccessInterface2);
-        return new LocationView(displayingLocationsViewModel, displayingLocationsController, savingLocationController,displayingLabelsViewModel);
+        return new LocationView(displayingLocationsViewModel, displayingLocationsController, savingLocationController,displayingLabelsViewModel,savingLocationViewModel);
     }
 
     public static DisplayingLocationsController createLocationUser(ViewManagerModel viewManagerModel, DisplayingLocationsViewModel displayingLocationsViewModel, DisplayingLocationsUserDataAccessInterface userDataAccessInterface) {

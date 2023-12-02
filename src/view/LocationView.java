@@ -3,6 +3,7 @@ package view;
 import entity.Label;
 import entity.Location;
 import interface_adapter.SavingLocation.SavingLocationController;
+import interface_adapter.SavingLocation.SavingLocationViewModel;
 import interface_adapter.displayingLabels.DisplayingLabelsViewModel;
 import interface_adapter.displayingLocations.DisplayingLocationsController;
 import interface_adapter.displayingLocations.DisplayingLocationsViewModel;
@@ -25,6 +26,7 @@ import java.util.Objects;
 
 public class LocationView extends JPanel implements ActionListener, PropertyChangeListener {
 
+	private final SavingLocationViewModel savingLocationViewModel;
 	public DisplayingLocationsViewModel displayingLocationsViewModel;
 	public DisplayingLabelsViewModel displayingLabelsViewModel;
 	public DisplayingLocationsController displayingLocationsController;
@@ -85,12 +87,13 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 	/**
 	 * Create the panel.
 	 */
-	public LocationView(DisplayingLocationsViewModel displayingLocationsViewModel, DisplayingLocationsController displayingLocationsController, SavingLocationController savingLocationController, DisplayingLabelsViewModel displayingLabelsViewModel){
+	public LocationView(DisplayingLocationsViewModel displayingLocationsViewModel, DisplayingLocationsController displayingLocationsController, SavingLocationController savingLocationController, DisplayingLabelsViewModel displayingLabelsViewModel, SavingLocationViewModel savingLocationViewModel){
 		this.setLayout(null);
 		this.displayingLocationsController = displayingLocationsController;
 		this.displayingLocationsViewModel = displayingLocationsViewModel;
 		this.displayingLabelsViewModel = displayingLabelsViewModel;
 		this.savingLocationController = savingLocationController;
+		this.savingLocationViewModel = savingLocationViewModel;
 		this.displayingLocationsViewModel.addPropertyChangeListener(this);
 		displayingLocationsController.execute();
 
@@ -421,84 +424,12 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 			selectedData.add(selectedLabel);
 
 			// Do something with the selected Location and Label
-			JOptionPane.showMessageDialog(this, "Location saved: " + selectedLocationName + ", Label: " + selectedLabelTitle);
 
 			return selectedData;
 		}
 
 		return new ArrayList<>(); // Return an empty list if the user canceled
 	}
-
-
-	private Location showSaveLocationDialog(ArrayList<Location> locations) {
-        // Create a JComboBox with some sample items
-        String[] locationString = new String[0];
-        if (locations.isEmpty()) {
-        } else {
-			ArrayList<String> locationsString = new ArrayList<>();
-			for (int i = 0; i < locations.size(); i++) {
-				locationsString.add(locations.get(i).getName());
-			}
-			locationString = locationsString.toArray(new String[0]);
-        }
-        JComboBox<String> comboBox = new JComboBox<>(locationString);
-
-        // Show the dialog with the JComboBox
-        int result = JOptionPane.showConfirmDialog(
-                this,
-                comboBox,
-                "Select a Location",
-                JOptionPane.OK_CANCEL_OPTION,
-                JOptionPane.PLAIN_MESSAGE
-        );
-
-        // Check if the user clicked OK
-        if (result == JOptionPane.OK_OPTION) {
-            String selectedLocation = (String) comboBox.getSelectedItem();
-            // Do something with the selected location, e.g., save it
-            JOptionPane.showMessageDialog(this, "Location saved: " + selectedLocation);
-        }
-
-		return locations.get(result);
-    }
-
-//	private Location showSaveLocationDialog(ArrayList<Location> locations) {
-//        // Create a JComboBox with some sample items
-//        String[] locationString = new String[0];
-//        if (locations.isEmpty()) {
-//        } else {
-//            locationString = new String[]{locations.get(0).getName(),
-//                    locations.get(1).getName(),
-//                    locations.get(2).getName(),
-//                    locations.get(3).getName(),
-//                    locations.get(4).getName(),
-//                    locations.get(5).getName(),
-//                    locations.get(6).getName(),
-//                    locations.get(7).getName(),
-//                    locations.get(8).getName(),
-//                    locations.get(9).getName()};
-//        }
-//        JComboBox<String> comboBox = new JComboBox<>(locationString);
-//
-//        // Show the dialog with the JComboBox
-//        int result = JOptionPane.showConfirmDialog(
-//                this,
-//                comboBox,
-//                "Select a Location",
-//                JOptionPane.OK_CANCEL_OPTION,
-//                JOptionPane.PLAIN_MESSAGE
-//        );
-//
-//        // Check if the user clicked OK
-//        if (result == JOptionPane.OK_OPTION) {
-//            String selectedLocation = (String) comboBox.getSelectedItem();
-//            // Do something with the selected location, e.g., save it
-//            JOptionPane.showMessageDialog(this, "Location saved: " + selectedLocation);
-//        }
-//
-//		return locations.get(result);
-//    }
-
 
 	public void actionPerformed(ActionEvent evt) {
 		System.out.println("Click " + evt.getActionCommand());
@@ -779,6 +710,7 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 					Label chosenLabel = (Label) userChoice.get(1);
 					System.out.println(chosenLabel.getTitle());
 					savingLocationController.execute(chosenLabel.getTitle(), saved.getName(), saved.getCoordinate().getLatitude(), saved.getCoordinate().getLongitude(), saved.getOsmLink(), saved.getFilter());
+					JOptionPane.showMessageDialog(null, savingLocationViewModel.getState().getDisplayMsg());
 				}
 			});
 			save.setBounds(37, 11, 197, 23);

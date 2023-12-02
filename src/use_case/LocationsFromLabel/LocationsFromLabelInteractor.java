@@ -24,9 +24,10 @@ public class LocationsFromLabelInteractor implements LocationsFromLabelInputBoun
             outputData = new LocationsFromLabelOutputData(userDataAccessObject.getLocationsFromLabel(username,new Label(locationsFromLabelInputData.getLabel())),false);
             System.out.println(outputData);
             userPresenter.prepareSuccessView(outputData);
+        }else if(!userDataAccessObject.labelExists(username,new Label(locationsFromLabelInputData.getLabel()))){
+            userPresenter.prepareFailView("This Label does not exist");
         }else{
             userPresenter.prepareFailView("No locations have been saved under this Label.");
         }
-
     }
 }
