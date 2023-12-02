@@ -38,14 +38,14 @@ public class InMemorySavingLocation implements SavingLocationUserDataAccessInter
     }
 
     @Override
-    public boolean locationExists(String username, Coordinate coordinate) {
+    public boolean locationExists(String username, Location chosenLocation) {
         User user = accounts.get(username);
         Label[] labels = user.getPlanner().getLabel().toArray(new Label[0]);
         for (Label label : labels) {
             ArrayList<Location> locations = user.getPlanner().getLocations(label);
 
             for (Location location : locations) {
-                if ((Double.compare(location.getCoordinate().getLatitude(),coordinate.getLatitude())==0 && Double.compare(location.getCoordinate().getLongitude(),coordinate.getLongitude())==0 )){
+                if ((Double.compare(location.getCoordinate().getLatitude(),chosenLocation.getCoordinate().getLatitude())==0 && Double.compare(location.getCoordinate().getLongitude(),chosenLocation.getCoordinate().getLongitude())==0 ) && location.getName().equals(chosenLocation.getName())){
                     return true;
                 }
             }

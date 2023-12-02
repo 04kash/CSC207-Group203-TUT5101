@@ -15,11 +15,11 @@ public class SavingLocationInteractor implements SavingLocationInputBoundary{
         String currentUser = userDataAccessObject.getCurrentUser();
         Location chosenLocation = new Location(savingLocationInputData.getLocationName(),coordinate, savingLocationInputData.getLink(), savingLocationInputData.getFilters());
         Label chosenLabel = new Label(savingLocationInputData.getChosenLabel());
-        if(userDataAccessObject.locationExists(currentUser,coordinate)){
+        if(userDataAccessObject.locationExists(currentUser,chosenLocation)){
             userPresenter.prepareFailView("Location is already saved.");
         }else{
             userDataAccessObject.addLocation(currentUser, chosenLocation, chosenLabel);
-            if(userDataAccessObject.locationExists(currentUser, coordinate)){
+            if(userDataAccessObject.locationExists(currentUser, chosenLocation)){
                 userPresenter.prepareSuccessView("Location saved successfully");
             }
         }
