@@ -201,7 +201,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
             ArrayList<Location> locations = user.getPlanner().getLocations(label);
 
             for (Location location : locations) {
-                if (location.getCoordinate().equals(coordinate)) {
+                if ((Double.compare(location.getCoordinate().getLatitude(),coordinate.getLatitude())==0 && Double.compare(location.getCoordinate().getLongitude(),coordinate.getLongitude())==0 )){
                     return true;
                 }
             }
