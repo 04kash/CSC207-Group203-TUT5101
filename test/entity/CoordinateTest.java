@@ -1,4 +1,4 @@
-package test.entity;
+package entity;
 
 import entity.Coordinate;
 import org.junit.jupiter.api.BeforeEach;

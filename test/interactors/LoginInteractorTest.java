@@ -1,4 +1,4 @@
-package test.interactors;
+package interactors;
 
 import data_access.FileUserDataAccessObject;
 import entity.CommonUserFactory;
