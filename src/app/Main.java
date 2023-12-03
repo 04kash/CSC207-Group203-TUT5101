@@ -28,6 +28,9 @@ public class Main {
         // The main application window.
         JFrame application = new JFrame("Discover City");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        int frameWidth = 800; // Set your desired width
+        int frameHeight = 900; // Set your desired height
+        application.setSize(frameWidth, frameHeight);
 
         CardLayout cardLayout = new CardLayout();
 
@@ -87,7 +90,7 @@ public class Main {
         viewManagerModel.setActiveView(loginView.viewName);
         viewManagerModel.firePropertyChanged();
 
-        application.pack();
+        //application.pack();
         application.setVisible(true);
     }
 }
