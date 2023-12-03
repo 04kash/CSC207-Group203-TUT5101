@@ -21,8 +21,9 @@ public class LoginViewTest {
         LoginViewModel viewModel = new LoginViewModel();
         JPanel loginView = new LogInView(viewModel, controller);
         JFrame jf = new JFrame();
+        jf.setSize(800, 900);
         jf.setContentPane(loginView);
-        jf.pack();
+        // jf.pack();
         jf.setVisible(true);
 
         // get a reference to the first password field
