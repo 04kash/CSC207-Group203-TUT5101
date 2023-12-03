@@ -1,5 +1,5 @@
 package use_case.CreateLabel;
 
 public interface CreateLabelInputBoundary {
-    public void excecute(CreateLabelInputData createLabelInputData);
+    public void execute(CreateLabelInputData createLabelInputData);
 }

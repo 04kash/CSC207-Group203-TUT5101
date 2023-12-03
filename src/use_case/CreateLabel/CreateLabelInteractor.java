@@ -13,7 +13,7 @@ public class CreateLabelInteractor implements CreateLabelInputBoundary{
     }
 
     @Override
-    public void excecute(CreateLabelInputData createLabelInputData) {
+    public void execute(CreateLabelInputData createLabelInputData) {
         Label label = new Label(createLabelInputData.getChosenLabel());
         String currentUser = labelDataAccessObject.getCurrentUser();
         if(labelDataAccessObject.labelExists(currentUser,label)){
