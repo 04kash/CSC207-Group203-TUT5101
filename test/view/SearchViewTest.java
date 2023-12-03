@@ -8,8 +8,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import use_case.api_returns.ApiInputBoundary;
+import use_case.api_returns.ApiInputData;
 import use_case.displayingLabels.DisplayingLabelsInputBoundary;
+import use_case.displayingLabels.DisplayingLabelsInputData;
 import use_case.displayingLocations.DisplayingLocationsInputBoundary;
+import use_case.displayingLocations.DisplayingLocationsInputData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,11 +28,26 @@ public class SearchViewTest {
     private DisplayingLabelsController displayingLabelsController;
     @Before
     public void setUp() {
-        ApiInputBoundary aib = null;
+        ApiInputBoundary aib = new ApiInputBoundary() {
+            @Override
+            public void execute(ApiInputData apiInputData) {
+
+            }
+        };
         ApiViewModel apiViewModel = new ApiViewModel();
         ApiController apiController = new ApiController(aib);
-        DisplayingLocationsInputBoundary dlib = null;
-        DisplayingLabelsInputBoundary dlabelsib = null;
+        DisplayingLocationsInputBoundary dlib = new DisplayingLocationsInputBoundary() {
+            @Override
+            public void execute(DisplayingLocationsInputData displayingLocationsInputData) {
+
+            }
+        };
+        DisplayingLabelsInputBoundary dlabelsib = new DisplayingLabelsInputBoundary() {
+            @Override
+            public void execute(DisplayingLabelsInputData displayingLabelsInputData) {
+
+            }
+        };
         this.displayingLocationsController = new DisplayingLocationsController(dlib);
         this.displayingLabelsController = new DisplayingLabelsController(dlabelsib);
 
@@ -54,19 +72,15 @@ public class SearchViewTest {
         JButton enterButton = findComponent(JButton.class, "Enter");
 
         // Set city name and select a filter
-        SwingUtilities.invokeLater(() -> {
-            cityField.setText("toronto");
-        });
+        cityField.setText("toronto");
 
         // Trigger the Enter button
-        SwingUtilities.invokeLater(() -> {
-            enterButton.doClick();
-        });
+        enterButton.doClick();
 
         // Check if the controllers were executed
-//        assertEquals(true, searchView.isApiControllerExecuted());
-//        assertEquals(true, searchView.isDisplayingLocationsControllerExecuted());
-//        assertEquals(true, searchView.isDisplayingLabelsControllerExecuted());
+        assertEquals(true, searchView.isApiControllerExecuted());
+        assertEquals(true, searchView.isDisplayingLocationsControllerExecuted());
+        assertEquals(true, searchView.isDisplayingLabelsControllerExecuted());
     }
 
     // Helper method to find a component by its type and text
