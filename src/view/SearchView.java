@@ -5,11 +5,9 @@ import interface_adapter.api_returns.ApiState;
 import interface_adapter.api_returns.ApiViewModel;
 import interface_adapter.displayingLabels.DisplayingLabelsController;
 import interface_adapter.displayingLocations.DisplayingLocationsController;
-import interface_adapter.login.LoginState;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
-import javax.swing.JRadioButton;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -32,7 +30,6 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 	private static final long serialVersionUID = 1L;
 	private JTextField cityField;
 	private String selectedFilter;
-	JLabel username;
 
 	/**
 	 * Create the panel.
@@ -123,8 +120,6 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-//		ApiState state = (ApiState) evt.getNewValue();
-//		username.setText(state.getUsername());
 	}
 
 	public ApiViewModel getCurrentViewModel() {

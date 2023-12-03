@@ -1,7 +1,6 @@
 package interface_adapter.CreateLabel;
 
 import use_case.CreateLabel.CreateLabelInputBoundary;
-import use_case.CreateLabel.CreateLabelInputBoundary;
 import use_case.CreateLabel.CreateLabelInputData;
 
 

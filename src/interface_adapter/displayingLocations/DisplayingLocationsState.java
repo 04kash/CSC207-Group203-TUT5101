@@ -23,5 +23,5 @@ public class DisplayingLocationsState {
         this.locations = locations;
     }
 
-    public void setLocationError(String error) { this.locationError = locationError;}
+    public void setLocationError(String error) { this.locationError = error;}
 }

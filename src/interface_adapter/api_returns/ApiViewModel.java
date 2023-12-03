@@ -7,6 +7,7 @@ import java.beans.PropertyChangeSupport;
 
 public class ApiViewModel extends ViewModel {
 
+//    do we need these?
     public static final String ENTER_BUTTON_LABEL = "Enter";
     public static final String SAVED_BUTTON_LABEL = "Saved Locations";
     public static final String TITLE_LABEL = "Logged In View";

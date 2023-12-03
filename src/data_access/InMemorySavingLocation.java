@@ -9,7 +9,7 @@ import java.util.*;
 public class InMemorySavingLocation implements SavingLocationUserDataAccessInterface {
     private final Map<String, User> accounts = new HashMap<>();
 
-    private String currentUser="Kashish";
+    private String currentUser = "Kashish";
 
     public InMemorySavingLocation(){
         Planner planner = new Planner(new HashMap<>());

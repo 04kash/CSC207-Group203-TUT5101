@@ -4,10 +4,8 @@ import entity.Label;
 import interface_adapter.CreateLabel.CreateLabelController;
 import interface_adapter.CreateLabel.CreateLabelViewModel;
 import interface_adapter.LocationsFromLabel.LocationsFromLabelController;
-import interface_adapter.LocationsFromLabel.LocationsFromLabelState;
 import interface_adapter.LocationsFromLabel.LocationsFromLabelViewModel;
 import interface_adapter.displayingLabels.DisplayingLabelsController;
-import interface_adapter.displayingLabels.DisplayingLabelsState;
 import interface_adapter.displayingLabels.DisplayingLabelsViewModel;
 
 import javax.swing.*;
@@ -103,8 +101,6 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 		// Add the scroll pane to the CENTER position
 		add(scrollPane, BorderLayout.CENTER);
 
-		// Add the "Favourites" button initially
-		//addButton("Favourites");
 	}
 
 //	private void showDeleteLabelPopup() {
@@ -167,14 +163,11 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);  // Dispose on close, no default close operation
 
 			dialog.setVisible(true);
-
-			// addButton(newLabelName);
 		}
 
 		revalidate();
 		repaint();
 	}
-
 
     @Override
 	public void actionPerformed(ActionEvent e) {
@@ -199,7 +192,6 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 				// Add a listener to each button
 				button.addActionListener(e -> {
 					locationsFromLabelController.execute(button.getText());
-					//JOptionPane.showMessageDialog(null, "Button Label: " + LocationsFromLabelState.getLocation());
 				});
 				button.setBackground(new Color(51, 153, 102));
 				button.setForeground(new Color(245, 245, 245));

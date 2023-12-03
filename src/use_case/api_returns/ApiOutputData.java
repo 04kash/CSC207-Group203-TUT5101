@@ -5,7 +5,7 @@ import entity.Location;
 import java.util.ArrayList;
 
 public class ApiOutputData {
-    public final ArrayList<Location> locations; //TODO: Can we use entities inside OutputData?
+    public final ArrayList<Location> locations;
     private boolean useCaseFailed;
     public ApiOutputData(ArrayList<Location> locations, boolean useCaseFailed) {
         this.locations = locations;

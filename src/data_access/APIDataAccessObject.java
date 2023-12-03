@@ -83,6 +83,7 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
         }
         return result;
     }
+
     public ArrayList<Location> getLocations(String cityName, String filter){
 
        LocationFetcher locationFetcher = new OpenTripMapLocationFetcher();
