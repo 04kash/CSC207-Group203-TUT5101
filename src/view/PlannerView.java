@@ -47,20 +47,27 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 
 		// Create a panel for the top buttons with a horizontal layout
 		JPanel topButtonPanel = new JPanel();
+		topButtonPanel.setBackground(new Color(245, 245, 245));
 		topButtonPanel.setLayout(new FlowLayout());
 
 		// Add the "Delete Location" button
 		JButton deleteLocationButton = new JButton("Delete Location");
+		deleteLocationButton.setBackground(new Color(51, 153, 102));
+		deleteLocationButton.setForeground(new Color(245, 245, 245));
 		deleteLocationButton.addActionListener(e -> showDeleteLocationPopup());
 		topButtonPanel.add(deleteLocationButton);
 
 		// Add the "Delete Label" button
 		JButton deleteLabelButton = new JButton("Delete Label");
+		deleteLabelButton.setBackground(new Color(51, 153, 102));
+		deleteLabelButton.setForeground(new Color(245, 245, 245));
 		deleteLabelButton.addActionListener(e -> showDeleteLabelPopup());
 		topButtonPanel.add(deleteLabelButton);
 
 		// Add the "Create Label" button
 		JButton createLabelButton = new JButton("Create Label");
+		createLabelButton.setBackground(new Color(51, 153, 102));
+		createLabelButton.setForeground(new Color(245, 245, 245));
 		createLabelButton.addActionListener(e -> {showCreateLabelPopup();
 			revalidate();
 			repaint();
@@ -69,6 +76,8 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 
 		// Add the "Go to Homepage" button
 		JButton goToHomepageButton = new JButton("Go to Homepage");
+		goToHomepageButton.setBackground(new Color(51, 153, 102));
+		goToHomepageButton.setForeground(new Color(245, 245, 245));
 		topButtonPanel.add(goToHomepageButton);
 		goToHomepageButton.addActionListener(e->ViewManager.showLoggedinView());
 
@@ -84,6 +93,7 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 	private void initializeCenterPanel() {
 		// Create a panel for the center buttons with a vertical layout
 		centerButtonPanel = new JPanel();
+		centerButtonPanel.setBackground(new Color(245, 245, 245));
 		centerButtonPanel.setLayout(new BoxLayout(centerButtonPanel, BoxLayout.Y_AXIS));
 
 		// Wrap the center button panel with a JScrollPane
@@ -169,7 +179,7 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 				dialog.dispose();  // Close the dialog
 			});
 
-			dialog.add(panel);
+			dialog.getContentPane().add(panel);
 			dialog.pack();
 			dialog.setLocationRelativeTo(null);  // Center the dialog on the screen
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);  // Dispose on close, no default close operation
@@ -220,6 +230,8 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 					locationsFromLabelController.execute(button.getText());
 					//JOptionPane.showMessageDialog(null, "Button Label: " + LocationsFromLabelState.getLocation());
 				});
+				button.setBackground(new Color(51, 153, 102));
+				button.setForeground(new Color(245, 245, 245));
 
 				buttonList.add(button); // Add the button to the list
 				centerButtonPanel.add(button); // Add the button to the panel

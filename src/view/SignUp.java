@@ -27,27 +27,36 @@ public class SignUp extends JPanel implements ActionListener, PropertyChangeList
 	 * Create the panel.
 	 */
 	public SignUp(SignupController controller, SignupViewModel signupViewModel) {
+		setForeground(UIManager.getColor("ColorChooser.swatchesDefaultRecentColor"));
+		setBackground(new Color(245, 245, 245));
 		this.setLayout(null);
 		this.signupViewModel = signupViewModel;
 		this.signupController = controller;
 		signupViewModel.addPropertyChangeListener(this);
 
 		JLabel discoverLabel = new JLabel("<html><center><b>Discover City</b></center></html>");
-		discoverLabel.setFont(new Font("Arial", Font.BOLD, 20));
+		discoverLabel.setForeground(new Color(51, 153, 102));
+		discoverLabel.setFont(new Font("Arial Black", Font.BOLD, 25));
 		discoverLabel.setBounds(150, 10, 300, 50); // Adjust the bounds as needed
 		add(discoverLabel);
 
 		JLabel descriptionLabel = new JLabel("<html><center>Unlock your city's secrets with Discover City – your pocket-sized guide to hidden gems and local favorites. Explore effortlessly, live adventurously.</center></html>");
+		descriptionLabel.setFont(new Font("Tahoma", Font.ITALIC, 14));
+		descriptionLabel.setForeground(new Color(51, 153, 102));
 		descriptionLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		descriptionLabel.setVerticalAlignment(SwingConstants.BOTTOM);
 		descriptionLabel.setBounds(20, 30, 460, 60); // Adjust the bounds as needed
 		add(descriptionLabel);
 		
-		JLabel username = new JLabel("username:");
+		JLabel username = new JLabel("Username:");
+		username.setForeground(new Color(51, 153, 102));
+		username.setFont(new Font("Arial Narrow", Font.PLAIN, 15));
 		username.setBounds(81, 129, 97, 14);
 		add(username);
 		
-		JLabel password = new JLabel("password:");
+		JLabel password = new JLabel("Password:");
+		password.setFont(new Font("Arial Narrow", Font.PLAIN, 15));
+		password.setForeground(new Color(51, 153, 102));
 		password.setBounds(81, 182, 97, 14);
 		add(password);
 		
@@ -61,10 +70,14 @@ public class SignUp extends JPanel implements ActionListener, PropertyChangeList
 		add(passwordField);
 		
 		JButton signUp = new JButton("Sign Up");
+		signUp.setBackground(new Color(51, 153, 102));
+		signUp.setForeground(new Color(245, 245, 245));
 		signUp.setBounds(60, 230, 139, 23);
 		add(signUp);
 
 		JButton back = new JButton("Back to LogIn");
+		back.setForeground(new Color(245, 245, 245));
+		back.setBackground(new Color(51, 153, 102));
 		back.setBounds(250, 230, 139, 23);
 		add(back);
 		back.addActionListener(

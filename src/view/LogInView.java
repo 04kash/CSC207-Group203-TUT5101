@@ -34,27 +34,35 @@ public class LogInView extends JPanel implements ActionListener, PropertyChangeL
 	 * Create the panel.
 	 */
 	public LogInView(LoginViewModel loginViewModel, LoginController controller) {
+		setBackground(new Color(245, 245, 245));
 		this.setLayout(null);
 		this.loginController = controller;
 		this.loginViewModel = loginViewModel;
 		this.loginViewModel.addPropertyChangeListener(this);
 
 		JLabel discoverLabel = new JLabel("<html><center><b>Discover City</b></center></html>");
-		discoverLabel.setFont(new Font("Arial", Font.BOLD, 20));
+		discoverLabel.setForeground(new Color(0, 153, 102));
+		discoverLabel.setFont(new Font("Arial Black", Font.BOLD, 25));
 		discoverLabel.setBounds(150, 10, 300, 50); // Adjust the bounds as needed
 		add(discoverLabel);
 
 		JLabel descriptionLabel = new JLabel("<html><center>Unlock your city's secrets with Discover City – your pocket-sized guide to hidden gems and local favorites. Explore effortlessly, live adventurously.</center></html>");
+		descriptionLabel.setForeground(new Color(51, 153, 102));
+		descriptionLabel.setFont(new Font("Tahoma", Font.ITALIC, 14));
 		descriptionLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		descriptionLabel.setVerticalAlignment(SwingConstants.BOTTOM);
 		descriptionLabel.setBounds(20, 30, 460, 60); // Adjust the bounds as needed
 		add(descriptionLabel);
 		
-		JLabel lblNewLabel = new JLabel("username:");
+		JLabel lblNewLabel = new JLabel("Username:");
+		lblNewLabel.setForeground(new Color(51, 153, 102));
+		lblNewLabel.setFont(new Font("Arial Narrow", Font.BOLD, 15));
 		lblNewLabel.setBounds(51, 150, 76, 14);
 		add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("password:");
+		JLabel lblNewLabel_1 = new JLabel("Password:");
+		lblNewLabel_1.setForeground(new Color(51, 153, 102));
+		lblNewLabel_1.setFont(new Font("Arial Narrow", Font.BOLD, 15));
 		lblNewLabel_1.setBounds(51, 194, 76, 14);
 		add(lblNewLabel_1);
 		
@@ -68,16 +76,22 @@ public class LogInView extends JPanel implements ActionListener, PropertyChangeL
 		add(passwordField);
 		
 		JButton logIn = new JButton("Log In");
+		logIn.setBackground(new Color(51, 153, 102));
+		logIn.setForeground(new Color(245, 245, 245));
 		logIn.setBounds(168, 243, 89, 23);
 		add(logIn);
 		
 		JLabel lblNewLabel_2 = new JLabel("If you do not have an account,");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_2.setForeground(new Color(51, 153, 102));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblNewLabel_2.setBounds(61, 289, 315, 14);
 		add(lblNewLabel_2);
 		
 		JButton signUp = new JButton("Sign Up");
+		signUp.setBackground(new Color(51, 153, 102));
+		signUp.setForeground(new Color(245, 245, 245));
 		signUp.setBounds(168, 320, 89, 23);
 		add(signUp);
 
