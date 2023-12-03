@@ -1,4 +1,3 @@
-/*
 package view;
 
 import interface_adapter.displayingLabels.DisplayingLabelsController;
@@ -50,6 +49,4 @@ public class LoggedInViewTest {
         Assert.assertEquals(ViewManager.getCurrentViewName(), "log in");
     }
 }
-
- */
 
