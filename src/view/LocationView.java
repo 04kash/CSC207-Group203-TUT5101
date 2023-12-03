@@ -100,7 +100,7 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 
 		save = new JButton("Save A Location");
 		save.setForeground(new Color(245, 245, 245));
-		save.setBackground(new Color(51, 153, 102));
+		save.setBackground(new Color(0, 153, 102));
 		save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				showSaveLocationDialog(displayingLocationsViewModel.getState().getLocations(),new ArrayList<>(displayingLabelsViewModel.getState().getLabels()));
@@ -108,6 +108,7 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 		});
 		save.setBounds(37, 11, 197, 23);
 		add(save);
+		save.repaint();
 
 
 		JButton home = new JButton("Go to HomePage");
