@@ -1,5 +1,7 @@
 package view;
 
+import interface_adapter.ViewManagerModel;
+import interface_adapter.ViewModel;
 import interface_adapter.displayingLabels.DisplayingLabelsController;
 import org.junit.Assert;
 import use_case.displayingLabels.DisplayingLabelsInputBoundary;
@@ -20,6 +22,7 @@ public class LoggedInViewTest {
             }
         };
         DisplayingLabelsController dlc = new DisplayingLabelsController(dlib);
+        ViewManagerModel vmm = new ViewManagerModel();
 
         JPanel loggedInView = new LoggedInView(dlc);
         JFrame jf = new JFrame();
@@ -36,17 +39,17 @@ public class LoggedInViewTest {
 // Simulate a click on the "Search New Locations" button
         locationSearchButton.doClick();
         // Assert that the expected view change occurred
-        Assert.assertEquals(ViewManager.getCurrentViewName(), "search");
+        Assert.assertEquals(vmm.getActiveView(), "search");
 
         // Simulate a click on the "View Your Planner" button
         plannerButton.doClick();
         // Assert that the expected view change occurred
-        Assert.assertEquals(ViewManager.getCurrentViewName(), "planner");
+        Assert.assertEquals(vmm.getActiveView(), "planner");
 
         // Simulate a click on the "Log out" button
         logOutButton.doClick();
         // Assert that the expected view change occurred
-        Assert.assertEquals(ViewManager.getCurrentViewName(), "log in");
+        Assert.assertEquals(vmm.getActiveView(), "log in");
     }
 }
 
