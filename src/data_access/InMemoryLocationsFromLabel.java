@@ -12,7 +12,7 @@ public class InMemoryLocationsFromLabel implements LocationsFromLabelUserDataAcc
     private String currentUser="Kashish";
 
     public InMemoryLocationsFromLabel(String label,ArrayList<Location> locations){
-        Planner planner = new Planner();
+        Planner planner = new Planner(new HashMap<>());
         planner.setLabel(new Label(label),locations);
         planner.setLabel(new Label("favorite"),new ArrayList<>());
         User user = new CommonUser("Kashish","123",planner);

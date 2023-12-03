@@ -3,42 +3,93 @@ package data_access;
 import entity.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import use_case.CreateLabel.CreateLabelDataAccessInterface;
+import use_case.LocationsFromLabel.LocationsFromLabelUserDataAccessInterface;
+import use_case.SavingLocation.SavingLocationUserDataAccessInterface;
+import use_case.displayingLabels.DisplayingLabelsUserDataAccessInterface;
+import use_case.login.LoginUserDataAccessInterface;
+import use_case.signup.SignupUserDataAccessInterface;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 
-public class JsonDataAccessObject {
+public class JsonDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, CreateLabelDataAccessInterface, SavingLocationUserDataAccessInterface, LocationsFromLabelUserDataAccessInterface, DisplayingLabelsUserDataAccessInterface {
+    private final Map<String, User> accounts = new HashMap<>();
+    private final String JSONpath;
+    private String currentUser;
+
     public static void main(String[] args) {
-        // To convert CommonUser to JSON
-        ArrayList<Location> locations = new ArrayList<>();
-        locations.add(new Location("Bla", new Coordinate(0.0, 1.0), "link here", "food"));
-        locations.add(new Location("Heyy", new Coordinate(5.0, 6.0), "link here1", "games"));
-        HashMap<Label, ArrayList<Location>> planner1 = new HashMap<>();
-        Label label = new Label("Restaurants");
-        planner1.put(label, locations);
-        Planner planner = new Planner(planner1);
-        CommonUser user = new CommonUser("john_doe", "secure_password", planner);
-        JSONObject userJson = JsonDataAccessObject.userToJSON(user);
-        System.out.println(userJson);
+//        // To convert CommonUser to JSON
+//        ArrayList<Location> locations = new ArrayList<>();
+//        locations.add(new Location("Bla", new Coordinate(0.0, 1.0), "link here", "food"));
+//        locations.add(new Location("Heyy", new Coordinate(5.0, 6.0), "link here1", "games"));
+//        HashMap<Label, ArrayList<Location>> planner1 = new HashMap<>();
+//        Label label = new Label("Restaurants");
+//        planner1.put(label, locations);
+//        Planner planner = new Planner(planner1);
+//        CommonUser user = new CommonUser("john_doe", "secure_password", planner);
+//        CommonUser juser = new CommonUser("jane_doe","not_joe",new Planner(new HashMap<>()));
+//        JSONObject userJson = JsonDataAccessObject.userToJSON(user);
+//        JSONObject janeJson = JsonDataAccessObject.userToJSON(juser);
+//        System.out.println(userJson);
+//
+//        // Write the JSON objects to the file without overwriting
+//        ArrayList<JSONObject> usersList = new ArrayList<>();
+//        usersList.add(userJson);
+//        usersList.add(janeJson);
+//        writeJsonListToFile(usersList, "user_data.json");
+//
+//        ArrayList<JSONObject> myread = readJsonFromFile("user_data.json");
+//        System.out.println(myread);
+//
+//        // To convert JSON to CommonUser
+//        assert myread != null;
+//        CommonUser newUser = JsonDataAccessObject.userFromJSON(myread.get(1));
+//        System.out.println(newUser.getPlanner());
+//
+//        for (Label l : newUser.getPlanner().getLabel()) {
+//            System.out.println(l.getTitle());
+//        }
+    }
 
-        // Write the JSON object to a file
-        writeJsonToFile(userJson, "user_data.json");
+    public JsonDataAccessObject(String JSONpath) throws IOException {
+        this.JSONpath = JSONpath;
 
-        // To convert JSON to CommonUser
-        CommonUser newUser = JsonDataAccessObject.userFromJSON(userJson);
-        System.out.println(newUser.getPlanner().getLocations(label).get(0).getName());
-
-        for (Location l : newUser.getPlanner().getLocations(label)) {
-            System.out.println(l.getName());
-            System.out.println(l.getOsmLink());
+        // Check if the file exists and is not empty before reading
+        File file = new File(JSONpath);
+        if (file.exists() && file.length() > 0) {
+            ArrayList<JSONObject> readerJSON = readJsonFromFile(JSONpath);
+            for (JSONObject jsonUser : readerJSON) {
+                User user = userFromJSON(jsonUser);
+                accounts.put(user.getUsername(), user);
+            }
+        } else {
+            // File is empty or does not exist, initialize with an empty map
+           save();
+           System.out.println("Saved:"+accounts.get("k"));
         }
     }
-    public static JSONObject userToJSON(CommonUser user) {
+
+
+    @Override
+    public void save(User user){
+        accounts.put(user.getUsername(),user);
+        this.save();
+    }
+    public void save(){
+        ArrayList<JSONObject> usersToWrite = new ArrayList<>();
+        for (User user:accounts.values()){
+            JSONObject jsonObject = userToJSON(user);
+            usersToWrite.add(jsonObject);
+        }
+        writeJsonListToFile(usersToWrite,JSONpath);
+    }
+    public static JSONObject userToJSON(User user) {
         JSONObject json = new JSONObject();
         json.put("username", user.getUsername());
         json.put("password", user.getPassword());
@@ -57,7 +108,7 @@ public class JsonDataAccessObject {
     }
 
     private static Planner plannerFromJSON(JSONObject json) {
-        Planner planner = new Planner();
+        Planner planner = new Planner(new HashMap<>());
         System.out.println("JsonKeySet:" + json.keySet());
 
         // Extract labels and locations from JSON
@@ -85,13 +136,156 @@ public class JsonDataAccessObject {
         return locations;
     }
 
-    private static void writeJsonToFile(JSONObject json, String fileName) {
+    private static void writeJsonListToFile(List<JSONObject> jsonList, String fileName) {
         try (FileWriter fileWriter = new FileWriter(fileName)) {
-            json.write(fileWriter);
+            for (JSONObject json : jsonList) {
+                json.write(fileWriter);
+                fileWriter.write("\n"); // Add a newline character to separate JSON objects
+            }
             System.out.println("JSON written to file: " + fileName);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
+    public static ArrayList<JSONObject> readJsonFromFile(String fileName) {
+        ArrayList<JSONObject> jsonObjects = new ArrayList<>();
+
+        try (Scanner scanner = new Scanner(new File(fileName))) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine().trim();
+
+                if (!line.isEmpty()) {
+                    // Parse the line as a JSON object
+                    jsonObjects.add(new JSONObject(line));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObjects;
+    }
+
+    @Override
+    public void addLocation(String username, Location location, Label newLabel) {
+        Set<Label> labels = accounts.get(username).getPlanner().getLabel();
+        Label savedLabel = new Label();
+        boolean inPlanner = false;
+        for (Label label: labels) {
+            if (label.getTitle().equals(newLabel.getTitle())) {
+                savedLabel = label;
+                inPlanner = true;
+            }
+        }
+        if (inPlanner) {
+            accounts.get(username).getPlanner().getLocations(savedLabel).add(location);
+        } else {
+            ArrayList<Location> list = new ArrayList<>();
+            list.add(location);
+            accounts.get(username).getPlanner().setLabel(savedLabel, list);
+        }
+        save();
+    }
+
+
+    @Override
+    public boolean locationExists(String username, Location chosenLocation) {
+        User user = accounts.get(username);
+        Label[] labels = user.getPlanner().getLabel().toArray(new Label[0]);
+        for (Label label : labels) {
+            ArrayList<Location> locations = user.getPlanner().getLocations(label);
+
+            for (Location location : locations) {
+                if ((Double.compare(location.getCoordinate().getLatitude(),chosenLocation.getCoordinate().getLatitude())==0 && Double.compare(location.getCoordinate().getLongitude(),chosenLocation.getCoordinate().getLongitude())==0 ) && location.getName().equals(chosenLocation.getName())){
+                    System.out.println("chosen location:"+chosenLocation.getName()+"location:"+location.getName());
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+
+    public void addLabelToPlanner(String username, Label newLabel) {
+        Planner userPlanner = accounts.get(username).getPlanner();
+        userPlanner.setLabel(newLabel, new ArrayList<>());
+        save();
+        //TODO: Check If this is creating 2 copies of the user: existing one and new one. We only want new one.
+    }
+
+    @Override
+    public ArrayList<Location> getLocationsFromLabel(String username, Label newLabel) {
+        Set<Label> labels = accounts.get(username).getPlanner().getLabel();
+        Label savedLabel = new Label();
+        boolean inPlanner = false;
+        for (Label label : labels) {
+            if (label.getTitle().equals(newLabel.getTitle())) {
+                savedLabel = label;
+                inPlanner = true;
+            }
+        }
+        if (inPlanner) {
+            return accounts.get(username).getPlanner().getLocations(savedLabel);
+        } else {
+            ArrayList<Location> list = new ArrayList<>();
+            return list;
+        }
+    }
+
+
+    @Override
+    public boolean labelExists(String username,Label label) {
+        User user = accounts.get(username);
+        Label[] labels = user.getPlanner().getLabel().toArray(new Label[0]);
+        for(Label labelInPlanner:labels){
+            if(Objects.equals(labelInPlanner.getTitle(), label.getTitle())){
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+
+
+    @Override
+    public User get(String username) {
+        return accounts.get(username);
+    }
+
+    @Override
+    public boolean existsByName(String identifier) {
+        return accounts.containsKey(identifier);
+    }
+
+    @Override
+    public String getCurrentUser() {
+        return currentUser;
+    }
+
+    @Override
+    public boolean labelIsEmpty(String username,Label label) {
+        User user = accounts.get(username);
+        Label[] labels = user.getPlanner().getLabel().toArray(new Label[0]);
+        for(Label labelInPlanner:labels){
+            if(Objects.equals(labelInPlanner.getTitle(), label.getTitle())){
+                if(user.getPlanner().getLocations(labelInPlanner).isEmpty()){
+                    return true;
+                }
+            }
+
+        }
+        return false;
+    }
+
+    @Override
+    public void setCurrentUser(String currentString) {
+        this.currentUser = currentString;
+    }
+
+
 }
 

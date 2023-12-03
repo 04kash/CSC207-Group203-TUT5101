@@ -4,6 +4,8 @@ import entity.Planner;
 import entity.User;
 import entity.UserFactory;
 
+import java.util.HashMap;
+
 
 public class SignupInteractor implements SignupInputBoundary{
     final SignupUserDataAccessInterface userDataAccessObject;
