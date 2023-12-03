@@ -1,6 +1,6 @@
 package interactors;
 
-import data_access.FileUserDataAccessObject;
+import data_access.JsonDataAccessObject;
 import entity.CommonUserFactory;
 import org.junit.Test;
 import use_case.signup.*;
@@ -12,9 +12,9 @@ import static junit.framework.TestCase.*;
 public class SignupInteractorTest {
     @Test
     public void successTest() {
-        FileUserDataAccessObject userDataAccessObject;
+        JsonDataAccessObject userDataAccessObject;
         try {
-            userDataAccessObject = new FileUserDataAccessObject("./usersTest.csv", new CommonUserFactory());
+            userDataAccessObject = new JsonDataAccessObject("./usersTest.csv");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

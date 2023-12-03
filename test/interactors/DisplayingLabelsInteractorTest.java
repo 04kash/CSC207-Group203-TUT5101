@@ -1,6 +1,6 @@
 package test.interactors;
 
-import data_access.FileUserDataAccessObject;
+import data_access.JsonDataAccessObject;
 import entity.CommonUserFactory;
 import entity.Label;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,21 +13,20 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertTrue;
 import static junit.framework.TestCase.fail;
 import static org.junit.Assert.*;
 
 public class DisplayingLabelsInteractorTest {
 
-    FileUserDataAccessObject userDataAccessObject;
+    JsonDataAccessObject userDataAccessObject;
+
     @BeforeEach
     void init() {
         try {
-            userDataAccessObject = new FileUserDataAccessObject("./usersTest.csv", new CommonUserFactory());
-        } catch(IOException e) {
+            userDataAccessObject = new JsonDataAccessObject("./usersTest.json");
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
         SignupInputData inputData0 = new SignupInputData("akshaya", "password");
         SignupUserDataAccessInterface userRepository0 = userDataAccessObject;
         SignupOutputBoundary successPresenter0 = new SignupOutputBoundary() {
