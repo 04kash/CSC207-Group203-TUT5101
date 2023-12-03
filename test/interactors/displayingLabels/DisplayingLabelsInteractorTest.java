@@ -1,4 +1,4 @@
-package test.interactors;
+package test.interactors.displayingLabels;
 
 import data_access.JsonDataAccessObject;
 import entity.CommonUserFactory;

@@ -1,4 +1,4 @@
-package interactors;
+package test.interactors.login;
 
 import data_access.JsonDataAccessObject;
 import entity.CommonUserFactory;
