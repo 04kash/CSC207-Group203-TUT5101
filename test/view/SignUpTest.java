@@ -23,8 +23,9 @@ public class SignUpTest {
         SignupViewModel viewModel = new SignupViewModel();
         JPanel signupView = new SignUp(controller, viewModel);
         JFrame jf = new JFrame();
+        jf.setSize(800, 900);
         jf.setContentPane(signupView);
-        jf.pack();
+//        jf.pack();
         jf.setVisible(true);
 
         // get a reference to the first password field
