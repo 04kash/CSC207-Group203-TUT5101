@@ -1,4 +1,4 @@
-package test.use_case.SavingLocation;
+package use_case.SavingLocation;
 
 import data_access.InMemorySavingLocation;
 import entity.Coordinate;

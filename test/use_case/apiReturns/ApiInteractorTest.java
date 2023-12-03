@@ -1,4 +1,4 @@
-package test.use_case.apiReturns;
+package use_case.apiReturns;
 
 import data_access.APIDataAccessObject;
 import entity.Coordinate;

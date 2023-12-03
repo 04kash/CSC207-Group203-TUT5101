@@ -1,4 +1,4 @@
-package test.view;
+package view;
 
 public class LocationViewTest {
 
