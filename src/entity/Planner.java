@@ -1,7 +1,11 @@
 package entity;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Set;
 
 public class Planner {
@@ -23,7 +27,7 @@ public class Planner {
      * @param planner a hashmap with a label as its key and an array list of locations as its associated values which
      *               is then set to as a planner object
      */
-    Planner(HashMap<Label, ArrayList<Location>> planner) {
+    public Planner(HashMap<Label, ArrayList<Location>> planner) {
         this.planner = planner;
     }
 
@@ -49,7 +53,15 @@ public class Planner {
      *
      * @return a array list of locations
      */
-    public ArrayList<Location> getLocations(Label key) {return planner.get(key);}
+    public ArrayList<Location> getLocations(Label key) {
+        String labelTitle = key.getTitle();
+        for (Label l : getLabel()) {
+            if (Objects.equals(l.getTitle(), labelTitle)) {
+                return planner.get(l);
+            }
+        }
+        return null;
+    }
 
     /**
      * This method allows us to create a new label and associated values for that label
@@ -60,4 +72,5 @@ public class Planner {
     public void setLabel(Label label, ArrayList<Location> locations) {
         planner.put(label, locations);
     }
+
 }

@@ -1,10 +1,12 @@
 package entity;
 
+import org.json.JSONObject;
+
 public class Location {
     private final String name;
     private Coordinate coordinate = null;
     private final String osmLink;
-    private String filter ="interesting_places";
+    private String filter = "interesting_places";
 
     /**
      * This method create a location object in which a places name, exact coordinates, osm link and filter are saved

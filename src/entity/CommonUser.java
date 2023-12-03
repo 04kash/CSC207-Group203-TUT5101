@@ -1,5 +1,7 @@
 package entity;
 
+import org.json.JSONObject;
+
 public class CommonUser implements User {
     private final String username;
     private final String password;

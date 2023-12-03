@@ -1,5 +1,7 @@
 package entity;
 
+import org.json.JSONObject;
+
 public class Label {
     private String title = "favorite";
 

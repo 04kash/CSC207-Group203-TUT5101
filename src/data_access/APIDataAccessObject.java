@@ -89,109 +89,18 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
         return result;
     }
 
-    public ArrayList<Location> getLocations(String cityName, String filter){
-
-        try {
-            String apiKey = "5ae2e3f221c38a28845f05b69a5f07fa5c748e49837877179a12c1a3";
-            Coordinate coordinates = getCoordinates(cityName);
-            double lat = coordinates.getLatitude();
-            double lon = coordinates.getLongitude();
-
-            String apiUrl = "https://api.opentripmap.com/0.1/en/places/radius?radius="+ 10000 +"&lon="+lon+"&lat="+lat+"&kinds="+filter+"&format=json&apikey="+apiKey;
-
-            URL url = new URL(apiUrl);
-
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-            connection.setRequestMethod("GET");
-
-            int responseCode = connection.getResponseCode();
-
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-
-                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                StringBuilder response = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    response.append(line);
-                }
-                reader.close();
-
-                JSONArray jsonArray = new JSONArray(response.toString());
-                ArrayList<Location> locations= new ArrayList<>();
-                for (int i = 0; i < jsonArray.length() && i<=10; i++) {
-                    JSONObject place = jsonArray.getJSONObject(i);
-                    String name = place.optString("name", "");
-                    String osmLink = place.optString("osm","");
-                    if(Objects.equals(osmLink, "")){
-                        continue;
-                    }
-                    JSONObject point = place.getJSONObject("point");
-                    double latitude = point.getDouble("lat");
-                    double longitude = point.getDouble("lon");
-
-                    if (!name.isEmpty()) {
-                        Coordinate curr_coordinates= new Coordinate(latitude,longitude);
-                        Location location = new Location(name,curr_coordinates,osmLink,filter);
-                        locations.add(location);
-                    }
-                }
-                return locations;
-            } else {
-                System.out.println("API Request failed with response code: " + responseCode);
-            }
-
-            connection.disconnect();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
-
-        return null;
-    }
-    private Coordinate getCoordinates(String cityName){
-        try {
-            String apiKey = "5ae2e3f221c38a28845f05b69a5f07fa5c748e49837877179a12c1a3";
-
-            String apiUrl = "https://api.opentripmap.com/0.1/en/places/geoname?name=+"+cityName+"&apikey="+apiKey;
-            URL url = new URL(apiUrl);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-
-            int responseCode = connection.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                StringBuilder response = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    response.append(line);
-                }
-                reader.close();
-
-                JSONObject json = new JSONObject(response.toString());
-                double lat = json.getDouble("lat");
-                double lon = json.getDouble("lon");
-
-               Coordinate coordinates = new Coordinate(lat,lon);
-               return coordinates;
-        }else {
-                System.out.println("API Request failed with response code: " + responseCode);
-            }
-            // Close the connection
-            connection.disconnect();
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-            return null;
-    }
-
     /**
      * This method saves all the retrieved locations to the csv file and updates the variable accounts as well
      *
      * @param locations this is an array list containing Location objects and this is the list of locations that are
      *                  obtained from the users search that is to be saved in the csv file
      */
-    @Override
+    public ArrayList<Location> getLocations(String cityName, String filter){
+
+       LocationFetcher locationFetcher = new OpenTripMapLocationFetcher();
+       return locationFetcher.getLocations(cityName,filter);
+    }
+
     public void save(ArrayList<Location> locations) {
         for (Location location : locations) {
             accounts.put(location.getName(), location);

@@ -40,7 +40,7 @@ public class LocationsFromLabelPresenter implements LocationsFromLabelOutputBoun
             for (Location l : locations) {
                 outputDataBuilder.append(l.getName())
                         .append("\n")
-                        .append(l.getOsmLink())
+                        .append("https://www.openstreetmap.org/"+l.getOsmLink())
                         .append("\n\n");
             }
 
