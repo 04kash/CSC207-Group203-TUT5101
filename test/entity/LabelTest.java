@@ -1,4 +1,4 @@
-package test.entity;
+package entity;
 
 import entity.Label;
 import org.junit.jupiter.api.BeforeEach;

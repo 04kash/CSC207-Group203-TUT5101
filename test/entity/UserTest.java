@@ -1,4 +1,4 @@
-package test.entity;
+package entity;
 
 import entity.CommonUser;
 import entity.Planner;
