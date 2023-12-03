@@ -20,7 +20,7 @@ import java.util.Set;
 
 public class PlannerView extends JPanel implements ActionListener, PropertyChangeListener {
 	public static final String viewName = "planner";
-	private final CreateLabelViewModel createLabelViewModel;
+	public final CreateLabelViewModel createLabelViewModel;
 	public DisplayingLabelsViewModel displayingLabelsViewModel;
 	public DisplayingLabelsController displayingLabelsController;
 	public LocationsFromLabelController locationsFromLabelController;
@@ -102,39 +102,6 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 		add(scrollPane, BorderLayout.CENTER);
 
 	}
-
-//	private void showDeleteLabelPopup() {
-//		// Show a popup to choose a label to delete
-//		String[] labelOptions = buttonList.stream()
-//				.map(AbstractButton::getText)
-//				.toArray(String[]::new);
-//
-//		String selectedLabel = (String) JOptionPane.showInputDialog(
-//				null,
-//				"Choose a label to delete:",
-//				"Delete Label",
-//				JOptionPane.QUESTION_MESSAGE,
-//				null,
-//				labelOptions,
-//				labelOptions[0]);
-//
-//		// Remove the selected label button
-//		if (selectedLabel != null) {
-//			for (JButton button : buttonList) {
-//				if (button.getText().equals(selectedLabel)) {
-//					buttonList.remove(button);
-//					centerButtonPanel.remove(button); // Remove the button from centerButtonPanel
-//					remove(button);
-//
-//					// Revalidate and repaint
-//					revalidate();
-//					repaint();
-//					break;
-//				}
-//			}
-//		}
-//	}
-
 
 	private void showCreateLabelPopup() {
 		// Implement the logic for "Create Label" popup here

@@ -30,6 +30,9 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 	private static final long serialVersionUID = 1L;
 	private JTextField cityField;
 	private String selectedFilter;
+	private boolean apiControllerExecuted;
+	private boolean displayingLocationsControllerExecuted;
+	private boolean displayingLabelsControllerExecuted;
 
 	/**
 	 * Create the panel.
@@ -69,7 +72,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 		lblNewLabel_1.setBounds(10, 163, 123, 14);
 		add(lblNewLabel_1);
 
-		cityField = new JTextField();
+		cityField = new JTextField("Search a location");
 		cityField.setBounds(229, 111, 172, 20);
 		add(cityField);
 		cityField.setColumns(10);
@@ -81,8 +84,9 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBackground(new Color(51, 153, 102));
 		comboBox.setForeground(new Color(245, 245, 245));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"interesting_places", "banks ", "foods", "shops", "transport"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"foods", "shops", "transport"}));
 		comboBox.setBounds(229, 159, 172, 22);
+		comboBox.putClientProperty("Name", "Choose a filter:");
 		add(comboBox);
 		comboBox.addActionListener(new ActionListener() {
 			@Override
@@ -107,8 +111,13 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 							apiController.execute(
 									cityField.getText(), selectedFilter
 							);
+							apiControllerExecuted = true;
+
 							displayingLocationsController.execute();
+							displayingLocationsControllerExecuted = true;
+
 							displayingLabelsController.execute();
+							displayingLabelsControllerExecuted = true;
 						}
 					}
 				}
@@ -124,5 +133,17 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 
 	public ApiViewModel getCurrentViewModel() {
 		return apiViewModel;
+	}
+
+	public boolean isApiControllerExecuted() {
+		return apiControllerExecuted;
+	}
+
+	public boolean isDisplayingLocationsControllerExecuted() {
+		return displayingLocationsControllerExecuted;
+	}
+
+	public boolean isDisplayingLabelsControllerExecuted() {
+		return displayingLabelsControllerExecuted;
 	}
 }
