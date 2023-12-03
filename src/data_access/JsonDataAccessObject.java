@@ -89,13 +89,41 @@ public class JsonDataAccessObject implements SignupUserDataAccessInterface, Logi
         }
         writeJsonListToFile(usersToWrite,JSONpath);
     }
-    public static JSONObject userToJSON(User user) {
+    public JSONObject userToJSON(User user) {
         JSONObject json = new JSONObject();
         json.put("username", user.getUsername());
         json.put("password", user.getPassword());
-        json.put("planner", user.getPlanner().toJSON());
+        json.put("planner", plannertoJSON(user.getPlanner()));
         return json;
     }
+
+    public JSONObject plannertoJSON(Planner planner) {
+        JSONObject json = new JSONObject();
+
+        JSONArray labelsArray = new JSONArray();
+        for (Label label : planner.getLabel()) {
+
+            JSONArray locationsArray = new JSONArray();
+            for (Location location : planner.getLocations(label)) {
+                locationsArray.put(locationToJSON(location));
+            }
+
+            json.put(label.getTitle(), locationsArray);
+        }
+
+        return json;
+    }
+
+    public JSONObject locationToJSON(Location location) {
+        JSONObject json = new JSONObject();
+        json.put("name", location.getName());
+        json.put("latitude", location.getCoordinate().getLatitude());
+        json.put("longitude", location.getCoordinate().getLongitude());
+        json.put("osmLink", location.getOsmLink());
+        json.put("filter", location.getFilter());
+        return json;
+    }
+
 
     public static CommonUser userFromJSON(JSONObject json) {
         String username = json.getString("username");
@@ -135,6 +163,7 @@ public class JsonDataAccessObject implements SignupUserDataAccessInterface, Logi
 
         return locations;
     }
+
 
     private static void writeJsonListToFile(List<JSONObject> jsonList, String fileName) {
         try (FileWriter fileWriter = new FileWriter(fileName)) {
