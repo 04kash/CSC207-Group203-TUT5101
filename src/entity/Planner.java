@@ -31,8 +31,8 @@ public class Planner {
     public ArrayList<Location> getLocations(Label key) {
         //return planner.get(key);
         String labelTitle = key.getTitle();
-        for (Label l: getLabel()){
-            if(Objects.equals(l.getTitle(), labelTitle)){
+        for (Label l : getLabel()) {
+            if (Objects.equals(l.getTitle(), labelTitle)) {
                 return planner.get(l);
             }
         }
@@ -43,24 +43,4 @@ public class Planner {
         planner.put(label, locations);
     }
 
-    public JSONObject toJSON() {
-        JSONObject json = new JSONObject();
-
-        JSONArray labelsArray = new JSONArray();
-        for (Label label : planner.keySet()) {
-//            JSONObject labelObject = new JSONObject();
-//            labelObject.put("title", label.getTitle());
-
-            JSONArray locationsArray = new JSONArray();
-            for (Location location : planner.get(label)) {
-                locationsArray.put(location.toJSON());
-            }
-
-            json.put(label.getTitle(), locationsArray);
-            //labelsArray.put(labelObject);
-        }
-
-        //json.put("labels", labelsArray);
-        return json;
-    }
 }

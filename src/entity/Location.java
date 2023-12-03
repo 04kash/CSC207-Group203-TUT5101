@@ -32,13 +32,4 @@ public class Location {
         return osmLink;
     }
 
-    public JSONObject toJSON() {
-        JSONObject json = new JSONObject();
-        json.put("name", name);
-        json.put("latitude", coordinate.getLatitude());
-        json.put("longitude", coordinate.getLongitude());
-        json.put("osmLink", osmLink);
-        json.put("filter", filter);
-        return json;
-    }
 }

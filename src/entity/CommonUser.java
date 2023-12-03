@@ -22,11 +22,4 @@ public class CommonUser implements User{
     public Planner getPlanner() {
         return planner;
     }
-    public JSONObject toJSON() {
-        JSONObject json = new JSONObject();
-        json.put("username", username);
-        json.put("password", password);
-        json.put("planner", planner.toJSON());
-        return json;
-    }
 }
