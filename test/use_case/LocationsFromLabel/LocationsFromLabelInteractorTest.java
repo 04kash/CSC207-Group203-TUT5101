@@ -1,4 +1,4 @@
-package test.use_case.LocationsFromLabel;
+package use_case.LocationsFromLabel;
 
 import data_access.InMemoryLocationsFromLabel;
 import entity.Coordinate;

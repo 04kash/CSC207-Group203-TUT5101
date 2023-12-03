@@ -1,4 +1,4 @@
-package test.use_case.signup;
+package use_case.signup;
 
 import data_access.JsonDataAccessObject;
 import entity.CommonUserFactory;
@@ -17,7 +17,7 @@ public class SignupInteractorTest {
     public void successTest() {
         JsonDataAccessObject userDataAccessObject;
         try {
-            userDataAccessObject = new JsonDataAccessObject("./usersTest.csv");
+            userDataAccessObject = new JsonDataAccessObject("./usersTest.json");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

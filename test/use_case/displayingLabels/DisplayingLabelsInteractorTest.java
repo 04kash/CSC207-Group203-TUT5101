@@ -1,4 +1,4 @@
-package test.use_case.displayingLabels;
+package use_case.displayingLabels;
 
 import data_access.JsonDataAccessObject;
 import entity.CommonUserFactory;
