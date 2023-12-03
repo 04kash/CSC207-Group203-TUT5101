@@ -3,6 +3,7 @@ package app;
 import data_access.APIDataAccessObject;
 
 import data_access.JsonDataAccessObject;
+import data_access.OpenTripMapLocationFetcher;
 import entity.CommonUserFactory;
 import entity.Planner;
 import interface_adapter.CreateLabel.CreateLabelViewModel;
@@ -61,7 +62,7 @@ public class Main {
 
         APIDataAccessObject apiUserDataAccessObject;
         try {
-            apiUserDataAccessObject = new APIDataAccessObject("./locations.csv");
+            apiUserDataAccessObject = new APIDataAccessObject("./locations.csv", new OpenTripMapLocationFetcher());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

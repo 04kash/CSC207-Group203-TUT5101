@@ -19,10 +19,12 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
     private final File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
     private final HashMap<String, Location> accounts = new HashMap<>();
+    private final LocationFetcher locationFetcher;
 
 
-    public APIDataAccessObject(String csvPath) throws IOException {
+    public APIDataAccessObject(String csvPath,LocationFetcher locationFetcher) throws IOException {
         csvFile = new File(csvPath);
+        this.locationFetcher = locationFetcher;
         headers.put("locations", 0);
 
         if (csvFile.length() == 0) {
@@ -84,8 +86,6 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
         return result;
     }
     public ArrayList<Location> getLocations(String cityName, String filter){
-
-       LocationFetcher locationFetcher = new OpenTripMapLocationFetcher();
        return locationFetcher.getLocations(cityName,filter);
     }
 
