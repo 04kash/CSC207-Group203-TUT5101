@@ -12,7 +12,7 @@ public class InMemorySavingLocation implements SavingLocationUserDataAccessInter
     private String currentUser = "Kashish";
 
     public InMemorySavingLocation(){
-        Planner planner = new Planner();
+        Planner planner = new Planner(new HashMap<>());
         planner.setLabel(new Label("favorite"),new ArrayList<>());
         User user = new CommonUser("Kashish","123",planner);
         accounts.put("Kashish",user);

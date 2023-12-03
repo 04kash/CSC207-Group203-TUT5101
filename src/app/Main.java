@@ -1,7 +1,8 @@
 package app;
 
 import data_access.APIDataAccessObject;
-import data_access.FileUserDataAccessObject;
+
+import data_access.JsonDataAccessObject;
 import entity.CommonUserFactory;
 import entity.Planner;
 import interface_adapter.CreateLabel.CreateLabelViewModel;
@@ -27,6 +28,9 @@ public class Main {
         // The main application window.
         JFrame application = new JFrame("Discover City");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        int frameWidth = 800; // Set your desired width
+        int frameHeight = 900; // Set your desired height
+        application.setSize(frameWidth, frameHeight);
 
         CardLayout cardLayout = new CardLayout();
 
@@ -51,9 +55,9 @@ public class Main {
         DisplayingLabelsViewModel displayingLabelsViewModel = new DisplayingLabelsViewModel();
         CreateLabelViewModel createLabelViewModel = new CreateLabelViewModel();
 
-        FileUserDataAccessObject userDataAccessObject;
+        JsonDataAccessObject userDataAccessObject;
         try {
-            userDataAccessObject = new FileUserDataAccessObject("./users.csv", new CommonUserFactory());
+            userDataAccessObject = new JsonDataAccessObject("./users.json");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -86,7 +90,7 @@ public class Main {
         viewManagerModel.setActiveView(loginView.viewName);
         viewManagerModel.firePropertyChanged();
 
-        application.pack();
+        //application.pack();
         application.setVisible(true);
     }
 }
