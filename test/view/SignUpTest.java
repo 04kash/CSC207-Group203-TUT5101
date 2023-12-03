@@ -1,4 +1,4 @@
-package test.view;
+package view;
 
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupViewModel;
