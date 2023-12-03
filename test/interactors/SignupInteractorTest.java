@@ -41,9 +41,9 @@ public class SignupInteractorTest {
 
     @Test
     public void FailTest() {
-        FileUserDataAccessObject userDataAccessObject;
+        JsonDataAccessObject userDataAccessObject;
         try {
-            userDataAccessObject = new FileUserDataAccessObject("./usersTest2.csv", new CommonUserFactory());
+            userDataAccessObject = new JsonDataAccessObject("./usersTest2.json");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

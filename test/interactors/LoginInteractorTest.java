@@ -14,7 +14,7 @@ public class LoginInteractorTest {
     public void successTest() {
         JsonDataAccessObject userDataAccessObject;
         try {
-            userDataAccessObject = new JsonDataAccessObject("./usersTest.csv");
+            userDataAccessObject = new JsonDataAccessObject("./usersTest.json");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -37,9 +37,9 @@ public class LoginInteractorTest {
 
     @Test
     public void failTest() {
-        FileUserDataAccessObject userDataAccessObject;
+        JsonDataAccessObject userDataAccessObject;
         try {
-            userDataAccessObject = new FileUserDataAccessObject("./usersTest3.csv", new CommonUserFactory());
+            userDataAccessObject = new JsonDataAccessObject("./usersTest3.json");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
