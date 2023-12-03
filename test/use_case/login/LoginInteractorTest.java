@@ -1,7 +1,6 @@
-package test.interactors.login;
+package test.use_case.login;
 
 import data_access.JsonDataAccessObject;
-import entity.CommonUserFactory;
 import org.junit.Test;
 import use_case.login.*;
 

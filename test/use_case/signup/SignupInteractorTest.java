@@ -1,4 +1,4 @@
-package test.interactors.signup;
+package test.use_case.signup;
 
 import data_access.JsonDataAccessObject;
 import entity.CommonUserFactory;

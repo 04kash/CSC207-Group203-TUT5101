@@ -1,4 +1,4 @@
-package test.interactors.CreateLabels;
+package test.use_case.CreateLabels;
 
 import data_access.InMemoryCreateLabel;
 import entity.Label;

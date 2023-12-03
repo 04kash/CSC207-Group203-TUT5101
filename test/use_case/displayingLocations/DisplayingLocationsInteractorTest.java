@@ -1,4 +1,4 @@
-package test.interactors.displayingLocations;
+package test.use_case.displayingLocations;
 
 import data_access.APIDataAccessObject;
 import entity.Location;
