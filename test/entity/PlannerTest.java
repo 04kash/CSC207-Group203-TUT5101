@@ -27,13 +27,10 @@ class PlannerTest {
         locations.add(new Location("AP Sushi", coordinate1, "link1", "Dinner"));
         planner.setLabel(label, locations);
     }
-    PlannerTest(HashMap<Label, ArrayList<Location>> planner) {
-        planner.put(label, new ArrayList<Location>());
-}
     @Test
     void getPlanner() {
         assertNotNull(planner.getPlanner());
-        assertTrue(planner.getPlanner().isEmpty());
+        assertFalse(planner.getPlanner().isEmpty());
     }
 
     @Test
