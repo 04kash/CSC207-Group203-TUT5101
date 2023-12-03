@@ -1,4 +1,4 @@
-package interactors;
+package test.interactors.CreateLabels;
 
 import data_access.InMemoryCreateLabel;
 import entity.Label;

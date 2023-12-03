@@ -1,4 +1,4 @@
-package interactors;
+package test.interactors.SavingLocation;
 
 import data_access.InMemorySavingLocation;
 import entity.Coordinate;

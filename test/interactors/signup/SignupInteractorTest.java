@@ -1,4 +1,4 @@
-package interactors;
+package test.interactors.signup;
 
 import data_access.JsonDataAccessObject;
 import entity.CommonUserFactory;

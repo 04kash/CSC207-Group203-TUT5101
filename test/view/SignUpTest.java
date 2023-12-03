@@ -11,7 +11,6 @@ import java.awt.event.KeyEvent;
 
 import static java.lang.Thread.sleep;
 import static org.junit.Assert.assertEquals;
-//TODO: the test passes if you open up the screen but fails otherwise, I have no clue why, FIX THIS!!
 public class SignUpTest {
 
     @org.junit.Test

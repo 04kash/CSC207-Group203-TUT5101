@@ -1,4 +1,4 @@
-package interactors;
+package test.interactors.LocationsFromLabel;
 
 import data_access.InMemoryLocationsFromLabel;
 import entity.Coordinate;

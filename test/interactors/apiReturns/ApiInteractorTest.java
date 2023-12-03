@@ -1,4 +1,4 @@
-package interactors;
+package test.interactors.apiReturns;
 
 import data_access.APIDataAccessObject;
 import entity.Coordinate;
