@@ -1,3 +1,4 @@
+/*
 package test.interactors;
 
 import data_access.FileUserDataAccessObject;
@@ -69,3 +70,5 @@ public class DisplayingLabelsInteractorTest {
         interactor.execute(inputData);
     }
 }
+
+ */

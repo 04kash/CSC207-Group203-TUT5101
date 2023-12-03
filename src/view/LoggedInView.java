@@ -15,6 +15,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 	public static final String viewName = "logged in";
 	private static final long serialVersionUID = 1L;
 	public final DisplayingLabelsController displayingLabelsController;
+	private boolean isExecuted = false;
 
 	/**
 	 * Create the panel.
@@ -50,6 +51,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 					public void actionPerformed(ActionEvent e) {
 						ViewManager.showPlannerView();
 						displayingLabelsController.execute();
+						isExecuted = true;
 					}
 				}
 		);
@@ -75,5 +77,9 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
+	}
+
+	public boolean getIsExecutedValue(){
+		return isExecuted;
 	}
 }

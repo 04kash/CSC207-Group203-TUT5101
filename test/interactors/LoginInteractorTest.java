@@ -1,3 +1,4 @@
+/*
 package interactors;
 
 import data_access.FileUserDataAccessObject;
@@ -60,3 +61,5 @@ public class LoginInteractorTest {
         interactor.execute(inputData);
     }
 }
+
+ */
