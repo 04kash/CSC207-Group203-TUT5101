@@ -30,17 +30,16 @@ public class LoginViewTest {
         JPasswordField pwdField = (JPasswordField) loginView.getComponent(5);
 
         // create and dispatch KeyEvents to the UI
-        KeyEvent event = new KeyEvent(
-                pwdField, // we are interacting with the pwdField
-                KeyEvent.KEY_TYPED, //
-                System.currentTimeMillis(), // say the event happened right now
-                0, // no modifiers
-                KeyEvent.VK_UNDEFINED, // for KEY_TYPED, the KeyCode is undefined per documentation
-                'y'); // the character that is being typed
+        KeyEvent event1 = new KeyEvent(
+                pwdField,
+                KeyEvent.KEY_TYPED,
+                System.currentTimeMillis(),
+                0,
+                KeyEvent.VK_UNDEFINED,
+                'p');
+        pwdField.dispatchEvent(event1);
 
-        pwdField.dispatchEvent(event);
-
-
+        /*
         // pause execution for a second
         try {
             sleep(1000);
@@ -51,7 +50,7 @@ public class LoginViewTest {
         // print the current values the password field and view-model hold
         System.out.println("field 1: " + new String(pwdField.getPassword()));
         System.out.println("view-model: " + viewModel.getState().getPassword());
-
+        */
         // move to the right in the password field, otherwise the event
         // will type the character as the first character instead of the last!
         KeyEvent eventRight = new KeyEvent(
@@ -64,13 +63,6 @@ public class LoginViewTest {
         );
         pwdField.dispatchEvent(eventRight);
 
-        // pause execution for a second
-        try {
-            sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
         // type a second character
         KeyEvent event2 = new KeyEvent(
                 pwdField,
@@ -78,13 +70,13 @@ public class LoginViewTest {
                 System.currentTimeMillis(),
                 0,
                 KeyEvent.VK_UNDEFINED,
-                'z');
+                'a');
         pwdField.dispatchEvent(event2);
 
 
-        // pause execution for 3 seconds
+        // pause execution for a seconds
         try {
-            sleep(3000);
+            sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -94,7 +86,7 @@ public class LoginViewTest {
         System.out.println("view-model: " + viewModel.getState().getPassword());
 
         // assert that the values are as expected.
-        Assert.assertEquals("yz", new String(pwdField.getPassword()));
-        Assert.assertEquals("yz", viewModel.getState().getPassword());
+        Assert.assertEquals("pa", new String(pwdField.getPassword()));
+        Assert.assertEquals("pa", viewModel.getState().getPassword());
     }
 }
