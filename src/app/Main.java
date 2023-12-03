@@ -1,7 +1,8 @@
 package app;
 
 import data_access.APIDataAccessObject;
-import data_access.FileUserDataAccessObject;
+
+import data_access.JsonDataAccessObject;
 import entity.CommonUserFactory;
 import entity.Planner;
 import interface_adapter.CreateLabel.CreateLabelViewModel;
@@ -51,9 +52,9 @@ public class Main {
         DisplayingLabelsViewModel displayingLabelsViewModel = new DisplayingLabelsViewModel();
         CreateLabelViewModel createLabelViewModel = new CreateLabelViewModel();
 
-        FileUserDataAccessObject userDataAccessObject;
+        JsonDataAccessObject userDataAccessObject;
         try {
-            userDataAccessObject = new FileUserDataAccessObject("./users.csv", new CommonUserFactory());
+            userDataAccessObject = new JsonDataAccessObject("./users.json");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
