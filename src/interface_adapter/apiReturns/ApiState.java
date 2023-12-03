@@ -1,4 +1,4 @@
-package interface_adapter.api_returns;
+package interface_adapter.apiReturns;
 
 import entity.Location;
 

@@ -1,7 +1,6 @@
 package interface_adapter.displayingLocations;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.api_returns.ApiState;
 import use_case.displayingLocations.DisplayingLocationsOutputBoundary;
 import use_case.displayingLocations.DisplayingLocationsOutputData;
 

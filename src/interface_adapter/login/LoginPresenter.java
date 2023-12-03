@@ -1,11 +1,10 @@
 package interface_adapter.login;
 
-import interface_adapter.api_returns.ApiState;
-import interface_adapter.api_returns.ApiViewModel;
+import interface_adapter.apiReturns.ApiState;
+import interface_adapter.apiReturns.ApiViewModel;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
 import interface_adapter.ViewManagerModel;
-import view.ViewManager;
 
 public class LoginPresenter implements LoginOutputBoundary {
 

@@ -1,8 +1,6 @@
 package view;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.api_returns.ApiState;
-import interface_adapter.api_returns.ApiViewModel;
 
 
 import javax.swing.*;

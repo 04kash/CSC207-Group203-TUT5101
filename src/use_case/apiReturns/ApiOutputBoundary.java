@@ -1,4 +1,4 @@
-package use_case.api_returns;
+package use_case.apiReturns;
 
 public interface ApiOutputBoundary {
 

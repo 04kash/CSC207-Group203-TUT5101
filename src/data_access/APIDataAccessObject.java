@@ -6,7 +6,7 @@ import java.net.URL;
 import entity.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import use_case.api_returns.ApiUserDataAccessInterface;
+import use_case.apiReturns.ApiUserDataAccessInterface;
 import use_case.displayingLocations.DisplayingLocationsUserDataAccessInterface;
 
 import java.net.HttpURLConnection;
@@ -21,6 +21,11 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
     private final HashMap<String, Location> accounts = new HashMap<>();
 
 
+    /**
+     * This method reads the file in which the locations which the users have saved are stored
+     *
+     * @param csvPath this is the file in which all the locations from the users input are stored
+     */
     public APIDataAccessObject(String csvPath) throws IOException {
         csvFile = new File(csvPath);
         headers.put("locations", 0);
@@ -84,46 +89,25 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
         return result;
     }
 
-//    public static void main(String[] args){
-//        ArrayList<Location> l = getLocations("Mumbai","interesting_places");
-//        for (int i = 0; i < l.size();i++) {
-//            System.out.println(l.get(i).getName());
-//            System.out.println(l.get(i).getCoordinate().getLatitude());
-//            System.out.println(l.get(i).getCoordinate().getLongitude());
-//            System.out.println(l.get(i).getOsmLink());
-//            System.out.println(l.get(i).getFilter());
-//        }
-//    }
     public ArrayList<Location> getLocations(String cityName, String filter){
 
         try {
-//            String apiKey = System.getenv("API_KEY");
             String apiKey = "5ae2e3f221c38a28845f05b69a5f07fa5c748e49837877179a12c1a3";
             Coordinate coordinates = getCoordinates(cityName);
             double lat = coordinates.getLatitude();
             double lon = coordinates.getLongitude();
 
-            // Define the URL for fetching places in Toronto
             String apiUrl = "https://api.opentripmap.com/0.1/en/places/radius?radius="+ 10000 +"&lon="+lon+"&lat="+lat+"&kinds="+filter+"&format=json&apikey="+apiKey;
 
-
-            // Create a URL object
             URL url = new URL(apiUrl);
 
-
-            // Open a connection to the URL
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-
-            // Set the request method to GET
             connection.setRequestMethod("GET");
 
-
-            // Get the response code
             int responseCode = connection.getResponseCode();
 
             if (responseCode == HttpURLConnection.HTTP_OK) {
-                // Read the response data
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 StringBuilder response = new StringBuilder();
@@ -133,10 +117,7 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
                 }
                 reader.close();
 
-                // Parse the JSON response
                 JSONArray jsonArray = new JSONArray(response.toString());
-                 //System.out.println(jsonArray);
-                // Extract and print name and coordinates for each place
                 ArrayList<Location> locations= new ArrayList<>();
                 for (int i = 0; i < jsonArray.length() && i<=10; i++) {
                     JSONObject place = jsonArray.getJSONObject(i);
@@ -150,10 +131,6 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
                     double longitude = point.getDouble("lon");
 
                     if (!name.isEmpty()) {
-//                        System.out.println("Name: " + name);
-//                        System.out.println("Latitude: " + latitude);
-//                        System.out.println("Longitude: " + longitude);
-//                        System.out.println();
                         Coordinate curr_coordinates= new Coordinate(latitude,longitude);
                         Location location = new Location(name,curr_coordinates,osmLink,filter);
                         locations.add(location);
@@ -164,7 +141,6 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
                 System.out.println("API Request failed with response code: " + responseCode);
             }
 
-            // Close the connection
             connection.disconnect();
         } catch (Exception e){
             e.printStackTrace();
@@ -173,24 +149,17 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
 
         return null;
     }
-        public Coordinate getCoordinates(String cityName){
+    private Coordinate getCoordinates(String cityName){
         try {
-            //String apiKey = System.getenv("API_KEY");
             String apiKey = "5ae2e3f221c38a28845f05b69a5f07fa5c748e49837877179a12c1a3";
 
-            // Define the URL for fetching places in Toronto
             String apiUrl = "https://api.opentripmap.com/0.1/en/places/geoname?name=+"+cityName+"&apikey="+apiKey;
             URL url = new URL(apiUrl);
-            // Open a connection to the URL
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-            // Set the request method to GET
             connection.setRequestMethod("GET");
 
-            // Get the response code
             int responseCode = connection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
-                // Read the response data
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 StringBuilder response = new StringBuilder();
                 String line;
@@ -199,14 +168,10 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
                 }
                 reader.close();
 
-                //Parse the JSON string into a JSONObject
                 JSONObject json = new JSONObject(response.toString());
-
-                // Access the lat and lon values
                 double lat = json.getDouble("lat");
                 double lon = json.getDouble("lon");
 
-                // Print the values
                Coordinate coordinates = new Coordinate(lat,lon);
                return coordinates;
         }else {
@@ -218,17 +183,24 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
             e.printStackTrace();
         }
             return null;
-        }
+    }
+
+    /**
+     * This method saves all the retrieved locations to the csv file and updates the variable accounts as well
+     *
+     * @param locations this is an array list containing Location objects and this is the list of locations that are
+     *                  obtained from the users search that is to be saved in the csv file
+     */
+    @Override
     public void save(ArrayList<Location> locations) {
         for (Location location : locations) {
             accounts.put(location.getName(), location);
             this.save();
         }
     }
-    public void save() {
+    private void save() {
         BufferedWriter writer;
         try {
-
             writer = new BufferedWriter(new FileWriter(csvFile, false));
             writer.write(String.join(",", headers.keySet()));
             writer.newLine();
@@ -241,11 +213,17 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
             }
 
             writer.close();
-    } catch (IOException e) {
-        throw new RuntimeException(e);
-    }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
+    /**
+     * This method returns the variable accounts in which all the locations are saved
+     *
+     * @return a HashMap which stores a location as the key and it's associated location object as the value
+     */
+    @Override
     public HashMap<String, Location> getAccounts() {
         return accounts;
     }

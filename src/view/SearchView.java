@@ -1,15 +1,13 @@
 package view;
 
-import interface_adapter.api_returns.ApiController;
-import interface_adapter.api_returns.ApiState;
-import interface_adapter.api_returns.ApiViewModel;
+import interface_adapter.apiReturns.ApiController;
+import interface_adapter.apiReturns.ApiState;
+import interface_adapter.apiReturns.ApiViewModel;
 import interface_adapter.displayingLabels.DisplayingLabelsController;
 import interface_adapter.displayingLocations.DisplayingLocationsController;
-import interface_adapter.login.LoginState;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
-import javax.swing.JRadioButton;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -77,7 +75,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 		add(list);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"interesting_places", "banks ", "foods", "shops", "transport"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"cultural", "museums ", "foods", "shops", "transport"}));
 		comboBox.setBounds(229, 159, 172, 22);
 		add(comboBox);
 		comboBox.addActionListener(new ActionListener() {

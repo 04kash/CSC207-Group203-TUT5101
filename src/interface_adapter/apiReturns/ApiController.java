@@ -1,8 +1,7 @@
-package interface_adapter.api_returns;
+package interface_adapter.apiReturns;
 
-import entity.Coordinate;
-import use_case.api_returns.ApiInputBoundary;
-import use_case.api_returns.ApiInputData;
+import use_case.apiReturns.ApiInputBoundary;
+import use_case.apiReturns.ApiInputData;
 
 public class ApiController {
     final ApiInputBoundary apiUseCaseInteractor;

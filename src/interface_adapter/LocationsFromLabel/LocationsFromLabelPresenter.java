@@ -1,14 +1,9 @@
 package interface_adapter.LocationsFromLabel;
 
 import entity.Location;
-import interface_adapter.SavingLocation.SavingLocationViewModel;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.api_returns.ApiState;
-import interface_adapter.api_returns.ApiViewModel;
-import use_case.LocationsFromLabel.LocationsFromLabelInputBoundary;
 import use_case.LocationsFromLabel.LocationsFromLabelOutputBoundary;
 import use_case.LocationsFromLabel.LocationsFromLabelOutputData;
-import use_case.api_returns.ApiOutputData;
 
 import java.util.ArrayList;
 

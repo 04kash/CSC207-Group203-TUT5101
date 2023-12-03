@@ -5,7 +5,7 @@ import entity.Coordinate;
 import entity.Location;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.api_returns.*;
+import use_case.apiReturns.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
