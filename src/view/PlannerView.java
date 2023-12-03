@@ -50,19 +50,19 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 		topButtonPanel.setBackground(new Color(245, 245, 245));
 		topButtonPanel.setLayout(new FlowLayout());
 
-		// Add the "Delete Location" button
-		JButton deleteLocationButton = new JButton("Delete Location");
-		deleteLocationButton.setBackground(new Color(51, 153, 102));
-		deleteLocationButton.setForeground(new Color(245, 245, 245));
-		deleteLocationButton.addActionListener(e -> showDeleteLocationPopup());
-		topButtonPanel.add(deleteLocationButton);
-
-		// Add the "Delete Label" button
-		JButton deleteLabelButton = new JButton("Delete Label");
-		deleteLabelButton.setBackground(new Color(51, 153, 102));
-		deleteLabelButton.setForeground(new Color(245, 245, 245));
-		deleteLabelButton.addActionListener(e -> showDeleteLabelPopup());
-		topButtonPanel.add(deleteLabelButton);
+//		// Add the "Delete Location" button
+//		JButton deleteLocationButton = new JButton("Delete Location");
+//		deleteLocationButton.setBackground(new Color(51, 153, 102));
+//		deleteLocationButton.setForeground(new Color(245, 245, 245));
+//		deleteLocationButton.addActionListener(e -> showDeleteLocationPopup());
+//		topButtonPanel.add(deleteLocationButton);
+//
+//		// Add the "Delete Label" button
+//		JButton deleteLabelButton = new JButton("Delete Label");
+//		deleteLabelButton.setBackground(new Color(51, 153, 102));
+//		deleteLabelButton.setForeground(new Color(245, 245, 245));
+//		deleteLabelButton.addActionListener(e -> showDeleteLabelPopup());
+//		topButtonPanel.add(deleteLabelButton);
 
 		// Add the "Create Label" button
 		JButton createLabelButton = new JButton("Create Label");
@@ -107,56 +107,38 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 		//addButton("Favourites");
 	}
 
-	private void showDeleteLabelPopup() {
-		// Show a popup to choose a label to delete
-		String[] labelOptions = buttonList.stream()
-				.map(AbstractButton::getText)
-				.toArray(String[]::new);
+//	private void showDeleteLabelPopup() {
+//		// Show a popup to choose a label to delete
+//		String[] labelOptions = buttonList.stream()
+//				.map(AbstractButton::getText)
+//				.toArray(String[]::new);
+//
+//		String selectedLabel = (String) JOptionPane.showInputDialog(
+//				null,
+//				"Choose a label to delete:",
+//				"Delete Label",
+//				JOptionPane.QUESTION_MESSAGE,
+//				null,
+//				labelOptions,
+//				labelOptions[0]);
+//
+//		// Remove the selected label button
+//		if (selectedLabel != null) {
+//			for (JButton button : buttonList) {
+//				if (button.getText().equals(selectedLabel)) {
+//					buttonList.remove(button);
+//					centerButtonPanel.remove(button); // Remove the button from centerButtonPanel
+//					remove(button);
+//
+//					// Revalidate and repaint
+//					revalidate();
+//					repaint();
+//					break;
+//				}
+//			}
+//		}
+//	}
 
-		String selectedLabel = (String) JOptionPane.showInputDialog(
-				null,
-				"Choose a label to delete:",
-				"Delete Label",
-				JOptionPane.QUESTION_MESSAGE,
-				null,
-				labelOptions,
-				labelOptions[0]);
-
-		// Remove the selected label button
-		if (selectedLabel != null) {
-			for (JButton button : buttonList) {
-				if (button.getText().equals(selectedLabel)) {
-					buttonList.remove(button);
-					centerButtonPanel.remove(button); // Remove the button from centerButtonPanel
-					remove(button);
-
-					// Revalidate and repaint
-					revalidate();
-					repaint();
-					break;
-				}
-			}
-		}
-	}
-
-	private void showDeleteLocationPopup() {
-		JPanel popupPanel = new JPanel(new BorderLayout());
-
-		JLabel popupLabel = new JLabel("Choose a location to delete:");
-		popupPanel.add(popupLabel, BorderLayout.NORTH);
-
-		// Replace the below array with your actual location options
-		String[] locationOptions = {"Location 1", "Location 2", "Location 3"};
-		locationComboBox = new JComboBox<>(locationOptions);
-		popupPanel.add(locationComboBox, BorderLayout.CENTER);
-
-		int result = JOptionPane.showConfirmDialog(null, popupPanel, "Delete Location", JOptionPane.OK_CANCEL_OPTION);
-
-		if (result == JOptionPane.OK_OPTION) {
-			String selectedLocation = (String) locationComboBox.getSelectedItem();
-			JOptionPane.showMessageDialog(null, "Selected location to delete: " + selectedLocation);
-		}
-	}
 
 	private void showCreateLabelPopup() {
 		// Implement the logic for "Create Label" popup here
@@ -193,17 +175,6 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 		repaint();
 	}
 
-//	private void addButton(String label) {
-//		JButton newButton = new JButton(label);
-//		newButton.addActionListener(evt -> JOptionPane.showMessageDialog(null, "Button Label: " + newButton.getText()));
-//
-//		buttonList.add(newButton);
-//		centerButtonPanel.add(newButton); // Add the button to the centerButtonPanel
-//
-//		// Revalidate and repaint
-//		revalidate();
-//		repaint();
-//	}
 
     @Override
 	public void actionPerformed(ActionEvent e) {
