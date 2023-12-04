@@ -30,27 +30,27 @@ public class SearchUseCaseFactory {
     }
 
     public static SearchView create(ViewManagerModel viewManagerModel, ApiViewModel apiViewModel, DisplayingLocationsViewModel displayingLocationsViewModel, ApiUserDataAccessInterface userDataAccessInterface, DisplayingLocationsUserDataAccessInterface userDataAccessInterface2, DisplayingLabelsViewModel displayingLabelsViewModel, DisplayingLabelsUserDataAccessInterface displayingLabelsUserDataAccessInterface) {
-        ApiController apiController = createSearchUser(viewManagerModel, apiViewModel, displayingLocationsViewModel, userDataAccessInterface);
-        DisplayingLocationsController displayingLocationsController = createInstance(viewManagerModel, displayingLocationsViewModel, userDataAccessInterface2);
-        DisplayingLabelsController displayingLabelsController = createInstance(viewManagerModel,displayingLabelsViewModel,displayingLabelsUserDataAccessInterface);
+        ApiController apiController = createApi(viewManagerModel, apiViewModel, displayingLocationsViewModel, userDataAccessInterface);
+        DisplayingLocationsController displayingLocationsController = createDisplayingLocation(viewManagerModel, displayingLocationsViewModel, userDataAccessInterface2);
+        DisplayingLabelsController displayingLabelsController = createDisplayingLabel(viewManagerModel,displayingLabelsViewModel,displayingLabelsUserDataAccessInterface);
         return new SearchView(apiViewModel, apiController, displayingLocationsController, displayingLabelsController);
     }
 
-    private static ApiController createSearchUser(ViewManagerModel viewManagerModel, ApiViewModel apiViewModel, DisplayingLocationsViewModel displayingLocationsViewModel, ApiUserDataAccessInterface userDataAccessInterface) {
+    private static ApiController createApi(ViewManagerModel viewManagerModel, ApiViewModel apiViewModel, DisplayingLocationsViewModel displayingLocationsViewModel, ApiUserDataAccessInterface userDataAccessInterface) {
         ApiOutputBoundary apiOutputBoundary = new ApiPresenter(apiViewModel, viewManagerModel, displayingLocationsViewModel);
         ApiInputBoundary apiInputBoundary = new ApiInteractor(userDataAccessInterface, apiOutputBoundary);
 
         return new ApiController(apiInputBoundary);
     }
 
-    private static DisplayingLocationsController createInstance(ViewManagerModel viewManagerModel, DisplayingLocationsViewModel displayingLocationsViewModel, DisplayingLocationsUserDataAccessInterface userDataAccessInterface) {
+    private static DisplayingLocationsController createDisplayingLocation(ViewManagerModel viewManagerModel, DisplayingLocationsViewModel displayingLocationsViewModel, DisplayingLocationsUserDataAccessInterface userDataAccessInterface) {
         DisplayingLocationsOutputBoundary displayingLocationsOutputBoundary = new DisplayingLocationsPresenter(displayingLocationsViewModel, viewManagerModel);
         DisplayingLocationsInputBoundary displayingLocationsInputBoundary = new DisplayingLocationsInteractor(userDataAccessInterface, displayingLocationsOutputBoundary);
 
         return new DisplayingLocationsController(displayingLocationsInputBoundary);
 
     }
-    private static DisplayingLabelsController createInstance(ViewManagerModel viewManagerModel,DisplayingLabelsViewModel displayingLabelsViewModel,DisplayingLabelsUserDataAccessInterface displayingLabelsUserDataAccessInterface){
+    private static DisplayingLabelsController createDisplayingLabel(ViewManagerModel viewManagerModel,DisplayingLabelsViewModel displayingLabelsViewModel,DisplayingLabelsUserDataAccessInterface displayingLabelsUserDataAccessInterface){
         DisplayingLabelsOutputBoundary displayingLabelsOutputBoundary = new DisplayingLabelsPresenter(displayingLabelsViewModel,viewManagerModel);
         DisplayingLabelsInputBoundary displayingLabelsInputBoundary = new DisplayingLabelsInteractor(displayingLabelsUserDataAccessInterface,displayingLabelsOutputBoundary);
         return new DisplayingLabelsController(displayingLabelsInputBoundary);
