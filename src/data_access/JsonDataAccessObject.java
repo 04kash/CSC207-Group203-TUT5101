@@ -10,52 +10,15 @@ import use_case.displayingLabels.DisplayingLabelsUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 
 public class JsonDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, CreateLabelDataAccessInterface, SavingLocationUserDataAccessInterface, LocationsFromLabelUserDataAccessInterface, DisplayingLabelsUserDataAccessInterface {
     private final Map<String, User> accounts = new HashMap<>();
     private final String JSONpath;
     private String currentUser;
-
-    public static void main(String[] args) {
-//        // To convert CommonUser to JSON
-//        ArrayList<Location> locations = new ArrayList<>();
-//        locations.add(new Location("Bla", new Coordinate(0.0, 1.0), "link here", "food"));
-//        locations.add(new Location("Heyy", new Coordinate(5.0, 6.0), "link here1", "games"));
-//        HashMap<Label, ArrayList<Location>> planner1 = new HashMap<>();
-//        Label label = new Label("Restaurants");
-//        planner1.put(label, locations);
-//        Planner planner = new Planner(planner1);
-//        CommonUser user = new CommonUser("john_doe", "secure_password", planner);
-//        CommonUser juser = new CommonUser("jane_doe","not_joe",new Planner(new HashMap<>()));
-//        JSONObject userJson = JsonDataAccessObject.userToJSON(user);
-//        JSONObject janeJson = JsonDataAccessObject.userToJSON(juser);
-//        System.out.println(userJson);
-//
-//        // Write the JSON objects to the file without overwriting
-//        ArrayList<JSONObject> usersList = new ArrayList<>();
-//        usersList.add(userJson);
-//        usersList.add(janeJson);
-//        writeJsonListToFile(usersList, "user_data.json");
-//
-//        ArrayList<JSONObject> myread = readJsonFromFile("user_data.json");
-//        System.out.println(myread);
-//
-//        // To convert JSON to CommonUser
-//        assert myread != null;
-//        CommonUser newUser = JsonDataAccessObject.userFromJSON(myread.get(1));
-//        System.out.println(newUser.getPlanner());
-//
-//        for (Label l : newUser.getPlanner().getLabel()) {
-//            System.out.println(l.getTitle());
-//        }
-    }
 
     public JsonDataAccessObject(String JSONpath) throws IOException {
         this.JSONpath = JSONpath;
@@ -71,7 +34,6 @@ public class JsonDataAccessObject implements SignupUserDataAccessInterface, Logi
         } else {
             // File is empty or does not exist, initialize with an empty map
            save();
-           System.out.println("Saved:"+accounts.get("k"));
         }
     }
 
@@ -137,7 +99,6 @@ public class JsonDataAccessObject implements SignupUserDataAccessInterface, Logi
 
     private static Planner plannerFromJSON(JSONObject json) {
         Planner planner = new Planner(new HashMap<>());
-        System.out.println("JsonKeySet:" + json.keySet());
 
         // Extract labels and locations from JSON
         for (String labelTitle : json.keySet()) {
@@ -171,7 +132,6 @@ public class JsonDataAccessObject implements SignupUserDataAccessInterface, Logi
                 json.write(fileWriter);
                 fileWriter.write("\n"); // Add a newline character to separate JSON objects
             }
-            System.out.println("JSON written to file: " + fileName);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -210,11 +170,12 @@ public class JsonDataAccessObject implements SignupUserDataAccessInterface, Logi
         }
         if (inPlanner) {
             accounts.get(username).getPlanner().getLocations(savedLabel).add(location);
-        } else {
-            ArrayList<Location> list = new ArrayList<>();
-            list.add(location);
-            accounts.get(username).getPlanner().setLabel(savedLabel, list);
         }
+//        else {
+//            ArrayList<Location> list = new ArrayList<>();
+//            list.add(location);
+//            accounts.get(username).getPlanner().setLabel(savedLabel, list);
+//        }
         save();
     }
 
@@ -228,7 +189,7 @@ public class JsonDataAccessObject implements SignupUserDataAccessInterface, Logi
 
             for (Location location : locations) {
                 if ((Double.compare(location.getCoordinate().getLatitude(),chosenLocation.getCoordinate().getLatitude())==0 && Double.compare(location.getCoordinate().getLongitude(),chosenLocation.getCoordinate().getLongitude())==0 ) && location.getName().equals(chosenLocation.getName())){
-                    System.out.println("chosen location:"+chosenLocation.getName()+"location:"+location.getName());
+                    //System.out.println("chosen location:"+chosenLocation.getName()+"location:"+location.getName());
                     return true;
                 }
             }
@@ -242,7 +203,6 @@ public class JsonDataAccessObject implements SignupUserDataAccessInterface, Logi
         Planner userPlanner = accounts.get(username).getPlanner();
         userPlanner.setLabel(newLabel, new ArrayList<>());
         save();
-        //TODO: Check If this is creating 2 copies of the user: existing one and new one. We only want new one.
     }
 
     @Override

@@ -1,6 +1,7 @@
-package test.interactors;
+package use_case.displayingLabels;
 
-import data_access.FileUserDataAccessObject;
+import data_access.InMemoryDisplayingLabels;
+import data_access.JsonDataAccessObject;
 import entity.CommonUserFactory;
 import entity.Label;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,40 +14,16 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertTrue;
 import static junit.framework.TestCase.fail;
 import static org.junit.Assert.*;
 
 public class DisplayingLabelsInteractorTest {
 
-    FileUserDataAccessObject userDataAccessObject;
-    @BeforeEach
-    void init() {
-        try {
-            userDataAccessObject = new FileUserDataAccessObject("./usersTest.csv", new CommonUserFactory());
-        } catch(IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        SignupInputData inputData0 = new SignupInputData("akshaya", "password");
-        SignupUserDataAccessInterface userRepository0 = userDataAccessObject;
-        SignupOutputBoundary successPresenter0 = new SignupOutputBoundary() {
-            @Override
-            public void prepareSuccessView(SignupOutputData user) {
-            }
-
-            @Override
-            public void prepareFailView(String error) {
-            }
-        };
-        SignupInputBoundary interactor0 = new SignupInteractor(userRepository0, successPresenter0, new CommonUserFactory());
-        interactor0.execute(inputData0);
-    }
-
+    DisplayingLabelsUserDataAccessInterface Repository;
 
     @Test
     void successTest() {
-        DisplayingLabelsUserDataAccessInterface userRepository = userDataAccessObject;
+        Repository = new InMemoryDisplayingLabels();
         DisplayingLabelsOutputBoundary successPresenter = new DisplayingLabelsOutputBoundary() {
             @Override
             public void prepareSuccessView(DisplayingLabelsOutputData response) {
@@ -65,7 +42,7 @@ public class DisplayingLabelsInteractorTest {
             }
         };
         DisplayingLabelsInputData inputData = new DisplayingLabelsInputData();
-        DisplayingLabelsInputBoundary interactor = new DisplayingLabelsInteractor(userRepository, successPresenter);
+        DisplayingLabelsInputBoundary interactor = new DisplayingLabelsInteractor(Repository, successPresenter);
         interactor.execute(inputData);
     }
 }

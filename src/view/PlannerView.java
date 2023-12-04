@@ -4,10 +4,8 @@ import entity.Label;
 import interface_adapter.CreateLabel.CreateLabelController;
 import interface_adapter.CreateLabel.CreateLabelViewModel;
 import interface_adapter.LocationsFromLabel.LocationsFromLabelController;
-import interface_adapter.LocationsFromLabel.LocationsFromLabelState;
 import interface_adapter.LocationsFromLabel.LocationsFromLabelViewModel;
 import interface_adapter.displayingLabels.DisplayingLabelsController;
-import interface_adapter.displayingLabels.DisplayingLabelsState;
 import interface_adapter.displayingLabels.DisplayingLabelsViewModel;
 
 import javax.swing.*;
@@ -22,7 +20,7 @@ import java.util.Set;
 
 public class PlannerView extends JPanel implements ActionListener, PropertyChangeListener {
 	public static final String viewName = "planner";
-	private final CreateLabelViewModel createLabelViewModel;
+	public final CreateLabelViewModel createLabelViewModel;
 	public DisplayingLabelsViewModel displayingLabelsViewModel;
 	public DisplayingLabelsController displayingLabelsController;
 	public LocationsFromLabelController locationsFromLabelController;
@@ -32,6 +30,7 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 	private final List<JButton> buttonList;
 	private JComboBox<String> locationComboBox;
 	private JPanel centerButtonPanel; // Updated to make it accessible for dynamic updates
+	private JButton okButtonReference;
   
 	public PlannerView(DisplayingLabelsViewModel displayingLabelsViewModel, DisplayingLabelsController displayingLabelsController, LocationsFromLabelViewModel locationsFromLabelViewModel, LocationsFromLabelController locationsFromLabelController, CreateLabelController createLabelController, CreateLabelViewModel createLabelViewModel) {
 		this.displayingLabelsController = displayingLabelsController;
@@ -111,42 +110,7 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 		// Add the scroll pane to the CENTER position
 		add(scrollPane, BorderLayout.CENTER);
 
-		// Add the "Favourites" button initially
-		//addButton("Favourites");
 	}
-
-//	private void showDeleteLabelPopup() {
-//		// Show a popup to choose a label to delete
-//		String[] labelOptions = buttonList.stream()
-//				.map(AbstractButton::getText)
-//				.toArray(String[]::new);
-//
-//		String selectedLabel = (String) JOptionPane.showInputDialog(
-//				null,
-//				"Choose a label to delete:",
-//				"Delete Label",
-//				JOptionPane.QUESTION_MESSAGE,
-//				null,
-//				labelOptions,
-//				labelOptions[0]);
-//
-//		// Remove the selected label button
-//		if (selectedLabel != null) {
-//			for (JButton button : buttonList) {
-//				if (button.getText().equals(selectedLabel)) {
-//					buttonList.remove(button);
-//					centerButtonPanel.remove(button); // Remove the button from centerButtonPanel
-//					remove(button);
-//
-//					// Revalidate and repaint
-//					revalidate();
-//					repaint();
-//					break;
-//				}
-//			}
-//		}
-//	}
-
 
 	private void showCreateLabelPopup() {
 		// Implement the logic for "Create Label" popup here
@@ -169,20 +133,19 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 				dialog.dispose();  // Close the dialog
 			});
 
+			this.okButtonReference = okButton;
+
 			dialog.getContentPane().add(panel);
 			dialog.pack();
 			dialog.setLocationRelativeTo(null);  // Center the dialog on the screen
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);  // Dispose on close, no default close operation
 
 			dialog.setVisible(true);
-
-			// addButton(newLabelName);
 		}
 
 		revalidate();
 		repaint();
 	}
-
 
     @Override
 	public void actionPerformed(ActionEvent e) {
@@ -207,7 +170,6 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 				// Add a listener to each button
 				button.addActionListener(e -> {
 					locationsFromLabelController.execute(button.getText());
-					//JOptionPane.showMessageDialog(null, "Button Label: " + LocationsFromLabelState.getLocation());
 				});
 				button.setBackground(new Color(51, 153, 102));
 				button.setForeground(new Color(245, 245, 245));
@@ -221,7 +183,7 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 				button.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						System.out.println(button.getText());
+						//System.out.println(button.getText());
 						locationsFromLabelController.execute(button.getText());
 
 						// Customize the title of the message dialog
@@ -245,5 +207,8 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 		});
 	}
 
+	public JButton getOkButtonReference() {
+		return okButtonReference;
+	}
 }
 

@@ -1,6 +1,7 @@
-package test.interactors;
+package use_case.displayingLocations;
 
 import data_access.APIDataAccessObject;
+import data_access.OpenTripMapLocationFetcher;
 import entity.Location;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,7 @@ public class DisplayingLocationsInteractorTest {
     @BeforeEach
     void unit() {
         try {
-            apiUserDataAccessObject = new APIDataAccessObject("./test.csv");
+            apiUserDataAccessObject = new APIDataAccessObject("./test.csv",new OpenTripMapLocationFetcher());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -66,5 +67,10 @@ public class DisplayingLocationsInteractorTest {
         DisplayingLocationsInputData inputData = new DisplayingLocationsInputData();
         DisplayingLocationsInputBoundary interactor = new DisplayingLocationsInteractor(userDataAccessInterface, successPresenter);
         interactor.execute(inputData);
+    }
+
+    @Test
+    void failTest() {
+
     }
 }

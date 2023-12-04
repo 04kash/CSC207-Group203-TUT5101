@@ -17,16 +17,17 @@ import java.util.regex.Pattern;
 public class APIDataAccessObject implements ApiUserDataAccessInterface, DisplayingLocationsUserDataAccessInterface {
 
     private final File csvFile;
+    private final LocationFetcher locationFetcher;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
     private final HashMap<String, Location> accounts = new HashMap<>();
-
 
     /**
      * This method reads the file in which the locations which the users have saved are stored
      *
      * @param csvPath this is the file in which all the locations from the users input are stored
      */
-    public APIDataAccessObject(String csvPath) throws IOException {
+    public APIDataAccessObject(String csvPath,LocationFetcher locationFetcher) throws IOException {
+        this.locationFetcher = locationFetcher;
         csvFile = new File(csvPath);
         headers.put("locations", 0);
 
@@ -96,8 +97,6 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
      *                  obtained from the users search that is to be saved in the csv file
      */
     public ArrayList<Location> getLocations(String cityName, String filter){
-
-       LocationFetcher locationFetcher = new OpenTripMapLocationFetcher();
        return locationFetcher.getLocations(cityName,filter);
     }
 
@@ -110,6 +109,7 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
     private void save() {
         BufferedWriter writer;
         try {
+
             writer = new BufferedWriter(new FileWriter(csvFile, false));
             writer.write(String.join(",", headers.keySet()));
             writer.newLine();

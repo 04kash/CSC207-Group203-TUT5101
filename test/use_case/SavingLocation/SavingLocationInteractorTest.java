@@ -1,15 +1,11 @@
-package interactors;
+package use_case.SavingLocation;
 
 import data_access.InMemorySavingLocation;
 import entity.Coordinate;
 import entity.Label;
 import entity.Location;
-import interface_adapter.SavingLocation.SavingLocationPresenter;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.LocationsFromLabel.LocationsFromLabelInputData;
-import use_case.LocationsFromLabel.LocationsFromLabelInteractor;
 import use_case.SavingLocation.SavingLocationInputData;
 import use_case.SavingLocation.SavingLocationInteractor;
 import use_case.SavingLocation.SavingLocationOutputBoundary;

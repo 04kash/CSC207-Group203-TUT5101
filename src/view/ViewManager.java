@@ -53,9 +53,4 @@ public class ViewManager implements PropertyChangeListener {
         viewManagerModel.setActiveView(LoggedInView.viewName);
         viewManagerModel.firePropertyChanged();
     }
-
-    public static void showLocationView() {;
-        viewManagerModel.setActiveView(LocationView.viewName);
-        viewManagerModel.firePropertyChanged();
-    }
 }

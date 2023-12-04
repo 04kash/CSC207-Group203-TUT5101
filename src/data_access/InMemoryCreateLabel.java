@@ -42,11 +42,6 @@ public class InMemoryCreateLabel implements CreateLabelDataAccessInterface {
     }
 
     @Override
-    public User get(String username) {
-        return accounts.get(username);
-    }
-
-    @Override
     public String getCurrentUser() {
         return currentUser;
     }

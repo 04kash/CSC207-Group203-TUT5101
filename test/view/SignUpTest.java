@@ -1,4 +1,4 @@
-package test.view;
+package view;
 
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupViewModel;
@@ -11,7 +11,6 @@ import java.awt.event.KeyEvent;
 
 import static java.lang.Thread.sleep;
 import static org.junit.Assert.assertEquals;
-//TODO: the test passes if you open up the screen but fails otherwise, I have no clue why, FIX THIS!!
 public class SignUpTest {
 
     @org.junit.Test
@@ -24,8 +23,9 @@ public class SignUpTest {
         SignupViewModel viewModel = new SignupViewModel();
         JPanel signupView = new SignUp(controller, viewModel);
         JFrame jf = new JFrame();
+        jf.setSize(800, 900);
         jf.setContentPane(signupView);
-        jf.pack();
+//        jf.pack();
         jf.setVisible(true);
 
         // get a reference to the first password field
@@ -52,8 +52,8 @@ public class SignUpTest {
         }
 
         // print the current values the password field and view-model hold
-        System.out.println("field 1: " + new String(pwdField.getPassword()));
-        System.out.println("view-model: " + viewModel.getState().getPassword());
+        //System.out.println("field 1: " + new String(pwdField.getPassword()));
+        //System.out.println("view-model: " + viewModel.getState().getPassword());
 
         // move to the right in the password field, otherwise the event
         // will type the character as the first character instead of the last!
@@ -93,8 +93,8 @@ public class SignUpTest {
         }
 
         // print the current values the password field and view-model hold
-        System.out.println("field 1: " + new String(pwdField.getPassword()));
-        System.out.println("view-model: " + viewModel.getState().getPassword());
+        //System.out.println("field 1: " + new String(pwdField.getPassword()));
+        //System.out.println("view-model: " + viewModel.getState().getPassword());
 
         // assert that the values are as expected.
         Assert.assertEquals("yz", new String(pwdField.getPassword()));
