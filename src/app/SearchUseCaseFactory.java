@@ -62,11 +62,11 @@ public class SearchUseCaseFactory {
                                     DisplayingLabelsViewModel displayingLabelsViewModel,
                                     DisplayingLabelsUserDataAccessInterface displayingLabelsUserDataAccessInterface) {
         ApiController apiController =
-                createSearchUser(viewManagerModel, apiViewModel, displayingLocationsViewModel, userDataAccessInterface);
+                createApi(viewManagerModel, apiViewModel, displayingLocationsViewModel, userDataAccessInterface);
         DisplayingLocationsController displayingLocationsController =
-                createInstance(viewManagerModel, displayingLocationsViewModel, userDataAccessInterface2);
+                createDisplayingLocation(viewManagerModel, displayingLocationsViewModel, userDataAccessInterface2);
         DisplayingLabelsController displayingLabelsController =
-                createInstance(viewManagerModel,displayingLabelsViewModel,displayingLabelsUserDataAccessInterface);
+                createDisplayingLabel(viewManagerModel,displayingLabelsViewModel,displayingLabelsUserDataAccessInterface);
 
         return new SearchView(apiViewModel, apiController, displayingLocationsController, displayingLabelsController);
     }
