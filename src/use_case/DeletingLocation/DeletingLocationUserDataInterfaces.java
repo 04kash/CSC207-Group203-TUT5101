@@ -1,4 +1,4 @@
-package use_case.DeletingLocation;
-
-public class DeletingLocationUserDataInterfaces {
-}
+//package use_case.DeletingLocation;
+//
+//public class DeletingLocationUserDataInterfaces {
+//}

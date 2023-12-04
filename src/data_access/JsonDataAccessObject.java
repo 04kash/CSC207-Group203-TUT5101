@@ -207,11 +207,12 @@ public class JsonDataAccessObject implements SignupUserDataAccessInterface, Logi
         }
         if (inPlanner) {
             accounts.get(username).getPlanner().getLocations(savedLabel).add(location);
-        } else {
-            ArrayList<Location> list = new ArrayList<>();
-            list.add(location);
-            accounts.get(username).getPlanner().setLabel(savedLabel, list);
         }
+//        else {
+//            ArrayList<Location> list = new ArrayList<>();
+//            list.add(location);
+//            accounts.get(username).getPlanner().setLabel(savedLabel, list);
+//        }
         save();
     }
 

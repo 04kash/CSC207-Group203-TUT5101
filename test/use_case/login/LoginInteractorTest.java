@@ -28,6 +28,7 @@ public class LoginInteractorTest {
             @Override
             public void prepareSuccessView(LoginOutputData user) {
                 assertTrue(userRepository.existsByName("akshaya"));
+                assertEquals("akshaya",user.getUsername());
             }
 
             @Override

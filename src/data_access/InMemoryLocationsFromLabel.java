@@ -20,6 +20,7 @@ public class InMemoryLocationsFromLabel implements LocationsFromLabelUserDataAcc
     }
     @Override
     public ArrayList<Location> getLocationsFromLabel(String username, Label newLabel) {
+        ArrayList<Location> locations=new ArrayList<>();
         Set<Label> labels = accounts.get(username).getPlanner().getLabel();
         Label savedLabel = new Label();
         boolean inPlanner = false;
@@ -30,11 +31,9 @@ public class InMemoryLocationsFromLabel implements LocationsFromLabelUserDataAcc
             }
         }
         if (inPlanner) {
-            return accounts.get(username).getPlanner().getLocations(savedLabel);
-        } else {
-            ArrayList<Location> list = new ArrayList<>();
-            return list;
+            locations=accounts.get(username).getPlanner().getLocations(savedLabel);
         }
+        return locations;
     }
 
     @Override

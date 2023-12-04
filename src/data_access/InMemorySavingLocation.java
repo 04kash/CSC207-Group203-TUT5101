@@ -30,11 +30,12 @@ public class InMemorySavingLocation implements SavingLocationUserDataAccessInter
         }
         if (inPlanner) {
             accounts.get(username).getPlanner().getLocations(savedLabel).add(location);
-        } else {
-            ArrayList<Location> list = new ArrayList<>();
-            list.add(location);
-            accounts.get(username).getPlanner().setLabel(savedLabel, list);
         }
+//        else {
+//            ArrayList<Location> list = new ArrayList<>();
+//            list.add(location);
+//            accounts.get(username).getPlanner().setLabel(savedLabel, list);
+//        }
     }
 
     @Override
@@ -47,8 +48,7 @@ public class InMemorySavingLocation implements SavingLocationUserDataAccessInter
             for (Location location : locations) {
                 if ((Double.compare(location.getCoordinate().getLatitude(),chosenLocation.getCoordinate().getLatitude())==0 && Double.compare(location.getCoordinate().getLongitude(),chosenLocation.getCoordinate().getLongitude())==0 ) && location.getName().equals(chosenLocation.getName())){
                     return true;
-                }
-            }
+                }}
         }
 
         return false;
