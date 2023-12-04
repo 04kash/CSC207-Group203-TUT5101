@@ -37,7 +37,7 @@ class ApiPresenterTest {
 
     @Test
     void prepareFailView() {
-        apiPresenter.prepareFailView("Error");
-        assertEquals("Error",apiViewModel.getState().getLocationError());
+        apiPresenter.prepareFailView("Error1");
+        assertEquals("Error1",apiViewModel.getState().getLocationError());
     }
 }
