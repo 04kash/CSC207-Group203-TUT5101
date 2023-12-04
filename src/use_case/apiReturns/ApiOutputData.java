@@ -13,7 +13,7 @@ public class ApiOutputData {
     /**
      * The list of locations retrieved or affected by the API operation.
      */
-    public final ArrayList<Location> locations;
+    private final ArrayList<Location> locations;
 
     private boolean useCaseFailed;
 
