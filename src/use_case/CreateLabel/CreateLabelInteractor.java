@@ -20,8 +20,6 @@ public class CreateLabelInteractor implements CreateLabelInputBoundary{
         else {labelDataAccessObject.addLabelToPlanner(currentUser,label);
             if(labelDataAccessObject.labelExists(currentUser, label)){
                 labelPresentor.prepareSuccessView("Label saved successfully");
-            }else{
-                labelPresentor.prepareFailView("Label was not saved.Please try again.");
             }
         }
     }
