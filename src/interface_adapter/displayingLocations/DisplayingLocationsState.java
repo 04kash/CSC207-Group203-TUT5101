@@ -50,7 +50,14 @@ public class DisplayingLocationsState {
      *
      * @param error the error message to set
      */
-    public void setLocationError(String error) {
-        this.locationError = error;
+    public void setLocationError(String error) { this.locationError = error;}
+
+    /**
+     * Gets back the error message related to location display.
+     *
+     * @return the error message
+     */
+    public String getLocationError() {
+        return locationError;
     }
 }

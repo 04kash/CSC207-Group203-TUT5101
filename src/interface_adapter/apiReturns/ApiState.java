@@ -81,9 +81,18 @@ public class ApiState {
     }
 
     /**
-     * This method allows us to set a value of the the location error
+     * This method allows us to set a value of the location error
      *
      * @param error a string which contains the error message
      */
     public void setLocationError(String error) { this.locationError = locationError;}
+
+    /**
+     * This method allows us to get back the value of the location error
+     *
+     * @return a string which contains the error message
+     */
+    public String getLocationError() {
+        return locationError;
+    }
 }

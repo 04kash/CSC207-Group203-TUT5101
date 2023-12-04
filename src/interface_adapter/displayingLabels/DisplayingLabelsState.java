@@ -55,4 +55,8 @@ public class DisplayingLabelsState {
     public void setLabelError(String labelError) {
         this.labelError = labelError;
     }
+
+    public String getLabelError() {
+        return labelError;
+    }
 }
