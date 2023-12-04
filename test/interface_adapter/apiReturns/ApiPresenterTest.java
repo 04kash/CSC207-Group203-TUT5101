@@ -1,10 +1,8 @@
-package interface_adapter.api_returns;
+package interface_adapter.apiReturns;
 
 import entity.Coordinate;
 import entity.Location;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.apiReturns.ApiPresenter;
-import interface_adapter.apiReturns.ApiViewModel;
 import interface_adapter.displayingLocations.DisplayingLocationsViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
