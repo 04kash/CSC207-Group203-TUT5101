@@ -17,11 +17,13 @@ import java.util.regex.Pattern;
 public class APIDataAccessObject implements ApiUserDataAccessInterface, DisplayingLocationsUserDataAccessInterface {
 
     private final File csvFile;
+    private final LocationFetcher locationFetcher;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
     private final HashMap<String, Location> accounts = new HashMap<>();
 
 
-    public APIDataAccessObject(String csvPath) throws IOException {
+    public APIDataAccessObject(String csvPath,LocationFetcher locationFetcher) throws IOException {
+        this.locationFetcher = locationFetcher;
         csvFile = new File(csvPath);
         headers.put("locations", 0);
 
@@ -85,8 +87,6 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
     }
 
     public ArrayList<Location> getLocations(String cityName, String filter){
-
-       LocationFetcher locationFetcher = new OpenTripMapLocationFetcher();
        return locationFetcher.getLocations(cityName,filter);
     }
 

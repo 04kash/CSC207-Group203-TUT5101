@@ -1,6 +1,7 @@
 package use_case.apiReturns;
 
 import data_access.APIDataAccessObject;
+import data_access.OpenTripMapLocationFetcher;
 import entity.Coordinate;
 import entity.Location;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,7 +30,7 @@ class ApiInteractorTest {
     void successTest() {
         APIDataAccessObject apiUserDataAccessObject;
         try {
-            apiUserDataAccessObject = new APIDataAccessObject("./test.csv");
+            apiUserDataAccessObject = new APIDataAccessObject("./test.csv",new OpenTripMapLocationFetcher());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
