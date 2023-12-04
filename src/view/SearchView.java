@@ -124,7 +124,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 		);
 	}
 	public void actionPerformed(ActionEvent evt) {
-		System.out.println("Click " + evt.getActionCommand());
+		//System.out.println("Click " + evt.getActionCommand());
 	}
 
 	@Override

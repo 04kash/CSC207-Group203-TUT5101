@@ -30,13 +30,14 @@ public class Planner {
 
     public ArrayList<Location> getLocations(Label key) {
         //return planner.get(key);
+        ArrayList<Location> locations = new ArrayList<>();
         String labelTitle = key.getTitle();
         for (Label l : getLabel()) {
             if (Objects.equals(l.getTitle(), labelTitle)) {
-                return planner.get(l);
+                locations=planner.get(l);
             }
         }
-        return null;
+        return locations;
     }
 
     public void setLabel(Label label, ArrayList<Location> locations) {
