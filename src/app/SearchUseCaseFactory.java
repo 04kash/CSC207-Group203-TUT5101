@@ -1,15 +1,18 @@
 package app;
 
 import interface_adapter.ViewManagerModel;
+
 import interface_adapter.apiReturns.ApiController;
 import interface_adapter.apiReturns.ApiPresenter;
 import interface_adapter.apiReturns.ApiViewModel;
+
 import interface_adapter.displayingLabels.DisplayingLabelsController;
 import interface_adapter.displayingLabels.DisplayingLabelsPresenter;
 import interface_adapter.displayingLabels.DisplayingLabelsViewModel;
 import interface_adapter.displayingLocations.DisplayingLocationsController;
 import interface_adapter.displayingLocations.DisplayingLocationsPresenter;
 import interface_adapter.displayingLocations.DisplayingLocationsViewModel;
+
 import use_case.apiReturns.ApiInputBoundary;
 import use_case.apiReturns.ApiInteractor;
 import use_case.apiReturns.ApiOutputBoundary;
@@ -28,7 +31,8 @@ public class SearchUseCaseFactory {
 
     private SearchUseCaseFactory() {
     }
-    /**
+
+     /**
      * This method creates a Search view where the users can choose the city of their choice and a filter for which they
      * want to discover locations.
      *
@@ -67,37 +71,26 @@ public class SearchUseCaseFactory {
         return new SearchView(apiViewModel, apiController, displayingLocationsController, displayingLabelsController);
     }
 
-    private static ApiController createSearchUser(ViewManagerModel viewManagerModel,
-                                                  ApiViewModel apiViewModel,
-                                                  DisplayingLocationsViewModel displayingLocationsViewModel,
-                                                  ApiUserDataAccessInterface userDataAccessInterface) {
-        ApiOutputBoundary apiOutputBoundary =
-                new ApiPresenter(apiViewModel, viewManagerModel, displayingLocationsViewModel);
-        ApiInputBoundary apiInputBoundary =
-                new ApiInteractor(userDataAccessInterface, apiOutputBoundary);
+
+    private static ApiController createApi(ViewManagerModel viewManagerModel, ApiViewModel apiViewModel, DisplayingLocationsViewModel displayingLocationsViewModel, ApiUserDataAccessInterface userDataAccessInterface) {
+        ApiOutputBoundary apiOutputBoundary = new ApiPresenter(apiViewModel, viewManagerModel, displayingLocationsViewModel);
+        ApiInputBoundary apiInputBoundary = new ApiInteractor(userDataAccessInterface, apiOutputBoundary);
 
         return new ApiController(apiInputBoundary);
     }
+;
 
-    private static DisplayingLocationsController createInstance(ViewManagerModel viewManagerModel,
-                                                                DisplayingLocationsViewModel displayingLocationsViewModel,
-                                                                DisplayingLocationsUserDataAccessInterface userDataAccessInterface) {
-        DisplayingLocationsOutputBoundary displayingLocationsOutputBoundary =
-                new DisplayingLocationsPresenter(displayingLocationsViewModel, viewManagerModel);
-        DisplayingLocationsInputBoundary displayingLocationsInputBoundary =
-                new DisplayingLocationsInteractor(userDataAccessInterface, displayingLocationsOutputBoundary);
+    private static DisplayingLocationsController createDisplayingLocation(ViewManagerModel viewManagerModel, DisplayingLocationsViewModel displayingLocationsViewModel, DisplayingLocationsUserDataAccessInterface userDataAccessInterface) {
+        DisplayingLocationsOutputBoundary displayingLocationsOutputBoundary = new DisplayingLocationsPresenter(displayingLocationsViewModel, viewManagerModel);
+        DisplayingLocationsInputBoundary displayingLocationsInputBoundary = new DisplayingLocationsInteractor(userDataAccessInterface, displayingLocationsOutputBoundary);
 
         return new DisplayingLocationsController(displayingLocationsInputBoundary);
 
     }
-    private static DisplayingLabelsController createInstance(ViewManagerModel viewManagerModel,
-                                                             DisplayingLabelsViewModel displayingLabelsViewModel,
-                                                             DisplayingLabelsUserDataAccessInterface displayingLabelsUserDataAccessInterface) {
-        DisplayingLabelsOutputBoundary displayingLabelsOutputBoundary =
-                new DisplayingLabelsPresenter(displayingLabelsViewModel,viewManagerModel);
-        DisplayingLabelsInputBoundary displayingLabelsInputBoundary =
-                new DisplayingLabelsInteractor(displayingLabelsUserDataAccessInterface,displayingLabelsOutputBoundary);
 
+    private static DisplayingLabelsController createDisplayingLabel(ViewManagerModel viewManagerModel,DisplayingLabelsViewModel displayingLabelsViewModel,DisplayingLabelsUserDataAccessInterface displayingLabelsUserDataAccessInterface){
+        DisplayingLabelsOutputBoundary displayingLabelsOutputBoundary = new DisplayingLabelsPresenter(displayingLabelsViewModel,viewManagerModel);
+        DisplayingLabelsInputBoundary displayingLabelsInputBoundary = new DisplayingLabelsInteractor(displayingLabelsUserDataAccessInterface,displayingLabelsOutputBoundary);
         return new DisplayingLabelsController(displayingLabelsInputBoundary);
     }
 }
