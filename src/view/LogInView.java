@@ -77,7 +77,7 @@ public class LogInView extends JPanel implements ActionListener, PropertyChangeL
 		
 		JButton logIn = new JButton("Log In");
 		logIn.setBackground(new Color(51, 153, 102));
-		logIn.setForeground(new Color(245, 245, 245));
+		//logIn.setForeground(new Color(245, 245, 245));
 		logIn.setBounds(168, 243, 89, 23);
 		add(logIn);
 		
@@ -91,7 +91,7 @@ public class LogInView extends JPanel implements ActionListener, PropertyChangeL
 		
 		JButton signUp = new JButton("Sign Up");
 		signUp.setBackground(new Color(51, 153, 102));
-		signUp.setForeground(new Color(245, 245, 245));
+		//signUp.setForeground(new Color(245, 245, 245));
 		signUp.setBounds(168, 320, 89, 23);
 		add(signUp);
 

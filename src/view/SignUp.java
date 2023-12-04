@@ -28,7 +28,7 @@ public class SignUp extends JPanel implements ActionListener, PropertyChangeList
 	 */
 	public SignUp(SignupController controller, SignupViewModel signupViewModel) {
 		setForeground(UIManager.getColor("ColorChooser.swatchesDefaultRecentColor"));
-		setBackground(new Color(245, 245, 245));
+		//setBackground(new Color(245, 245, 245));
 		this.setLayout(null);
 		this.signupViewModel = signupViewModel;
 		this.signupController = controller;
@@ -71,12 +71,12 @@ public class SignUp extends JPanel implements ActionListener, PropertyChangeList
 		
 		JButton signUp = new JButton("Sign Up");
 		signUp.setBackground(new Color(51, 153, 102));
-		signUp.setForeground(new Color(245, 245, 245));
+		//signUp.setForeground(new Color(245, 245, 245));
 		signUp.setBounds(60, 230, 139, 23);
 		add(signUp);
 
 		JButton back = new JButton("Back to LogIn");
-		back.setForeground(new Color(245, 245, 245));
+		//back.setForeground(new Color(245, 245, 245));
 		back.setBackground(new Color(51, 153, 102));
 		back.setBounds(250, 230, 139, 23);
 		add(back);

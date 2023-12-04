@@ -66,7 +66,7 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 		// Add the "Create Label" button
 		JButton createLabelButton = new JButton("Create Label");
 		createLabelButton.setBackground(new Color(51, 153, 102));
-		createLabelButton.setForeground(new Color(245, 245, 245));
+		//createLabelButton.setForeground(new Color(245, 245, 245));
 		createLabelButton.addActionListener(e -> {showCreateLabelPopup();
 			revalidate();
 			repaint();
@@ -76,7 +76,7 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 		// Add the "Go to Homepage" button
 		JButton goToHomepageButton = new JButton("Go to Homepage");
 		goToHomepageButton.setBackground(new Color(51, 153, 102));
-		goToHomepageButton.setForeground(new Color(245, 245, 245));
+		//goToHomepageButton.setForeground(new Color(245, 245, 245));
 		topButtonPanel.add(goToHomepageButton);
 		goToHomepageButton.addActionListener(e->ViewManager.showLoggedinView());
 		goToHomepageButton.addActionListener(
@@ -172,7 +172,7 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 					locationsFromLabelController.execute(button.getText());
 				});
 				button.setBackground(new Color(51, 153, 102));
-				button.setForeground(new Color(245, 245, 245));
+				//button.setForeground(new Color(245, 245, 245));
 
 				buttonList.add(button); // Add the button to the list
 				centerButtonPanel.add(button); // Add the button to the panel
