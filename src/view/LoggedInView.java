@@ -76,7 +76,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 	}
 
 	public void actionPerformed(ActionEvent evt) {
-		System.out.println("Click " + evt.getActionCommand());
+		//System.out.println("Click " + evt.getActionCommand());
 	}
 
 	@Override

@@ -558,7 +558,7 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 	}
 
 	public void actionPerformed(ActionEvent evt) {
-		System.out.println("Click " + evt.getActionCommand());
+		//System.out.println("Click " + evt.getActionCommand());
 	}
 
 	@Override
@@ -874,7 +874,7 @@ public class LocationView extends JPanel implements ActionListener, PropertyChan
 					ArrayList<Object> userChoice = showSaveLocationDialog(displayingLocationsViewModel.getState().getLocations(), new ArrayList<>(displayingLabelsViewModel.getState().getLabels()));
 					Location saved = (Location) userChoice.get(0);
 					Label chosenLabel = (Label) userChoice.get(1);
-					System.out.println(chosenLabel.getTitle());
+					//System.out.println(chosenLabel.getTitle());
 					savingLocationController.execute(chosenLabel.getTitle(), saved.getName(), saved.getCoordinate().getLatitude(), saved.getCoordinate().getLongitude(), saved.getOsmLink(), saved.getFilter());
 					JOptionPane.showMessageDialog(null, savingLocationViewModel.getState().getDisplayMsg());
 				}

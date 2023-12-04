@@ -74,7 +74,7 @@ public class OpenTripMapLocationFetcher implements LocationFetcher {
                 }
                 return locations;
             } else {
-                System.out.println("API Request failed with response code: " + responseCode);
+                //System.out.println("API Request failed with response code: " + responseCode);
             }
 
             // Close the connection
@@ -120,7 +120,7 @@ public class OpenTripMapLocationFetcher implements LocationFetcher {
                 Coordinate coordinates = new Coordinate(lat,lon);
                 return coordinates;
             }else {
-                System.out.println("API Request failed with response code: " + responseCode);
+                //System.out.println("API Request failed with response code: " + responseCode);
             }
             // Close the connection
             connection.disconnect();

@@ -83,8 +83,8 @@ public class LoginViewTest {
         }
 
         // print the current values the password field and view-model hold
-        System.out.println("field 1: " + new String(pwdField.getPassword()));
-        System.out.println("view-model: " + viewModel.getState().getPassword());
+//        System.out.println("field 1: " + new String(pwdField.getPassword()));
+//        System.out.println("view-model: " + viewModel.getState().getPassword());
 
         // assert that the values are as expected.
         Assert.assertEquals("pa", new String(pwdField.getPassword()));

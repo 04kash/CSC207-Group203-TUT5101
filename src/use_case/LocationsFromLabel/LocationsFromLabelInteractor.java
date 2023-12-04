@@ -17,7 +17,6 @@ public class LocationsFromLabelInteractor implements LocationsFromLabelInputBoun
         if(userDataAccessObject.labelExists(username,new Label(locationsFromLabelInputData.getLabel())) && !userDataAccessObject.labelIsEmpty(username,new Label(locationsFromLabelInputData.getLabel()))){
             LocationsFromLabelOutputData outputData;
             outputData = new LocationsFromLabelOutputData(userDataAccessObject.getLocationsFromLabel(username,new Label(locationsFromLabelInputData.getLabel())),false);
-            System.out.println(outputData);
             userPresenter.prepareSuccessView(outputData);
         }else if(!userDataAccessObject.labelExists(username,new Label(locationsFromLabelInputData.getLabel()))){
             userPresenter.prepareFailView("This Label does not exist");
