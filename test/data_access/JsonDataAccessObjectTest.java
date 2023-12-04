@@ -44,6 +44,7 @@ class JsonDataAccessObjectTest {
         jsonDataAccessObject.addLabelToPlanner("Kashish",new Label("Food"));
         jsonDataAccessObject.addLabelToPlanner("Kashish",new Label("shops"));
         jsonDataAccessObject.addLocation("Kashish",new Location("The Abbot Shop",new Coordinate(-90.4134750366211,20.70365524291992),"node/7565662674","foods"),new Label("shops"));
+        jsonDataAccessObject.setCurrentUser("Kashish");
     }
 
     @Test
@@ -55,6 +56,7 @@ class JsonDataAccessObjectTest {
     @Test
     void locationExists() {
          assertEquals(true,jsonDataAccessObject.locationExists("Kashish",new Location("The Abbot Shop",new Coordinate(-90.4134750366211,20.70365524291992),"node/7565662674","foods")));
+         assertEquals(false,jsonDataAccessObject.locationExists("Kashish",new Location("The Alley",new Coordinate(-100.4134750366211,70.70365524291992),"node/7565662674","foods")));
     }
 
     @Test
@@ -73,15 +75,24 @@ class JsonDataAccessObjectTest {
     @Test
     void getLocationsFromLabel() {
         assertEquals(new ArrayList<>(),jsonDataAccessObject.getLocationsFromLabel("Kashish",new Label("favorite")));
+        assertEquals(new ArrayList<>(),jsonDataAccessObject.getLocationsFromLabel("Kashish",new Label("malls")));
     }
 
     @Test
     void labelExists() {
         assertEquals(true, jsonDataAccessObject.labelExists("Kashish",new Label("favorite")));
+        assertEquals(false,jsonDataAccessObject.labelExists("Kashish",new Label("sweets")));
     }
 
     @Test
     void labelIsEmpty() {
         assertEquals(true,jsonDataAccessObject.labelIsEmpty("Kashish",new Label("favorite")));
+        assertEquals(false,jsonDataAccessObject.labelIsEmpty("Kashish",new Label("shops")));
     }
+
+    @Test
+    void gerCurrentUser(){
+        assertEquals("Kashish",jsonDataAccessObject.getCurrentUser());
+    }
+
 }
