@@ -46,4 +46,8 @@ public class ApiState {
     }
 
     public void setLocationError(String error) { this.locationError = error;}
+
+    public String getLocationError() {
+        return locationError;
+    }
 }
