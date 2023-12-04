@@ -16,6 +16,8 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 	private static final long serialVersionUID = 1L;
 	public final DisplayingLabelsController displayingLabelsController;
 
+	private boolean changeInView;
+
 	/**
 	 * Create the panel.
 	 */
@@ -23,6 +25,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 		setBackground(new Color(245, 245, 245));
 		this.displayingLabelsController=displayingLabelsController;
 		this.setLayout(null);
+		this.changeInView = false;
 
 		JButton locationSearch = new JButton("Search New Locations");
 		locationSearch.setForeground(new Color(245, 245, 245));
@@ -35,6 +38,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						ViewManager.showSearchView();
+						changeInView = true;
 					}
 				}
 		);
@@ -50,6 +54,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 					public void actionPerformed(ActionEvent e) {
 						ViewManager.showPlannerView();
 						displayingLabelsController.execute();
+						changeInView = true;
 					}
 				}
 		);
@@ -64,6 +69,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						ViewManager.showLoginView();
+						changeInView = true;
 					}
 				}
 		);
@@ -75,5 +81,9 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
+	}
+
+	public boolean isChangeInView() {
+		return changeInView;
 	}
 }

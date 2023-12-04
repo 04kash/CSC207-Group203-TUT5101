@@ -15,12 +15,15 @@ public class LoginInteractorTest {
     public void successTest() {
         JsonDataAccessObject userDataAccessObject;
         try {
-            userDataAccessObject = new JsonDataAccessObject("./usersTest.json");
+            userDataAccessObject = new JsonDataAccessObject("./usersTest5.json");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         LoginInputData inputData = new LoginInputData("akshaya", "password");
         LoginUserDataAccessInterface userRepository = userDataAccessObject;
+        UserFactory factory = new CommonUserFactory();
+        User user = factory.create("akshaya", "password", new Planner());
+        userRepository.save(user);
         LoginOutputBoundary successPresenter = new LoginOutputBoundary() {
             @Override
             public void prepareSuccessView(LoginOutputData user) {

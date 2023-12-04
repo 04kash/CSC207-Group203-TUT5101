@@ -30,6 +30,7 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 	private final List<JButton> buttonList;
 	private JComboBox<String> locationComboBox;
 	private JPanel centerButtonPanel; // Updated to make it accessible for dynamic updates
+	private JButton okButtonReference;
   
 	public PlannerView(DisplayingLabelsViewModel displayingLabelsViewModel, DisplayingLabelsController displayingLabelsController, LocationsFromLabelViewModel locationsFromLabelViewModel, LocationsFromLabelController locationsFromLabelController, CreateLabelController createLabelController, CreateLabelViewModel createLabelViewModel) {
 		this.displayingLabelsController = displayingLabelsController;
@@ -124,6 +125,8 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 				dialog.dispose();  // Close the dialog
 			});
 
+			this.okButtonReference = okButton;
+
 			dialog.getContentPane().add(panel);
 			dialog.pack();
 			dialog.setLocationRelativeTo(null);  // Center the dialog on the screen
@@ -196,5 +199,8 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 		});
 	}
 
+	public JButton getOkButtonReference() {
+		return okButtonReference;
+	}
 }
 

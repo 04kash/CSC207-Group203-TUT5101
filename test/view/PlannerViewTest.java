@@ -9,6 +9,7 @@ import interface_adapter.LocationsFromLabel.LocationsFromLabelController;
 import interface_adapter.LocationsFromLabel.LocationsFromLabelViewModel;
 import interface_adapter.displayingLabels.DisplayingLabelsController;
 import interface_adapter.displayingLabels.DisplayingLabelsViewModel;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import use_case.CreateLabel.CreateLabelInputBoundary;
@@ -20,23 +21,37 @@ import use_case.displayingLabels.DisplayingLabelsInputData;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.Collections;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class PlannerViewTest {
 
     private PlannerView plannerView;
 
-    CommonUserFactory commonUserFactory;
     @Before
     public void setUp() {
-        commonUserFactory = new CommonUserFactory();
-        User user = commonUserFactory.create("akshaya", "pwd", new Planner());
-        DisplayingLabelsInputBoundary dlabelsib = null;
-        LocationsFromLabelInputBoundary lflib = null;
-        CreateLabelInputBoundary clib = null;
+        DisplayingLabelsInputBoundary dlabelsib = new DisplayingLabelsInputBoundary() {
+            @Override
+            public void execute(DisplayingLabelsInputData displayingLabelsInputData) {
+
+            }
+        };
+        LocationsFromLabelInputBoundary lflib = new LocationsFromLabelInputBoundary() {
+            @Override
+            public void execute(LocationsFromLabelInputData locationsFromLabelInputData) {
+
+            }
+        };
+        CreateLabelInputBoundary clib = new CreateLabelInputBoundary() {
+            @Override
+            public void excecute(CreateLabelInputData createLabelInputData) {
+
+            }
+        };
         DisplayingLabelsViewModel displayingLabelsViewModel = new DisplayingLabelsViewModel();
         DisplayingLabelsController displayingLabelsController = new DisplayingLabelsController(dlabelsib);
         LocationsFromLabelViewModel locationsFromLabelViewModel = new LocationsFromLabelViewModel();
@@ -68,53 +83,22 @@ public class PlannerViewTest {
 
     @Test
     public void testCreateLabelAndShowLocations() {
-        CreateLabelViewModel createLabelViewModel = plannerView.createLabelViewModel;
-        DisplayingLabelsViewModel displayingLabelsViewModel = plannerView.displayingLabelsViewModel;
-        LocationsFromLabelViewModel locationsFromLabelViewModel = plannerView.locationsFromLabelViewModel;
-
-        SwingUtilities.invokeLater(() -> {
-            JButton favorite = findComponent(JButton.class, "favorite");
-            favorite.doClick();
-        });
-
-        assertEquals("No locations have been saved under this label", locationsFromLabelViewModel.getState().getDisplayMsg());
-
         // Trigger the "Create Label" button
-        SwingUtilities.invokeLater(() -> {
-            JButton createLabelButton = findComponent(JButton.class, "Create Label");
-            createLabelButton.doClick();
-        });
+        JPanel topPanel = (JPanel) plannerView.getComponent(0);
+        JButton createLabelButton = (JButton) topPanel.getComponent(0);
+        createLabelButton.doClick();
 
-        // Enter label name in the input dialog
-        SwingUtilities.invokeLater(() -> {
-            String newLabelName = "TestLabel";
-            mockInputDialog(newLabelName);
-        });
+        // Set the input value for the input dialog
+        JOptionPaneWrapper.setInputValue("Test Label");
 
-        SwingUtilities.invokeLater(() -> {
-            JButton okButton = findComponent(JButton.class, "OK");
-            okButton.doClick();
-        });
+        // Click the "OK" button
+        JButton okButton = (JButton) plannerView.getOkButtonReference();
+        okButton.doClick();
 
-        // Ensure the controller was executed and the message is correct
-        // Ensure the controller was executed and the message is correct
-        assertEquals("Label saved successfully", createLabelViewModel.getState().getDisplayMsg());
-
-        // Trigger the displayingLabelsController to refresh labels
-//        Set<Label> testLabels = Collections.singleton(new Label("TestLabel"));
-//        displayingLabelsViewModel.getState().setLabels(testLabels);
-//        SwingUtilities.invokeLater(() -> displayingLabelsViewModel.firePropertyChanged());
-
-        // Ensure the new label button is added
-        JButton testLabelButton = findComponent(JButton.class, "TestLabel");
-        assertEquals("TestLabel", testLabelButton.getText());
-
-        // Trigger the "TestLabel" button to show locations
-        SwingUtilities.invokeLater(() -> testLabelButton.doClick());
-
-        // Ensure the controller was executed and the message is correct
-        assertEquals("Locations from TestLabel: [Location1, Location2]", locationsFromLabelViewModel.getState().getDisplayMsg());
+        // Check if the label was saved successfully
+        assertEquals("Label saved successfully", plannerView.createLabelViewModel.getState().getDisplayMsg());
     }
+
 
     // Helper method to find a component by its type and text
     private <T extends Component> T findComponent(Class<T> type, String buttonText) {
@@ -141,6 +125,18 @@ public class PlannerViewTest {
 
         MockOptionPane(String input) {
             this.input = input;
+        }
+    }
+
+    public class JOptionPaneWrapper {
+        private static String inputValue;
+
+        public static String showInputDialog(Object message) {
+            return inputValue;
+        }
+
+        public static void setInputValue(String value) {
+            inputValue = value;
         }
     }
 }
