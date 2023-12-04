@@ -6,7 +6,7 @@ import java.net.URL;
 import entity.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import use_case.api_returns.ApiUserDataAccessInterface;
+import use_case.apiReturns.ApiUserDataAccessInterface;
 import use_case.displayingLocations.DisplayingLocationsUserDataAccessInterface;
 
 import java.net.HttpURLConnection;
@@ -21,7 +21,11 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
     private final Map<String, Integer> headers = new LinkedHashMap<>();
     private final HashMap<String, Location> accounts = new HashMap<>();
 
-
+    /**
+     * This method reads the file in which the locations which the users have saved are stored
+     *
+     * @param csvPath this is the file in which all the locations from the users input are stored
+     */
     public APIDataAccessObject(String csvPath,LocationFetcher locationFetcher) throws IOException {
         this.locationFetcher = locationFetcher;
         csvFile = new File(csvPath);
@@ -86,6 +90,12 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
         return result;
     }
 
+    /**
+     * This method saves all the retrieved locations to the csv file and updates the variable accounts as well
+     *
+     * @param locations this is an array list containing Location objects and this is the list of locations that are
+     *                  obtained from the users search that is to be saved in the csv file
+     */
     public ArrayList<Location> getLocations(String cityName, String filter){
        return locationFetcher.getLocations(cityName,filter);
     }
@@ -96,7 +106,7 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
             this.save();
         }
     }
-    public void save() {
+    private void save() {
         BufferedWriter writer;
         try {
 
@@ -112,11 +122,17 @@ public class APIDataAccessObject implements ApiUserDataAccessInterface, Displayi
             }
 
             writer.close();
-    } catch (IOException e) {
-        throw new RuntimeException(e);
-    }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
+    /**
+     * This method returns the variable accounts in which all the locations are saved
+     *
+     * @return a HashMap which stores a location as the key and it's associated location object as the value
+     */
+    @Override
     public HashMap<String, Location> getAccounts() {
         return accounts;
     }

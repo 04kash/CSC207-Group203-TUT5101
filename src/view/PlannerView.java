@@ -79,6 +79,14 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 		goToHomepageButton.setForeground(new Color(245, 245, 245));
 		topButtonPanel.add(goToHomepageButton);
 		goToHomepageButton.addActionListener(e->ViewManager.showLoggedinView());
+		goToHomepageButton.addActionListener(
+				new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						ViewManager.showLoggedinView();
+					}
+				}
+		);
 
 		// Add the top button panel to the NORTH position
 		add(topButtonPanel, BorderLayout.NORTH);

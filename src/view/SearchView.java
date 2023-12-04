@@ -1,8 +1,8 @@
 package view;
 
-import interface_adapter.api_returns.ApiController;
-import interface_adapter.api_returns.ApiState;
-import interface_adapter.api_returns.ApiViewModel;
+import interface_adapter.apiReturns.ApiController;
+import interface_adapter.apiReturns.ApiState;
+import interface_adapter.apiReturns.ApiViewModel;
 import interface_adapter.displayingLabels.DisplayingLabelsController;
 import interface_adapter.displayingLocations.DisplayingLocationsController;
 
@@ -86,7 +86,6 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 		comboBox.setForeground(new Color(245, 245, 245));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"foods", "shops", "transport"}));
 		comboBox.setBounds(229, 159, 172, 22);
-		comboBox.putClientProperty("Name", "Choose a filter:");
 		add(comboBox);
 		comboBox.addActionListener(new ActionListener() {
 			@Override
@@ -124,7 +123,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 		);
 	}
 	public void actionPerformed(ActionEvent evt) {
-		//System.out.println("Click " + evt.getActionCommand());
+		System.out.println("Click " + evt.getActionCommand());
 	}
 
 	@Override

@@ -5,7 +5,7 @@ import data_access.OpenTripMapLocationFetcher;
 import entity.Location;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.api_returns.*;
+import use_case.apiReturns.*;
 import use_case.displayingLocations.*;
 
 import java.io.IOException;

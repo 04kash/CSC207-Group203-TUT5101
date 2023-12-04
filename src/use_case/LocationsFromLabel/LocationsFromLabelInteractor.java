@@ -2,15 +2,34 @@ package use_case.LocationsFromLabel;
 
 import entity.Label;
 
+/**
+ * This class represents the interactor for handling the locations from label use case.
+ * It implements the interface, defining the logic for processing location from labels input data.
+ */
 public class LocationsFromLabelInteractor implements LocationsFromLabelInputBoundary {
-
     final LocationsFromLabelUserDataAccessInterface userDataAccessObject;
     final LocationsFromLabelOutputBoundary userPresenter;
+
+    /**
+     * Constructs a new instance of the locations from label interactor with specified data access object and output
+     * boundary
+     *
+     * @param locationsFromLabelUserDataAccessInterface the data access object for the locations from label use case
+     *                                                 data operations
+     * @param locationsFromLabelOutputBoundary the output boundary for presenting location from label use case related
+     *                                         output data
+     */
     public LocationsFromLabelInteractor(LocationsFromLabelUserDataAccessInterface locationsFromLabelUserDataAccessInterface,
                                     LocationsFromLabelOutputBoundary locationsFromLabelOutputBoundary) {
         this.userDataAccessObject = locationsFromLabelUserDataAccessInterface;
         this.userPresenter = locationsFromLabelOutputBoundary;
     }
+
+    /**
+     * Executes the location from label use case based on the provided input data
+     *
+     * @param locationsFromLabelInputData the input data for the use case operation
+     */
     @Override
     public void execute(LocationsFromLabelInputData locationsFromLabelInputData) {
         String username = userDataAccessObject.getCurrentUser();

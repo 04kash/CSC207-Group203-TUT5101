@@ -3,14 +3,12 @@ package interface_adapter.api_returns;
 import entity.Coordinate;
 import entity.Location;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.displayingLabels.DisplayingLabelsViewModel;
+import interface_adapter.apiReturns.ApiPresenter;
+import interface_adapter.apiReturns.ApiViewModel;
 import interface_adapter.displayingLocations.DisplayingLocationsViewModel;
-import interface_adapter.login.LoginViewModel;
-import interface_adapter.signup.SignupPresenter;
-import interface_adapter.signup.SignupViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.api_returns.ApiOutputData;
+import use_case.apiReturns.ApiOutputData;
 
 import java.util.ArrayList;
 

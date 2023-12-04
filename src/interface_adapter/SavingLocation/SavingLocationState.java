@@ -1,86 +1,40 @@
 package interface_adapter.SavingLocation;
 
+/**
+ * Represents the state associated with the saving location functionality.
+ * This class holds information such as the display message resulting from a saving location attempt.
+ */
 public class SavingLocationState {
-//    private String username=""; //TODO:get username from APIState
-//    private String chosenLabel = "favourites";
-//    private String locationName="";
-//    private double latitude=0;
-//    private double longitude=0;
-//    private double proximity=0;
-//    private String filter="";
-    private String displayMsg=null;
-    public SavingLocationState(SavingLocationState copy){
-//        username = copy.username;
-//        chosenLabel = copy.chosenLabel;
-//        locationName = copy.locationName;
-//        latitude = copy.latitude;
-//        longitude = copy.longitude;
-//        proximity = copy.proximity;
-//        filter = copy.filter;
+    private String displayMsg = null;
+
+    /**
+     * Constructs a new SavingLocationState by copying the contents of another instance.
+     *
+     * @param copy the SavingLocationState instance to copy
+     */
+    public SavingLocationState(SavingLocationState copy) {
         displayMsg = copy.displayMsg;
     }
-    SavingLocationState(){};
 
-//    public String getChosenLabel() {
-//        return chosenLabel;
-//    }
-//
-//    public String getUsername() {
-//        return username;
-//    }
-//
-//    public String getLocationName() {
-//        return locationName;
-//    }
-//
-//    public double getLongitude() {
-//        return longitude;
-//    }
-//
-//    public double getLatitude() {
-//        return latitude;
-//    }
-//
-//    public double getProximity() {
-//        return proximity;
-//    }
-//
-   public String getDisplayMsg() {
+    /**
+     * Default constructor for SavingLocationState.
+     */
+    SavingLocationState() {}
+
+    /**
+     * Gets the display message associated with the saving location functionality.
+     *
+     * @return the display message
+     */
+    public String getDisplayMsg() {
         return displayMsg;
-}
-//
-//    public String getFilter() {
-//        return filter;
-//    }
-//
-//    public void setUsername(String username) {
-//        this.username = username;
-//    }
-//
-//    public void setLocationName(String locationName) {
-//        this.locationName = locationName;
-//    }
-//
-//    public void setChosenLabel(String chosenLabel) {
-//        this.chosenLabel = chosenLabel;
-//    }
-//
-//    public void setFilter(String filter) {
-//        this.filter = filter;
-//    }
-//
-//    public void setLatitude(double latitude) {
-//        this.latitude = latitude;
-//    }
-//
-//    public void setLongitude(double longitude) {
-//        this.longitude = longitude;
-//    }
-//
-//    public void setProximity(double proximity) {
-//        this.proximity = proximity;
-//    }
+    }
 
+    /**
+     * Sets the display message associated with the saving location functionality.
+     *
+     * @param displayMsg the display message to set
+     */
     public void setDisplayMsg(String displayMsg) {
         this.displayMsg = displayMsg;
     }

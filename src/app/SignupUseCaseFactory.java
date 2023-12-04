@@ -18,14 +18,17 @@ import java.io.IOException;
 
 public class SignupUseCaseFactory {
 
-    /** Prevent instantiation. */
     private SignupUseCaseFactory() {}
 
-    public static SignUp create(
-            ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SignupViewModel signupViewModel, SignupUserDataAccessInterface userDataAccessObject) {
+    public static SignUp create(ViewManagerModel viewManagerModel,
+            LoginViewModel loginViewModel,
+            SignupViewModel signupViewModel,
+            SignupUserDataAccessInterface userDataAccessObject) {
 
         try {
-            SignupController signupController = createUserSignupUseCase(viewManagerModel, signupViewModel, loginViewModel, userDataAccessObject);
+            SignupController signupController =
+                    createUserSignupUseCase(viewManagerModel, signupViewModel, loginViewModel, userDataAccessObject);
+
             return new SignUp(signupController, signupViewModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
@@ -34,9 +37,27 @@ public class SignupUseCaseFactory {
         return null;
     }
 
-    private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel, SignupUserDataAccessInterface userDataAccessObject) throws IOException {
+    /**
+     * This method creates a Sign up view that allows users to create an account so that they can save their desired
+     * locations
+     *
+     * @param viewManagerModel this is the view manager model that is needed to create the controller for both the use
+     *                         cases (sign up and log in)
+     * @param signupViewModel this is the ViewModel that is specific to the signup use case and is needed to create the
+     *                        signup view as well as the signup controller.
+     * @param loginViewModel this is the ViewModel that is specific to the log in use case and is needed to create the
+     *                       signup view as well as the log in controller
+     * @param userDataAccessObject this is the data access interface that is used by the log in use case and is required
+     *                             to create that use cases' controller
+     * @return a Signup view
+     */
+    private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel,
+                                                            SignupViewModel signupViewModel,
+                                                            LoginViewModel loginViewModel,
+                                                            SignupUserDataAccessInterface userDataAccessObject) throws IOException {
 
-        SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel, signupViewModel, loginViewModel);
+        SignupOutputBoundary signupOutputBoundary =
+                new SignupPresenter(viewManagerModel, signupViewModel, loginViewModel);
 
         UserFactory userFactory = new CommonUserFactory();
 

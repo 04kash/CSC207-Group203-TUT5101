@@ -1,7 +1,7 @@
 package interface_adapter.login;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.api_returns.ApiViewModel;
+import interface_adapter.apiReturns.ApiViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.login.LoginOutputData;
