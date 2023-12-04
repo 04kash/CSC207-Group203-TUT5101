@@ -20,40 +20,6 @@ public class JsonDataAccessObject implements SignupUserDataAccessInterface, Logi
     private final String JSONpath;
     private String currentUser;
 
-    public static void main(String[] args) {
-//        // To convert CommonUser to JSON
-//        ArrayList<Location> locations = new ArrayList<>();
-//        locations.add(new Location("Bla", new Coordinate(0.0, 1.0), "link here", "food"));
-//        locations.add(new Location("Heyy", new Coordinate(5.0, 6.0), "link here1", "games"));
-//        HashMap<Label, ArrayList<Location>> planner1 = new HashMap<>();
-//        Label label = new Label("Restaurants");
-//        planner1.put(label, locations);
-//        Planner planner = new Planner(planner1);
-//        CommonUser user = new CommonUser("john_doe", "secure_password", planner);
-//        CommonUser juser = new CommonUser("jane_doe","not_joe",new Planner(new HashMap<>()));
-//        JSONObject userJson = JsonDataAccessObject.userToJSON(user);
-//        JSONObject janeJson = JsonDataAccessObject.userToJSON(juser);
-//        System.out.println(userJson);
-//
-//        // Write the JSON objects to the file without overwriting
-//        ArrayList<JSONObject> usersList = new ArrayList<>();
-//        usersList.add(userJson);
-//        usersList.add(janeJson);
-//        writeJsonListToFile(usersList, "user_data.json");
-//
-//        ArrayList<JSONObject> myread = readJsonFromFile("user_data.json");
-//        System.out.println(myread);
-//
-//        // To convert JSON to CommonUser
-//        assert myread != null;
-//        CommonUser newUser = JsonDataAccessObject.userFromJSON(myread.get(1));
-//        System.out.println(newUser.getPlanner());
-//
-//        for (Label l : newUser.getPlanner().getLabel()) {
-//            System.out.println(l.getTitle());
-//        }
-    }
-
     public JsonDataAccessObject(String JSONpath) throws IOException {
         this.JSONpath = JSONpath;
 
@@ -237,7 +203,6 @@ public class JsonDataAccessObject implements SignupUserDataAccessInterface, Logi
         Planner userPlanner = accounts.get(username).getPlanner();
         userPlanner.setLabel(newLabel, new ArrayList<>());
         save();
-        //TODO: Check If this is creating 2 copies of the user: existing one and new one. We only want new one.
     }
 
     @Override
