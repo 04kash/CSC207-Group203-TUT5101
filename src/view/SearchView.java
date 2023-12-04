@@ -47,7 +47,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 		this.apiViewModel.addPropertyChangeListener(this);
 		
 		JButton home = new JButton("Go to Homepage");
-		home.setForeground(new Color(245, 245, 245));
+		//home.setForeground(new Color(245, 245, 245));
 		home.setBackground(new Color(51, 153, 102));
 		home.setBounds(289, 11, 151, 23);
 		add(home);
@@ -83,7 +83,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBackground(new Color(51, 153, 102));
-		comboBox.setForeground(new Color(245, 245, 245));
+		//comboBox.setForeground(new Color(245, 245, 245));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"foods", "shops", "transport"}));
 		comboBox.setBounds(229, 159, 172, 22);
 		add(comboBox);
@@ -97,7 +97,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 		
 		JButton enter = new JButton("Enter");
 		enter.setBackground(new Color(51, 153, 102));
-		enter.setForeground(new Color(245, 245, 245));
+		//enter.setForeground(new Color(245, 245, 245));
 		enter.setBounds(188, 227, 89, 23);
 		add(enter);
 		enter.addActionListener(
