@@ -1,15 +1,11 @@
 package view;
-import entity.CommonUserFactory;
-import entity.Label;
-import entity.Planner;
-import entity.User;
+
 import interface_adapter.CreateLabel.CreateLabelController;
 import interface_adapter.CreateLabel.CreateLabelViewModel;
 import interface_adapter.LocationsFromLabel.LocationsFromLabelController;
 import interface_adapter.LocationsFromLabel.LocationsFromLabelViewModel;
 import interface_adapter.displayingLabels.DisplayingLabelsController;
 import interface_adapter.displayingLabels.DisplayingLabelsViewModel;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import use_case.CreateLabel.CreateLabelInputBoundary;
@@ -21,12 +17,8 @@ import use_case.displayingLabels.DisplayingLabelsInputData;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.util.Collections;
-import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 
 public class PlannerViewTest {
 
@@ -48,7 +40,7 @@ public class PlannerViewTest {
         };
         CreateLabelInputBoundary clib = new CreateLabelInputBoundary() {
             @Override
-            public void excecute(CreateLabelInputData createLabelInputData) {
+            public void execute(CreateLabelInputData createLabelInputData) {
 
             }
         };

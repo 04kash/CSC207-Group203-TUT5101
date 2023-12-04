@@ -1,14 +1,13 @@
 package view;
 
-import interface_adapter.api_returns.ApiController;
-import interface_adapter.api_returns.ApiViewModel;
+import interface_adapter.apiReturns.ApiController;
+import interface_adapter.apiReturns.ApiViewModel;
 import interface_adapter.displayingLabels.DisplayingLabelsController;
 import interface_adapter.displayingLocations.DisplayingLocationsController;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
-import use_case.api_returns.ApiInputBoundary;
-import use_case.api_returns.ApiInputData;
+import use_case.apiReturns.ApiInputBoundary;
+import use_case.apiReturns.ApiInputData;
 import use_case.displayingLabels.DisplayingLabelsInputBoundary;
 import use_case.displayingLabels.DisplayingLabelsInputData;
 import use_case.displayingLocations.DisplayingLocationsInputBoundary;

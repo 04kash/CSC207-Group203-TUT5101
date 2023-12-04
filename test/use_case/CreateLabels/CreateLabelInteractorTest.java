@@ -27,7 +27,7 @@ public class CreateLabelInteractorTest {
         };
         CreateLabelInputData createLabelInputData= new CreateLabelInputData("Restaurants");
         CreateLabelInputBoundary createLabelInteractor = new CreateLabelInteractor(Repository,successPresenter);
-        createLabelInteractor.excecute(createLabelInputData);
+        createLabelInteractor.execute(createLabelInputData);
     }
     @Test
     void failTest(){
@@ -45,6 +45,6 @@ public class CreateLabelInteractorTest {
         };
         CreateLabelInputData createLabelInputData= new CreateLabelInputData("favorite");
         CreateLabelInputBoundary createLabelInteractor = new CreateLabelInteractor(Repository,successPresenter);
-        createLabelInteractor.excecute(createLabelInputData);
+        createLabelInteractor.execute(createLabelInputData);
     }
 }

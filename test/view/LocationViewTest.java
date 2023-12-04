@@ -2,21 +2,14 @@ package view;
 
 import interface_adapter.SavingLocation.SavingLocationController;
 import interface_adapter.SavingLocation.SavingLocationViewModel;
-import interface_adapter.api_returns.ApiController;
-import interface_adapter.api_returns.ApiViewModel;
 import interface_adapter.displayingLabels.DisplayingLabelsViewModel;
 import interface_adapter.displayingLocations.DisplayingLocationsController;
 import interface_adapter.displayingLocations.DisplayingLocationsViewModel;
 import org.junit.jupiter.api.Test;
 import use_case.SavingLocation.SavingLocationInputBoundary;
 import use_case.SavingLocation.SavingLocationInputData;
-import use_case.api_returns.ApiInputBoundary;
-import use_case.displayingLabels.DisplayingLabelsInputBoundary;
-import use_case.displayingLabels.DisplayingLabelsInputData;
 import use_case.displayingLocations.DisplayingLocationsInputBoundary;
 import use_case.displayingLocations.DisplayingLocationsInputData;
-
-import javax.swing.*;
 
 public class LocationViewTest {
     @Test
