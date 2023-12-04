@@ -175,7 +175,7 @@ public class PlannerView extends JPanel implements ActionListener, PropertyChang
 				button.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						System.out.println(button.getText());
+						//System.out.println(button.getText());
 						locationsFromLabelController.execute(button.getText());
 
 						// Customize the title of the message dialog

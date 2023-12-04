@@ -71,7 +71,6 @@ public class JsonDataAccessObject implements SignupUserDataAccessInterface, Logi
         } else {
             // File is empty or does not exist, initialize with an empty map
            save();
-           System.out.println("Saved:"+accounts.get("k"));
         }
     }
 
@@ -137,7 +136,6 @@ public class JsonDataAccessObject implements SignupUserDataAccessInterface, Logi
 
     private static Planner plannerFromJSON(JSONObject json) {
         Planner planner = new Planner(new HashMap<>());
-        System.out.println("JsonKeySet:" + json.keySet());
 
         // Extract labels and locations from JSON
         for (String labelTitle : json.keySet()) {
@@ -171,7 +169,6 @@ public class JsonDataAccessObject implements SignupUserDataAccessInterface, Logi
                 json.write(fileWriter);
                 fileWriter.write("\n"); // Add a newline character to separate JSON objects
             }
-            System.out.println("JSON written to file: " + fileName);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -228,7 +225,7 @@ public class JsonDataAccessObject implements SignupUserDataAccessInterface, Logi
 
             for (Location location : locations) {
                 if ((Double.compare(location.getCoordinate().getLatitude(),chosenLocation.getCoordinate().getLatitude())==0 && Double.compare(location.getCoordinate().getLongitude(),chosenLocation.getCoordinate().getLongitude())==0 ) && location.getName().equals(chosenLocation.getName())){
-                    System.out.println("chosen location:"+chosenLocation.getName()+"location:"+location.getName());
+                    //System.out.println("chosen location:"+chosenLocation.getName()+"location:"+location.getName());
                     return true;
                 }
             }

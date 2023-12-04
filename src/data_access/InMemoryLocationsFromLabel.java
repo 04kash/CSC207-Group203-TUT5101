@@ -40,7 +40,7 @@ public class InMemoryLocationsFromLabel implements LocationsFromLabelUserDataAcc
     @Override
     public boolean labelExists(String username, Label label) {
         User user = accounts.get(username);
-        System.out.println(accounts);
+        //System.out.println(accounts);
         Label[] labels = user.getPlanner().getLabel().toArray(new Label[0]);
         for(Label labelInPlanner:labels){
             if(Objects.equals(labelInPlanner.getTitle(), label.getTitle())){
